@@ -61,7 +61,7 @@
       </check>
      </treat>
     </param>
-    <resultDoc line="22" global="#&#xA;#Fri Jun 15 23:49:08 CEST 2018&#xA;" local="#&#xA;#Fri Jun 15 23:49:08 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="22" global="#&#xA;#Sat Jun 16 00:09:56 CEST 2018&#xA;" local="#&#xA;#Sat Jun 16 00:09:56 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <str role="href" val="#result"/>
      <sequence role="content" line="23">
       <valueOf>
@@ -89,4 +89,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 15f59e71?>
+<?Σ df65e71?>
