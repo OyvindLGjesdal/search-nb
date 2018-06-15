@@ -28,8 +28,11 @@
    </templateRule>
   </mode>
  </co>
- <co id="1" binds="2">
-  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg1669350641" type="xs:string" line="12" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};">
+ <co id="1" vis="PUBLIC" binds="">
+  <globalParam name="Q{}q" type="xs:string" line="9" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" visibility="PUBLIC" flags="i" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};"/>
+ </co>
+ <co id="2" binds="1">
+  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg848623335" type="xs:string" line="12" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};">
    <cvUntyped baseUri="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" ns="xsl=~ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="12" to="xs:string">
     <cast as="xs:untypedAtomic" emptiable="0">
      <fn name="concat">
@@ -40,17 +43,14 @@
    </cvUntyped>
   </globalVariable>
  </co>
- <co id="2" vis="PUBLIC" binds="">
-  <globalParam name="Q{}q" type="xs:string" line="9" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" visibility="PUBLIC" flags="i" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};"/>
- </co>
- <co id="3" binds="1 4 1">
+ <co id="3" binds="2 4 2">
   <template name="Q{}initialTemplate" flags="os" line="11" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" slots="0">
    <ifCall role="body" baseUri="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" ns="xsl=~ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="13" name="Q{http://saxonica.com/ns/interactiveXSLT}schedule-action" type="item()*">
     <int val="0"/>
-    <gVarRef line="12" name="Q{http://saxon.sf.net/generated-variable}gg1669350641" bSlot="0"/>
+    <gVarRef line="12" name="Q{http://saxon.sf.net/generated-variable}gg848623335" bSlot="0"/>
     <callT line="14" name="handleQuery" bSlot="1">
      <withParam name="Q{}query" flags="c" as="xs:string">
-      <gVarRef line="12" name="Q{http://saxon.sf.net/generated-variable}gg1669350641" bSlot="2"/>
+      <gVarRef line="12" name="Q{http://saxon.sf.net/generated-variable}gg848623335" bSlot="2"/>
      </withParam>
     </callT>
    </ifCall>
@@ -73,7 +73,7 @@
       </check>
      </treat>
     </param>
-    <resultDoc line="22" global="#&#xA;#Sat Jun 16 00:13:27 CEST 2018&#xA;" local="#&#xA;#Sat Jun 16 00:13:27 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="22" global="#&#xA;#Sat Jun 16 00:16:27 CEST 2018&#xA;" local="#&#xA;#Sat Jun 16 00:16:27 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <str role="href" val="#result"/>
      <sequence role="content" line="23">
       <valueOf>
@@ -101,4 +101,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ aa30f3ea?>
+<?Σ 4f1bece4?>
