@@ -32,10 +32,10 @@
   <globalParam name="Q{}q" type="xs:string" line="9" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" visibility="PUBLIC" flags="i" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};"/>
  </co>
  <co id="2" binds="1">
-  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg419909160" type="xs:untypedAtomic" line="14" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.untypedAtomic.cast(val);" jsCardCheck="function c(n) {return n==1;};">
+  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg1650408307" type="xs:untypedAtomic" line="14" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.untypedAtomic.cast(val);" jsCardCheck="function c(n) {return n==1;};">
    <cast baseUri="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" ns="xsl=~ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="14" as="xs:untypedAtomic" emptiable="0">
     <fn name="concat">
-     <str val="http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22"/>
+     <str val="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22"/>
      <fn name="encode-for-uri">
       <cvUntyped line="13" to="xs:string">
        <cast as="xs:untypedAtomic" emptiable="0">
@@ -56,12 +56,12 @@
    <ifCall role="body" baseUri="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" ns="xsl=~ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="16" name="Q{http://saxonica.com/ns/interactiveXSLT}schedule-action" type="item()*">
     <int val="0"/>
     <convert from="xs:untypedAtomic" to="xs:string">
-     <gVarRef line="14" name="Q{http://saxon.sf.net/generated-variable}gg419909160" bSlot="0"/>
+     <gVarRef line="14" name="Q{http://saxon.sf.net/generated-variable}gg1650408307" bSlot="0"/>
     </convert>
     <callT line="17" name="handleQuery" bSlot="1">
      <withParam name="Q{}query" flags="c" as="xs:string">
       <cvUntyped line="18" to="xs:string">
-       <gVarRef line="14" name="Q{http://saxon.sf.net/generated-variable}gg419909160" bSlot="2"/>
+       <gVarRef line="14" name="Q{http://saxon.sf.net/generated-variable}gg1650408307" bSlot="2"/>
       </cvUntyped>
      </withParam>
     </callT>
@@ -85,7 +85,7 @@
       </check>
      </treat>
     </param>
-    <resultDoc line="25" global="#&#xA;#Sat Jun 16 01:27:01 CEST 2018&#xA;" local="#&#xA;#Sat Jun 16 01:27:01 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="25" global="#&#xA;#Sat Jun 16 01:28:38 CEST 2018&#xA;" local="#&#xA;#Sat Jun 16 01:28:38 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <str role="href" val="#result"/>
      <applyT role="content" line="27" mode="Q{}query-result" bSlot="0">
       <fn role="select" name="document">
@@ -102,4 +102,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 61ed090e?>
+<?Σ 87705425?>
