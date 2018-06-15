@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://ns.saxonica.com/xslt/export" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vv="http://saxon.sf.net/generated-variable" xmlns:java-type="http://saxon.sf.net/java-type" version="30" packageVersion="1" saxonVersion="9.8.0.12" target="JS" targetVersion="1" relocatable="false">
+ <co id="0" binds="">
+  <mode name="Q{}query-result" onNo="TC" flags="W" patternSlots="0">
+   <templateRule prec="0" prio="-0.5" seq="0" rank="0" minImp="0" slots="0" flags="s" line="29" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl">
+    <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
+    <sequence role="action" baseUri="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" ns="xsl=~ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="30">
+     <elem name="p" nsuri="" namespaces="ixsl">
+      <valueOf flags="el">
+       <fn name="concat">
+        <str val="1st item node "/>
+        <fn name="name">
+         <dot type="element()"/>
+        </fn>
+       </fn>
+      </valueOf>
+     </elem>
+     <comment line="32">
+      <convert from="xs:untypedAtomic" to="xs:string">
+       <data>
+        <copyOf flags="vc">
+         <dot type="element()"/>
+        </copyOf>
+       </data>
+      </convert>
+     </comment>
+    </sequence>
+   </templateRule>
+  </mode>
+ </co>
+ <co id="1" vis="PUBLIC" binds="">
+  <globalParam name="Q{}q" type="xs:string" line="9" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" visibility="PUBLIC" flags="i" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};"/>
+ </co>
+ <co id="2" binds="3">
+  <template name="Q{}initialTemplate" flags="os" line="11" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" slots="0">
+   <ifCall role="body" baseUri="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" ns="xsl=~ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="13" name="Q{http://saxonica.com/ns/interactiveXSLT}schedule-action" type="item()*">
+    <int val="0"/>
+    <str val="http://www.nb.no/services/search/v2/search?q={$q}"/>
+    <callT line="14" name="handleQuery" bSlot="0">
+     <withParam name="Q{}query" flags="c" as="xs:string">
+      <str val="http://www.nb.no/services/search/v2/search?q={$q}"/>
+     </withParam>
+    </callT>
+   </ifCall>
+  </template>
+ </co>
+ <co id="4" binds="">
+  <mode onNo="TC" flags="dWe" patternSlots="0"/>
+ </co>
+ <co id="3" binds="0">
+  <template name="Q{}handleQuery" flags="os" line="20" module="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" slots="1">
+   <sequence role="body" baseUri="file:/home/oyvind/repos/nb/xsl/search-nb.xsl" ns="xsl=~ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="21">
+    <param name="Q{}query" slot="0" flags="i" as="xs:string">
+     <treat role="conversion" as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="8|0|XTTE0590|query">
+      <check card="1" diag="8|0|XTTE0590|query">
+       <cvUntyped to="xs:string">
+        <data>
+         <supplied slot="0"/>
+        </data>
+       </cvUntyped>
+      </check>
+     </treat>
+    </param>
+    <resultDoc line="22" global="#&#xA;#Fri Jun 15 23:49:08 CEST 2018&#xA;" local="#&#xA;#Fri Jun 15 23:49:08 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+     <str role="href" val="#result"/>
+     <sequence role="content" line="23">
+      <valueOf>
+       <convert from="xs:untypedAtomic" to="xs:string">
+        <data>
+         <fn name="doc">
+          <varRef name="query" slot="0"/>
+         </fn>
+        </data>
+       </convert>
+      </valueOf>
+      <applyT line="24" mode="Q{}query-result" bSlot="0">
+       <fn role="select" name="doc">
+        <varRef name="query" slot="0"/>
+       </fn>
+      </applyT>
+     </sequence>
+    </resultDoc>
+   </sequence>
+  </template>
+ </co>
+ <overridden/>
+ <output>
+  <property name="{http://saxon.sf.net/}stylesheet-version" value="30"/>
+ </output>
+ <decimalFormat/>
+</package>
+<?Σ 15f59e71?>
