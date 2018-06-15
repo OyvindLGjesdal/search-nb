@@ -5,7 +5,7 @@ console.log(query);
 SaxonJS.transform({
          stylesheetLocation: "xsl/search-nb.sef",
          initialTemplate: "initialTemplate",
-         styleSheetParams: { "q" : query}}
+         styleSheetParams: { "Q{}q" : query}}
 )
 console.log(query);
 }
