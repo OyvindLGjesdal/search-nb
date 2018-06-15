@@ -8,11 +8,14 @@
     
     <xsl:param name="q" as="xs:string"/>
     
+    
     <xsl:template name="initialTemplate">
         <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={$q}</xsl:text></xsl:variable>
-        <ixsl:schedule-action document="{$query}">
+        <xsl:variable name="proxied-query"><xsl:text>http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22{encode-for-uri($query)}%22&amp;format=xml</xsl:text></xsl:variable>
+           
+        <ixsl:schedule-action document="{$proxied-query}">
             <xsl:call-template name="handleQuery">
-                <xsl:with-param name="query" select="$query"/>
+                <xsl:with-param name="query" select="$proxied-query"/>
             </xsl:call-template>
         </ixsl:schedule-action>
     </xsl:template>
