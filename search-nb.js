@@ -4,5 +4,6 @@ function transformSaxon(query){
          stylesheetLocation: "xsl/search-nb.sef",
          initialTemplate: "initialTemplate",
          styleSheetParams: { q : query}}
-         );
+)
+console.log(query);
 }
