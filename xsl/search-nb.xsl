@@ -20,8 +20,8 @@
     <xsl:template name="handleQuery">
         <xsl:param name="query" as="xs:string"/>
         <xsl:result-document href="#result" method="ixsl:replace-content">
-            <xsl:value-of select="doc($query)"/>
-            <xsl:apply-templates select="doc($query)" mode="query-result"/>
+            
+            <xsl:apply-templates select="document($query)" mode="query-result"/>
         </xsl:result-document>
         
     </xsl:template>
