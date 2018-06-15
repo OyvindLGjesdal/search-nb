@@ -9,7 +9,7 @@
     <xsl:param name="q" as="xs:string"/>
     
     <xsl:template name="initialTemplate">
-        <xsl:variable name="query" as="xs:string" select="'http://www.nb.no/services/search/v2/search?q={$q}'"/>
+        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={$q}</xsl:text></xsl:variable>
         <ixsl:schedule-action document="{$query}">
             <xsl:call-template name="handleQuery">
                 <xsl:with-param name="query" select="$query"/>
