@@ -13,7 +13,6 @@
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
     <xsl:template name="callback">
         <xsl:param name="doc-request" as="xs:anyURI"/>
-        <xsl:param name="callback" as="xs:NCName"/>
         
         <xsl:sequence select="copy-of(document($doc-request))"/>
         
