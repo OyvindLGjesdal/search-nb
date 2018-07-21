@@ -24,7 +24,7 @@
     
     
     <!-- yahoo proxy for calls to doc without cors from saxon-js-->
-    <xsl:function name="flub:proxy-doc" as="document-node()?">
+    <xsl:function name="flub:proxy-doc">
         <xsl:param name="uri" as="xs:string"/>
         <xsl:variable name="uri-proxied" expand-text="1" as="xs:string">https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($uri)}%22&amp;format=xml</xsl:variable>
         <ixsl:schedule-action document="{$uri-proxied}">
