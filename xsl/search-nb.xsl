@@ -14,17 +14,17 @@
     <xsl:template name="initialTemplate">
         <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={$q}</xsl:text></xsl:variable>
         <xsl:variable name="proxied-query"><xsl:text>https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($query)}%22&amp;format=xml</xsl:text></xsl:variable>
-           
-        <ixsl:schedule-action document="{$proxied-query}">
-            <xsl:call-template name="handleQuery">
-                <xsl:with-param name="query" select="$proxied-query"/>
-            </xsl:call-template>
-        </ixsl:schedule-action>
+          
+        <xsl:variable name="result" select="flub:proxy-doc($query)"/>
+        
+        <xsl:result-document href="#result" method="ixsl:replace-content">            
+            <xsl:apply-templates select="$result" mode="query-result"/>
+        </xsl:result-document>
     </xsl:template>
     
     
-    <!-- yahoo proxy for calls to doc without cors-->
-    <xsl:function name="flub:proxy-doc" as="element(*)?">
+    <!-- yahoo proxy for calls to doc without cors from saxon-js-->
+    <xsl:function name="flub:proxy-doc" as="document-node()?">
         <xsl:param name="uri" as="xs:string"/>
         <xsl:variable name="uri-proxied" expand-text="1" as="xs:string">https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($uri)}%22&amp;format=xml</xsl:variable>
         <ixsl:schedule-action document="{$uri-proxied}">
@@ -34,11 +34,11 @@
         </ixsl:schedule-action>
     </xsl:function>
     
-        
-    <xsl:template name="getResultingDocument" as="element(*)?">
+    <xsl:output name="serializer" method="xml" indent="yes"/>    
+    
+    <xsl:template name="getResultingDocument" as="document-node()?">
         <xsl:param name="uri-proxied" as="xs:string"/>       
-        <!-- could use serialize -> parse-xml to return as document-node() to give same return type as doc?--> 
-        <xsl:sequence select="saxon:discard-document(doc($uri-proxied))/query/results/*"/>
+            <xsl:sequence select="parse-xml(serialize(saxon:discard-document(document($uri-proxied))/query/results/*,'serializer'))"/>      
     </xsl:template>
     
     <xsl:template name="handleQuery">
