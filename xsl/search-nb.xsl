@@ -12,8 +12,7 @@
     
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
     <xsl:template name="callback">
-        <xsl:param name="doc-request" as="xs:anyURI"/>
-        
+        <xsl:param name="doc-request" as="xs:anyURI"/>    
         <xsl:sequence select="copy-of(document($doc-request))"/>
         
         <!--<xsl:variable name="call-template" expand-text="1">
