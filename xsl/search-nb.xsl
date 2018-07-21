@@ -10,30 +10,39 @@
     
     <xsl:param name="q" as="xs:string"/>
     
-    
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
     <xsl:template name="callback">
         <xsl:param name="doc-request" as="xs:anyURI"/>
-        <xsl:param name="callback" as="xs:NCName"/>       
-        <xsl:variable name="call-template" expand-text="1">
+        <xsl:param name="callback" as="xs:NCName"/>
+        
+        <xsl:sequence select="copy-of(document($doc-request))"/>
+        
+        <!--<xsl:variable name="call-template" expand-text="1">
             <xsl:text expand-text="1">&lt;xsl:call-template name=&quot;{xs:string($callback)}&quot;&gt;</xsl:text>
             <xsl:text>&lt;xsl:with-param name=&quot;doc-request&quot; select=&quot;$doc-request&quot;/&gt;</xsl:text>
             <xsl:text>&lt;/xsl:call-template&gt;</xsl:text>
-        </xsl:variable>        
+        </xsl:variable>-->        
+        <xsl:call-template name="hello-world"><xsl:with-param name="doc-request" select="$doc-request"/></xsl:call-template> 
+        <!--
         <xsl:if test="$debug">
         <xsl:message select="$callback"/>
         </xsl:if>
-        <xsl:evaluate xpath="$call-template"/>        
+        <xsl:evaluate xpath="$call-template"/> -->       
     </xsl:template>
     
+    <!--"XPath parsing error: lexical analysis failed
+while expecting [IntegerLiteral, DecimalLiteral, DoubleLiteral, StringLiteral, URIQualifiedName, QName, S, Wildcard, '$', '(', '(:', '+', '-', '.', '..', '/', '//', '?', '@', '[', 'ancestor', 'ancestor-or-self', 'and', 'array', 'attribute', 'cast', 'castable', 'child', 'comment', 'descendant', 'descendant-or-self', 'div', 'document-node', 'element', 'else', 'empty-sequence', 'eq', 'every', 'except', 'following', 'following-sibling', 'for', 'function', 'ge', 'gt', 'idiv', 'if', 'instance', 'intersect', 'is', 'item', 'le', 'let', 'lt', 'map', 'mod', 'namespace', 'namespace-node', 'ne', 'node', 'or', 'parent', 'preceding', 'preceding-sibling', 'processing-instruction', 'return', 'satisfies', 'schema-attribute', 'schema-element', 'self', 'some', 'switch', 'text', 'to', 'treat', 'typeswitch', 'union']
+at line 1, column 1:
+...<xsl:call-template name="hello-world"><xsl:with-param name="doc-... from source:at search-nb.xsl#21"
+-->
     <!-- takes a request, and a named template NCName to handle the request-->
     <xsl:function name="flub:async-doc">
         <xsl:param name="doc-request" as="xs:anyURI"/>
-        <xsl:param name="callback-template" as="xs:NCName"/>        
+        <xsl:param name="callback-template" as="xs:NCName"/>
+        
         <ixsl:schedule-action document="{$doc-request}">
             <xsl:call-template name="callback">
                 <xsl:with-param name="doc-request" select="$doc-request"/>
-                <xsl:with-param name="callback" select="$callback-template"/>
             </xsl:call-template>            
         </ixsl:schedule-action>
     </xsl:function>
@@ -43,8 +52,11 @@
         <xsl:variable name="proxied-query"><xsl:text>https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($query)}%22&amp;format=xml</xsl:text></xsl:variable>
           
         <xsl:variable name="queries" select="flub:proxy-doc-uri($query)"/>
-    
+        
+        
+        
         <xsl:sequence select="flub:async-doc($queries[1],xs:NCName('hello-world'))"/>
+        
         
         
     </xsl:template>
