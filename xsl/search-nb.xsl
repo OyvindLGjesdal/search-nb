@@ -10,6 +10,8 @@
     
     <xsl:param name="q" as="xs:string"/>
     
+    
+    <xsl:variable name="debug" select="true()" as="xs:boolean"/>
     <xsl:template name="callback">
         <xsl:param name="doc-request" as="xs:anyURI"/>
         <xsl:param name="callback" as="xs:NCName"/>       
@@ -18,6 +20,9 @@
             <xsl:text>&lt;xsl:with-param name=&quot;doc-request&quot; select=&quot;$doc-request&quot;/&gt;</xsl:text>
             <xsl:text>&lt;/xsl:call-template&gt;</xsl:text>
         </xsl:variable>        
+        <xsl:if test="$debug">
+        <xsl:message select="$callback"/>
+        </xsl:if>
         <xsl:evaluate xpath="$call-template"/>        
     </xsl:template>
     
