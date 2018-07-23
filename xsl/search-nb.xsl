@@ -31,7 +31,7 @@ at line 1, column 1:
     </xsl:function>
     
     <xsl:template name="initialTemplate">
-        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={$q}</xsl:text></xsl:variable>
+        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri($q)}</xsl:text></xsl:variable>
         <xsl:variable name="proxied-query"><xsl:text>https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($query)}%22&amp;format=xml</xsl:text></xsl:variable>
           
         <xsl:sequence select="flub:async-request($proxied-query)"/>
