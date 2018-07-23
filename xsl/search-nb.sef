@@ -90,7 +90,7 @@
       </check>
      </treat>
     </param>
-    <resultDoc line="61" global="#&#xA;#Mon Jul 23 11:51:03 CEST 2018&#xA;" local="#&#xA;#Mon Jul 23 11:51:03 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="61" global="#&#xA;#Mon Jul 23 11:56:59 CEST 2018&#xA;" local="#&#xA;#Mon Jul 23 11:56:59 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <str role="href" val="#result"/>
      <applyT role="content" line="62" mode="Q{}query-result" bSlot="0">
       <fn role="select" name="document">
@@ -122,6 +122,31 @@
  </co>
  <co id="3" binds="">
   <mode name="Q{}proxy-copy" onNo="TC" flags="W" patternSlots="0">
+   <templateRule prec="0" prio="0.5" seq="0" rank="1" minImp="0" slots="0" flags="s" line="73" module="search-nb.xsl">
+    <p.withUpper role="match" axis="parent" upFirst="false">
+     <p.nodeTest test="*:results" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1&amp;&amp;q.local==='results'"/>
+     <p.withPredicate>
+      <p.nodeTest test="*:query" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1&amp;&amp;q.local==='query'"/>
+      <fn ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="73" name="not">
+       <axis name="parent" nodeTest="element()" jsTest="return item.nodeType===1;"/>
+      </fn>
+     </p.withPredicate>
+    </p.withUpper>
+    <applyT role="action" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="74" flags="cti" bSlot="-1">
+     <axis role="select" name="child" nodeTest="node()" jsTest="return true;"/>
+    </applyT>
+   </templateRule>
+   <templateRule prec="0" prio="0.5" seq="0" rank="1" minImp="0" slots="0" flags="s" line="73" module="search-nb.xsl">
+    <p.withPredicate role="match">
+     <p.nodeTest test="*:query" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1&amp;&amp;q.local==='query'"/>
+     <fn ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="73" name="empty">
+      <axis name="parent" nodeTest="element()" jsTest="return item.nodeType===1;"/>
+     </fn>
+    </p.withPredicate>
+    <applyT role="action" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="74" flags="cti" bSlot="-1">
+     <axis role="select" name="child" nodeTest="node()" jsTest="return true;"/>
+    </applyT>
+   </templateRule>
    <templateRule prec="0" prio="-0.5" seq="1" rank="0" minImp="0" slots="0" flags="s" line="77" module="search-nb.xsl">
     <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
     <copy role="action" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="79" flags="cin">
@@ -135,35 +160,10 @@
      </sequence>
     </copy>
    </templateRule>
-   <templateRule prec="0" prio="0.5" seq="0" rank="1" minImp="0" slots="0" flags="s" line="73" module="search-nb.xsl">
-    <p.withPredicate role="match">
-     <p.nodeTest test="element(Q{}query)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri===''&amp;&amp;q.local==='query';"/>
-     <fn ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="73" name="empty">
-      <axis name="parent" nodeTest="element()" jsTest="return item.nodeType===1;"/>
-     </fn>
-    </p.withPredicate>
-    <applyT role="action" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="74" flags="cti" bSlot="-1">
-     <axis role="select" name="child" nodeTest="node()" jsTest="return true;"/>
-    </applyT>
-   </templateRule>
-   <templateRule prec="0" prio="0.5" seq="0" rank="1" minImp="0" slots="0" flags="s" line="73" module="search-nb.xsl">
-    <p.withUpper role="match" axis="parent" upFirst="false">
-     <p.nodeTest test="element(Q{}results)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri===''&amp;&amp;q.local==='results';"/>
-     <p.withPredicate>
-      <p.nodeTest test="element(Q{}query)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri===''&amp;&amp;q.local==='query';"/>
-      <fn ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="73" name="not">
-       <axis name="parent" nodeTest="element()" jsTest="return item.nodeType===1;"/>
-      </fn>
-     </p.withPredicate>
-    </p.withUpper>
-    <applyT role="action" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="74" flags="cti" bSlot="-1">
-     <axis role="select" name="child" nodeTest="node()" jsTest="return true;"/>
-    </applyT>
-   </templateRule>
   </mode>
  </co>
  <co id="8" binds="6">
-  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg924200540" type="xs:string" line="46" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};">
+  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg2051581550" type="xs:string" line="46" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};">
    <cvUntyped ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="46" to="xs:string">
     <cast as="xs:untypedAtomic" emptiable="0">
      <fn name="concat">
@@ -212,11 +212,14 @@
  </co>
  <co id="10" binds="8 2">
   <template name="Q{}initialTemplate" flags="os" line="45" module="search-nb.xsl" slots="1">
-   <let role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="46" var="query" as="xs:string" slot="0" eval="8">
-    <gVarRef name="Q{http://saxon.sf.net/generated-variable}gg924200540" bSlot="0"/>
-    <ufCall line="53" name="Q{http://data.ub.uib.no/ns/function-library}ypl-proxied-async-doc" tailCall="false" bSlot="1" eval="6">
-     <varRef name="query" slot="0"/>
-    </ufCall>
+   <let role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math" line="46" var="query" as="xs:string" slot="0" eval="6">
+    <gVarRef name="Q{http://saxon.sf.net/generated-variable}gg2051581550" bSlot="0"/>
+    <resultDoc line="52" global="#&#xA;#Mon Jul 23 11:56:59 CEST 2018&#xA;" local="#&#xA;#Mon Jul 23 11:56:59 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+     <str role="href" val="#result"/>
+     <ufCall role="content" line="53" name="Q{http://data.ub.uib.no/ns/function-library}ypl-proxied-async-doc" tailCall="false" bSlot="1" eval="6">
+      <varRef name="query" slot="0"/>
+     </ufCall>
+    </resultDoc>
    </let>
   </template>
  </co>
@@ -264,7 +267,7 @@
       </check>
      </treat>
     </param>
-    <resultDoc line="109" global="#&#xA;#Mon Jul 23 11:51:03 CEST 2018&#xA;" local="#&#xA;#Mon Jul 23 11:51:03 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="109" global="#&#xA;#Mon Jul 23 11:56:59 CEST 2018&#xA;" local="#&#xA;#Mon Jul 23 11:56:59 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <str role="href" val="#result"/>
      <applyT role="content" line="110" mode="Q{}query-result" bSlot="0">
       <fn role="select" name="document">
@@ -285,4 +288,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ fc779104?>
+<?Σ e1a246b2?>

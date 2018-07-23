@@ -49,9 +49,9 @@ at line 1, column 1:
         <xsl:variable name="queries" select="flub:proxy-doc-uri($query)"/>
         
         
-        
-        <xsl:sequence select="flub:ypl-proxied-async-doc($query)"/>
-        
+        <xsl:result-document href="#result" method="ixsl:replace-content">
+            <xsl:sequence select="flub:ypl-proxied-async-doc($query)"></xsl:sequence>
+        </xsl:result-document>
         
         
     </xsl:template>
@@ -70,7 +70,7 @@ at line 1, column 1:
         
     </xsl:function>
     
-    <xsl:template match="query[not(parent::*)]|query[not(parent::*)]/results" mode="proxy-copy">
+    <xsl:template match="*:query[not(parent::*)]|*:query[not(parent::*)]/*:results" mode="proxy-copy">
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
