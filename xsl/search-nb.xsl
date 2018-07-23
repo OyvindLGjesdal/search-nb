@@ -13,79 +13,60 @@
     
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
       
-    <!--"XPath parsing error: lexical analysis failed
-while expecting [IntegerLiteral, DecimalLiteral, DoubleLiteral, StringLiteral, URIQualifiedName, QName, S, Wildcard, '$', '(', '(:', '+', '-', '.', '..', '/', '//', '?', '@', '[', 'ancestor', 'ancestor-or-self', 'and', 'array', 'attribute', 'cast', 'castable', 'child', 'comment', 'descendant', 'descendant-or-self', 'div', 'document-node', 'element', 'else', 'empty-sequence', 'eq', 'every', 'except', 'following', 'following-sibling', 'for', 'function', 'ge', 'gt', 'idiv', 'if', 'instance', 'intersect', 'is', 'item', 'le', 'let', 'lt', 'map', 'mod', 'namespace', 'namespace-node', 'ne', 'node', 'or', 'parent', 'preceding', 'preceding-sibling', 'processing-instruction', 'return', 'satisfies', 'schema-attribute', 'schema-element', 'self', 'some', 'switch', 'text', 'to', 'treat', 'typeswitch', 'union']
-at line 1, column 1:
-...<xsl:call-template name="hello-world"><xsl:with-param name="doc-... from source:at search-nb.xsl#21"
--->
-    <!-- takes a request, and a named template NCName to handle the request-->
+    <!-- initial named template-->
+    <xsl:template name="initialTemplate">
+        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri($q)}</xsl:text></xsl:variable>
+        <xsl:variable name="proxied-query"><xsl:text>https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($query)}%22&amp;format=xml</xsl:text></xsl:variable>
+        <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
+    </xsl:template>
+    
+    <!-- moded templates to handle async doc requests -->
+    
+    <xsl:template mode="basic-search" match="*">
+          <xhtml:p>1st item node {name()}</xhtml:p>
+        <xsl:comment>
+            <xsl:copy-of select="."/>
+        </xsl:comment>
+    </xsl:template>
+    
+    <!-- functions-->
+    <!-- async request, which defines a request, an id to update in html-page, and a callback name to handle transformation of request
+         http://www.saxonica.com/saxon-js/documentation/index.html#!ixsl-extension/instructions/schedule-action
+         ixsl:scheduled-action allows exactly one named template child (async-transform), which is used to update some part of the html-page-->
+    
     <xsl:function name="flub:async-request">
-        <xsl:param name="doc-request" as="xs:anyURI"/>        
+        <xsl:param name="doc-request" as="xs:anyURI"/>
+        <xsl:param name="page-id" as="xs:string"/>
+        <xsl:param name="callback-name" as="xs:string"/>        
         
         <ixsl:schedule-action document="{$doc-request}">
             <xsl:call-template name="async-transform"  >
                 <xsl:with-param name="doc-request" select="$doc-request"/>
-                <xsl:with-param name="callback-name" select="'basic-search'"/>
+                <xsl:with-param name="callback-name" select="$callback-name"/>
+                <xsl:with-param name="id" select="xs:ID($page-id)"/>
             </xsl:call-template>            
         </ixsl:schedule-action>
-    </xsl:function>
+    </xsl:function>  
     
-    <xsl:template name="initialTemplate">
-        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri($q)}</xsl:text></xsl:variable>
-        <xsl:variable name="proxied-query"><xsl:text>https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($query)}%22&amp;format=xml</xsl:text></xsl:variable>
-          
-        <xsl:sequence select="flub:async-request($proxied-query)"/>
-        
-   
-        
-        
-    </xsl:template>
-    
-    <xsl:template name="hello-world">
+    <!-- generic named template for delegating async request (ixsl:scheduled-action)-->
+    <xsl:template name="async-transform">
         <xsl:param name="doc-request" as="xs:anyURI"/>
-        <xsl:result-document href="#result" method="ixsl:replace-content">            
-            <xsl:apply-templates select="document($doc-request)" mode="query-result"/>
-        </xsl:result-document>      
-        
-    </xsl:template>
+        <xsl:param name="id" as="xs:ID"/>
+        <xsl:param name="callback-name" as="xs:string"/>
+        <xsl:if test="not(id(string($id),ixsl:page()))">
+            <xsl:message select="'id: ' || string($id) || ' not present in webpage'" terminate="yes"/>
+        </xsl:if>        
+        <xsl:assert test="exists(id(string($id),ixsl:page()))"/>
+        <xsl:result-document href="#{string($id)}" method="ixsl:replace-content">            
+            <xsl:apply-templates select="document($doc-request)/*" mode="callback">
+                <xsl:with-param name="callback-name" select="$callback-name"/>
+                <xsl:with-param name="id" select="$id"/>
+            </xsl:apply-templates>
+        </xsl:result-document>        
+    </xsl:template>      
     
-  
     
-    <xsl:template match="*:query[not(parent::*)]|*:query[not(parent::*)]/*:results" mode="proxy-copy">
-        <xsl:apply-templates mode="#current"/>
-    </xsl:template>
-    
-    <xsl:template mode="proxy-copy" match="*">
-        <xsl:copy>
-            <xsl:copy-of select="@*"/>
-            <xsl:apply-templates mode="#current"/>
-        </xsl:copy>
-    </xsl:template>
-    
-    <xsl:function name="flub:proxy-doc-uri" as="xs:anyURI*">
-      <xsl:param name="doc-uri" as="xs:string+"/>
-        <xsl:for-each select="$doc-uri">
-            <xsl:sequence select="xs:anyURI(concat('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22',encode-for-uri(.),'%22&amp;format=xml'))"/>
-        </xsl:for-each>
-    </xsl:function>
-    <!-- yahoo proxy for calls to doc without cors from saxon-js-->
-    <!--<xsl:function name="flub:proxy-doc">
-        <xsl:param name="uri" as="xs:string"/>
-        <xsl:variable name="uri-proxied" expand-text="1" as="xs:string">https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($uri)}%22&amp;format=xml</xsl:variable>
-        <ixsl:schedule-action document="{$uri-proxied}">
-            <xsl:call-template name="getResultingDocument">
-                <xsl:with-param name="uri-proxied" select="$uri-proxied"/>
-            </xsl:call-template>
-        </ixsl:schedule-action>
-    </xsl:function>-->
-    
-    <xsl:output name="serializer" method="xml" indent="yes"/>    
-    
-    <xsl:template name="getResultingDocument" as="document-node()?">
-        <xsl:param name="uri-proxied" as="xs:string"/>       
-            <xsl:sequence select="parse-xml(serialize(saxon:discard-document(document($uri-proxied))/query/results/*,'serializer'))"/>      
-    </xsl:template>
-    
+    <!-- interface for adding new modes to async doc request-->
     <xsl:template match="*" mode="callback">
         <xsl:param name="callback-name"/>
         <xsl:choose>
@@ -98,22 +79,11 @@ at line 1, column 1:
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template name="async-transform">
-        <xsl:param name="doc-request" as="xs:anyURI"/>
-        <xsl:param name="callback-name" as="xs:string"/>        
-        <xsl:result-document href="#result" method="ixsl:replace-content">            
-              <xsl:apply-templates select="document($doc-request)/*" mode="callback">
-                  <xsl:with-param name="callback-name" select="$callback-name"/>
-              </xsl:apply-templates>
-        </xsl:result-document>        
-    </xsl:template>      
-    
-    
-    
-    <xsl:template mode="basic-search" match="*">
-          <p>1st item node {name()}</p>
-        <xsl:comment>
-            <xsl:copy-of select="."/>
-        </xsl:comment>
-    </xsl:template>
+    <!-- takes a uri and addss a proxy to allow cors-->
+    <xsl:function name="flub:proxy-doc-uri" as="xs:anyURI*">
+        <xsl:param name="doc-uri" as="xs:string+"/>
+        <xsl:for-each select="$doc-uri">
+            <xsl:sequence select="xs:anyURI(concat('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22',encode-for-uri(.),'%22&amp;format=xml'))"/>
+        </xsl:for-each>
+    </xsl:function>
 </xsl:stylesheet>
