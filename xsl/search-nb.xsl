@@ -66,10 +66,20 @@ at line 1, column 1:
     
     <xsl:function name="flub:ypl-proxied-async-doc">
         <xsl:param name="query"/>
-        <xsl:sequence select="flub:async-doc(flub:proxy-doc-uri($query))/results/query/*"/>
+        <xsl:apply-templates select="flub:async-doc(flub:proxy-doc-uri($query))" mode="proxy-copy"/>
         
     </xsl:function>
     
+    <xsl:template match="query[not(parent::*)]|query[not(parent::*)]/results" mode="proxy-copy">
+        <xsl:apply-templates mode="#current"/>
+    </xsl:template>
+    
+    <xsl:template mode="proxy-copy" match="*">
+        <xsl:copy>
+            <xsl:copy-of select="@*"/>
+            <xsl:apply-templates mode="#current"/>
+        </xsl:copy>
+    </xsl:template>
     <xsl:function name="flub:proxy-doc-uri" as="xs:anyURI*">
       <xsl:param name="doc-uri" as="xs:string+"/>
         <xsl:for-each select="$doc-uri">
