@@ -20,7 +20,6 @@
             <xsl:text>&lt;xsl:with-param name=&quot;doc-request&quot; select=&quot;$doc-request&quot;/&gt;</xsl:text>
             <xsl:text>&lt;/xsl:call-template&gt;</xsl:text>
         </xsl:variable>-->        
-        <xsl:call-template name="hello-world"><xsl:with-param name="doc-request" select="$doc-request"/></xsl:call-template> 
         <!--
         <xsl:if test="$debug">
         <xsl:message select="$callback"/>
@@ -35,9 +34,7 @@ at line 1, column 1:
 -->
     <!-- takes a request, and a named template NCName to handle the request-->
     <xsl:function name="flub:async-doc">
-        <xsl:param name="doc-request" as="xs:anyURI"/>
-        <xsl:param name="callback-template" as="xs:NCName"/>
-        
+        <xsl:param name="doc-request" as="xs:anyURI"/>        
         <ixsl:schedule-action document="{$doc-request}">
             <xsl:call-template name="callback">
                 <xsl:with-param name="doc-request" select="$doc-request"/>
@@ -53,7 +50,7 @@ at line 1, column 1:
         
         
         
-        <xsl:sequence select="flub:async-doc($queries[1],xs:NCName('hello-world'))"/>
+        <xsl:sequence select="flub:ypl-proxied-async-doc($query)"/>
         
         
         
@@ -67,6 +64,11 @@ at line 1, column 1:
         
     </xsl:template>
     
+    <xsl:function name="flub:ypl-proxied-async-doc">
+        <xsl:param name="query"/>
+        <xsl:sequence select="flub:async-doc(flub:proxy-doc-uri($query))/results/query/*"/>
+        
+    </xsl:function>
     
     <xsl:function name="flub:proxy-doc-uri" as="xs:anyURI*">
       <xsl:param name="doc-uri" as="xs:string+"/>
