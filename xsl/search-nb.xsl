@@ -12,27 +12,7 @@
     <xsl:param name="q" as="xs:string"/>
     
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
-    <xsl:template name="callback">
-        <xsl:param name="doc-request" as="xs:anyURI"/>
-        <xsl:param name="fragment"/>
-        
-        <xsl:result-document href="{$fragment}" method="ixsl:replace-content">
-            <xsl:message select="document($doc-request)"/>
-        </xsl:result-document>
-        <xsl:sequence select="copy-of(document($doc-request))"/>
-        
-        <!--<xsl:variable name="call-template" expand-text="1">
-            <xsl:text expand-text="1">&lt;xsl:call-template name=&quot;{xs:string($callback)}&quot;&gt;</xsl:text>
-            <xsl:text>&lt;xsl:with-param name=&quot;doc-request&quot; select=&quot;$doc-request&quot;/&gt;</xsl:text>
-            <xsl:text>&lt;/xsl:call-template&gt;</xsl:text>
-        </xsl:variable>-->        
-        <!--
-        <xsl:if test="$debug">
-        <xsl:message select="$callback"/>
-        </xsl:if>
-        <xsl:evaluate xpath="$call-template"/> -->       
-    </xsl:template>
-    
+      
     <!--"XPath parsing error: lexical analysis failed
 while expecting [IntegerLiteral, DecimalLiteral, DoubleLiteral, StringLiteral, URIQualifiedName, QName, S, Wildcard, '$', '(', '(:', '+', '-', '.', '..', '/', '//', '?', '@', '[', 'ancestor', 'ancestor-or-self', 'and', 'array', 'attribute', 'cast', 'castable', 'child', 'comment', 'descendant', 'descendant-or-self', 'div', 'document-node', 'element', 'else', 'empty-sequence', 'eq', 'every', 'except', 'following', 'following-sibling', 'for', 'function', 'ge', 'gt', 'idiv', 'if', 'instance', 'intersect', 'is', 'item', 'le', 'let', 'lt', 'map', 'mod', 'namespace', 'namespace-node', 'ne', 'node', 'or', 'parent', 'preceding', 'preceding-sibling', 'processing-instruction', 'return', 'satisfies', 'schema-attribute', 'schema-element', 'self', 'some', 'switch', 'text', 'to', 'treat', 'typeswitch', 'union']
 at line 1, column 1:
@@ -81,6 +61,7 @@ at line 1, column 1:
             <xsl:apply-templates mode="#current"/>
         </xsl:copy>
     </xsl:template>
+    
     <xsl:function name="flub:proxy-doc-uri" as="xs:anyURI*">
       <xsl:param name="doc-uri" as="xs:string+"/>
         <xsl:for-each select="$doc-uri">
@@ -121,7 +102,7 @@ at line 1, column 1:
         <xsl:param name="doc-request" as="xs:string"/>
         <xsl:param name="callback-name" as="xs:string"/>        
         <xsl:result-document href="#result" method="ixsl:replace-content">            
-              <xsl:apply-templates select="document($doc-request)" mode="callback">
+              <xsl:apply-templates select="document($doc-request)/*" mode="callback">
                   <xsl:with-param name="callback-name" select="$callback-name"/>
               </xsl:apply-templates>
         </xsl:result-document>        
