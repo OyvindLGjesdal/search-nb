@@ -98,8 +98,8 @@ at line 1, column 1:
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template name="async-transform" mode="#all" match="*">
-        <xsl:param name="doc-request" as="xs:string"/>
+    <xsl:template name="async-transform">
+        <xsl:param name="doc-request" as="xs:anyURI"/>
         <xsl:param name="callback-name" as="xs:string"/>        
         <xsl:result-document href="#result" method="ixsl:replace-content">            
               <xsl:apply-templates select="document($doc-request)/*" mode="callback">
