@@ -39,6 +39,9 @@
         <xsl:param name="page-id" as="xs:string"/>
         <xsl:param name="callback-name" as="xs:string"/>        
         
+        <xsl:if test="$debug">
+            <xsl:message select="'flub:async-request: ' || $doc-request"/>
+        </xsl:if>
         <ixsl:schedule-action document="{$doc-request}">
             <xsl:call-template name="async-transform"  >
                 <xsl:with-param name="doc-request" select="$doc-request"/>
