@@ -23,7 +23,7 @@
     <!-- moded templates to handle async doc requests -->
     
     <xsl:template mode="basic-search" match="*">
-          <xhtml:p>1st item node {name()}</xhtml:p>
+          <p>1st item node {name()}</p>
         <xsl:comment>
             <xsl:copy-of select="."/>
         </xsl:comment>
