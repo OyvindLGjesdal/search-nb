@@ -10,12 +10,16 @@
     <body>
         <div class="container">
         <h1>Client for NB search API</h1>
-        <div class="form-group">
+        
+        <form id="basic-search">
+            <div class="form-group">
             <label for="search-field1"></label>
             <input type="search" class="form-control" id="search-field1" placeholder="Search"/>
-            <button type="submit" class="btn btn-primary" onclick='transformSaxon(jQuery("#search-field1").val());'>search</button>
-        </div>
-        
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" onclick='transformSaxon(jQuery("#search-field1").val());'>search</button>
+            </div>
+        </form>
         <div id="result"></div>
         </div>
         <script src="Saxon-JS/SaxonJS.min.js"></script>

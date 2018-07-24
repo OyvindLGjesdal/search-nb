@@ -63,8 +63,7 @@
                 <xsl:with-param name="id" select="$id"/>
             </xsl:apply-templates>
         </xsl:result-document>        
-    </xsl:template>      
-    
+    </xsl:template>
     
     <!-- interface for adding new modes to async doc request-->
     <xsl:template match="*" mode="callback">
