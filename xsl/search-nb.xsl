@@ -68,11 +68,11 @@
         </xsl:result-document>        
     </xsl:template>
     
-    <!-- interface for adding new modes to async doc request-->
+    <!-- match for adding new modes to async doc request-->
     <xsl:template match="*" mode="callback">
         <xsl:param name="callback-name"/>
         <xsl:choose>
-            <xsl:when test="$callback-name='basic-search'">
+            <xsl:when test="$callback-name='basic-result'">
                 <xsl:apply-templates select="self::node()" mode="basic-search"/>
             </xsl:when>
             <xsl:otherwise>

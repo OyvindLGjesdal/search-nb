@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://ns.saxonica.com/xslt/export" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vv="http://saxon.sf.net/generated-variable" xmlns:java-type="http://saxon.sf.net/java-type" version="30" packageVersion="1" saxonVersion="9.8.0.12" target="JS" targetVersion="1" relocatable="true">
- <co id="0" binds="1">
-  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg1714419529" type="xs:anyURI" line="20" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.anyURI.cast(val);" jsCardCheck="function c(n) {return n==1;};">
+ <co id="0" vis="PUBLIC" binds="">
+  <globalParam name="Q{}q" type="xs:string" line="12" module="search-nb.xsl" visibility="PUBLIC" flags="i" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};"/>
+ </co>
+ <co id="1" binds="0">
+  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg365951160" type="xs:anyURI" line="20" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.anyURI.cast(val);" jsCardCheck="function c(n) {return n==1;};">
    <cvUntyped ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math xhtml=http://www.w3.org/1999/xhtml" line="20" to="xs:anyURI">
     <cast line="19" as="xs:untypedAtomic" emptiable="0">
      <fn name="concat">
@@ -24,9 +27,6 @@
    </cvUntyped>
   </globalVariable>
  </co>
- <co id="1" vis="PUBLIC" binds="">
-  <globalParam name="Q{}q" type="xs:string" line="12" module="search-nb.xsl" visibility="PUBLIC" flags="i" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};"/>
- </co>
  <co id="2" binds="3">
   <mode name="Q{}callback" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="0" prio="-0.5" seq="0" rank="0" minImp="0" slots="1" flags="s" line="72" module="search-nb.xsl">
@@ -41,7 +41,7 @@
        <data>
         <varRef name="callback-name" slot="0"/>
        </data>
-       <str val="basic-search"/>
+       <str val="basic-result"/>
       </gc>
       <applyT line="76" mode="Q{}basic-search" flags="t" bSlot="0">
        <axis role="select" name="self" nodeTest="node()" jsTest="return SaxonJS.U.isNode(item);"/>
@@ -116,7 +116,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="63" global="#&#xA;#Tue Jul 24 14:01:47 CEST 2018&#xA;" local="#&#xA;#Tue Jul 24 14:01:47 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="63" global="#&#xA;#Tue Jul 24 20:54:47 CEST 2018&#xA;" local="#&#xA;#Tue Jul 24 20:54:47 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -139,10 +139,10 @@
    </sequence>
   </template>
  </co>
- <co id="5" binds="6 0">
+ <co id="5" binds="6 1">
   <template name="Q{}initialTemplate" flags="os" line="17" module="search-nb.xsl" slots="0">
    <ufCall role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math xhtml=http://www.w3.org/1999/xhtml" line="20" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="0" eval="6 0 0">
-    <gVarRef name="Q{http://saxon.sf.net/generated-variable}gg1714419529" bSlot="1"/>
+    <gVarRef name="Q{http://saxon.sf.net/generated-variable}gg365951160" bSlot="1"/>
     <str val="result"/>
     <str val="basic-result"/>
    </ufCall>
@@ -226,4 +226,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ d27c9835?>
+<?Σ d2ed8153?>
