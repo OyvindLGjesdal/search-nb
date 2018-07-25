@@ -56,7 +56,7 @@
   <globalParam name="Q{}q" type="xs:string" line="15" module="search-nb.xsl" visibility="PUBLIC" flags="i" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};"/>
  </co>
  <co id="4" binds="3 0">
-  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg572746551" type="xs:anyURI" line="24" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.anyURI.cast(val);" jsCardCheck="function c(n) {return n==1;};">
+  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg684202807" type="xs:anyURI" line="24" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.anyURI.cast(val);" jsCardCheck="function c(n) {return n==1;};">
    <cvUntyped ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="24" to="xs:anyURI">
     <cast line="23" as="xs:untypedAtomic" emptiable="0">
      <fn name="concat">
@@ -182,7 +182,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="100" global="#&#xA;#Wed Jul 25 13:55:20 CEST 2018&#xA;" local="#&#xA;#Wed Jul 25 13:55:20 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="100" global="#&#xA;#Wed Jul 25 13:56:48 CEST 2018&#xA;" local="#&#xA;#Wed Jul 25 13:56:48 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -208,7 +208,7 @@
  <co id="8" binds="9 4">
   <template name="Q{}initialTemplate" flags="os" line="21" module="search-nb.xsl" slots="0">
    <ufCall role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="24" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="0" eval="6 0 0">
-    <gVarRef name="Q{http://saxon.sf.net/generated-variable}gg572746551" bSlot="1"/>
+    <gVarRef name="Q{http://saxon.sf.net/generated-variable}gg684202807" bSlot="1"/>
     <str val="result"/>
     <str val="basic-result"/>
    </ufCall>
@@ -221,11 +221,11 @@
  </co>
  <co id="6" binds="">
   <mode name="Q{}basic-search" onNo="TC" flags="W" patternSlots="0">
-   <templateRule prec="0" prio="2.0" seq="1" rank="1" minImp="0" slots="0" flags="s" line="61" module="search-nb.xsl">
+   <templateRule prec="0" prio="2.0" seq="1" rank="0" minImp="0" slots="0" flags="s" line="61" module="search-nb.xsl">
     <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
     <empty role="action"/>
    </templateRule>
-   <templateRule prec="0" prio="3.0" seq="2" rank="2" minImp="0" slots="0" flags="s" line="63" module="search-nb.xsl">
+   <templateRule prec="0" prio="3.0" seq="2" rank="1" minImp="0" slots="0" flags="s" line="63" module="search-nb.xsl">
     <p.nodeTest role="match" test="element(Q{http://www.w3.org/2005/Atom}entry)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='entry';"/>
     <message role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="65">
      <fn role="select" name="concat">
@@ -240,7 +240,7 @@
      <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
     </message>
    </templateRule>
-   <templateRule prec="0" prio="0.0" seq="0" rank="0" minImp="0" slots="0" flags="s" line="42" module="search-nb.xsl">
+   <templateRule prec="0" prio="3.0" seq="0" rank="1" minImp="0" slots="0" flags="s" line="42" module="search-nb.xsl">
     <p.nodeTest role="match" test="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
     <sequence role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="44">
      <elem name="div" nsuri="" namespaces="ixsl xhtml saxon flub">
@@ -414,4 +414,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ e1708900?>
+<?Σ e1706917?>

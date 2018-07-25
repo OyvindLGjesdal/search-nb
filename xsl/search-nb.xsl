@@ -39,7 +39,7 @@
         <xsl:sequence select="flub:async-request($next,'result','basic-result')"/>-->
     </xsl:template>
     
-    <xsl:template mode="basic-search" match="atom:feed" expand-text="1">
+    <xsl:template mode="basic-search" priority="3.0" match="atom:feed" expand-text="1">
         
         <div class="container">
             <span>{opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)} av {opensearch:totalResults}</span>
