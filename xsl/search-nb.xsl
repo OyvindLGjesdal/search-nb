@@ -25,7 +25,7 @@
     </xsl:template>
     
     <xsl:accumulator name="next" as="xs:string?" initial-value="()" >
-        <xsl:accumulator-rule match="atom:link[@rel='next']" select="@href"/>
+        <xsl:accumulator-rule match="atom:feed[atom:link[@rel='next']]" select="atom:link[@rel='next']/@href"/>
     </xsl:accumulator>
     <!-- moded templates to handle async doc requests -->
     
