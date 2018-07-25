@@ -54,9 +54,8 @@
             <button name="next-result" class="btn"></button>
             <button name="prev-result" class="btn"></button>
         
-            <ixsl:set-property name="next" select="$next" object="basicResult"/>
-        
-        </div>
+            <ixsl:set-property name="next" select="$next" object="'basicResult'"/>
+                    </div>
           <p><xsl:apply-templates mode="#current">
               <xsl:with-param tunnel="yes" name="test" select="'test2'"/>
           </xsl:apply-templates></p>
