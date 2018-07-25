@@ -9,3 +9,5 @@ SaxonJS.transform({
 )
 console.log(query);
 }
+
+var basicResult = new Object();
