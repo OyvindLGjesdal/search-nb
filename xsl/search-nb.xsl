@@ -30,12 +30,13 @@
     <!-- moded templates to handle async doc requests -->
     
     <xsl:template mode="ixsl:onclick" match="button[@name='next-result']">
-        <xsl:if test="$debug">
-            <xsl:value-of select="'next '|| accumulator-after('next')"/>
-        </xsl:if>
         
+        <xsl:if test="$debug">
+            <xsl:value-of select="'next '|| accumulator-after('next') || accumulator-before('next')"/>
+        </xsl:if>
+        <!--
         <xsl:variable name="next" select="flub:proxy-doc-uri(accumulator-after('next'))"/>
-        <xsl:sequence select="flub:async-request($next,'result','basic-result')"/>
+        <xsl:sequence select="flub:async-request($next,'result','basic-result')"/>-->
     </xsl:template>
     
     <xsl:template mode="basic-search" match="atom:feed" expand-text="1">
