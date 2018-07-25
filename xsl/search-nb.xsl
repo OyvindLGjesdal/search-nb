@@ -52,10 +52,18 @@
             <button name="next-result" class="btn"></button>
             <button name="prev-result" class="btn"></button>
        </div>
-          <p>1st item node {name()}</p>
+          <p><xsl:apply-templates mode="#current"/></p>
         <xsl:comment>
             <xsl:copy-of select="."/>
         </xsl:comment>
+    </xsl:template>
+    
+    <xsl:template mode="basic-search" match="*" priority="2.0"></xsl:template>
+    
+    <xsl:template mode="basic-search" match="atom:entry" priority="3.0">
+    <xsl:if test="$debug">        
+        <xsl:message select="concat('next ', accumulator-after('next'))"></xsl:message>
+    </xsl:if> 
     </xsl:template>
     
     <!-- functions-->
@@ -110,7 +118,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <!-- takes a uri and addss a proxy to allow cors-->
+    <!-- takes a uri and adds a proxy to allow cors-->
     <xsl:function name="flub:proxy-doc-uri" as="xs:anyURI*">
         <xsl:param name="doc-uri" as="xs:string+"/>
         <xsl:for-each select="$doc-uri">
