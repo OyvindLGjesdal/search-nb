@@ -5,7 +5,35 @@
    <int val="20"/>
   </globalParam>
  </co>
- <co id="1" binds="">
+ <co id="1" binds="2 0">
+  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg1485919158" type="xs:anyURI" line="24" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.anyURI.cast(val);" jsCardCheck="function c(n) {return n==1;};">
+   <cvUntyped ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="24" to="xs:anyURI">
+    <cast line="23" as="xs:untypedAtomic" emptiable="0">
+     <fn name="concat">
+      <str val="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22"/>
+      <fn line="22" name="encode-for-uri">
+       <cvUntyped to="xs:string">
+        <cast as="xs:untypedAtomic" emptiable="0">
+         <fn name="concat">
+          <str val="https://www.nb.no/services/search/v2/search?q="/>
+          <fn name="encode-for-uri">
+           <gVarRef name="Q{}q" bSlot="0"/>
+          </fn>
+          <str val="&amp;itemsPerPage="/>
+          <fn name="string">
+           <gVarRef name="Q{}itemsPerPage" bSlot="1"/>
+          </fn>
+         </fn>
+        </cast>
+       </cvUntyped>
+      </fn>
+      <str val="%22&amp;format=xml"/>
+     </fn>
+    </cast>
+   </cvUntyped>
+  </globalVariable>
+ </co>
+ <co id="3" binds="">
   <function name="Q{http://data.ub.uib.no/ns/function-library}proxy-doc-uri" line="114" module="search-nb.xsl" eval="3" flags="pU" as="xs:anyURI*" slots="1">
    <arg name="doc-uri" as="xs:string+"/>
    <forEach role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="116">
@@ -22,7 +50,7 @@
    </forEach>
   </function>
  </co>
- <co id="2" binds="">
+ <co id="4" binds="">
   <mode name="Q{http://saxonica.com/ns/interactiveXSLT}onclick" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="0" prio="0.5" seq="0" rank="0" minImp="0" slots="0" flags="s" line="32" module="search-nb.xsl">
     <p.withPredicate role="match">
@@ -52,10 +80,10 @@
    </templateRule>
   </mode>
  </co>
- <co id="3" vis="PUBLIC" binds="">
+ <co id="2" vis="PUBLIC" binds="">
   <globalParam name="Q{}q" type="xs:string" line="15" module="search-nb.xsl" visibility="PUBLIC" flags="i" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};"/>
  </co>
- <co id="4" binds="5">
+ <co id="5" binds="6">
   <mode name="Q{}callback" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="0" prio="-0.5" seq="0" rank="0" minImp="0" slots="1" flags="s" line="101" module="search-nb.xsl">
     <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
@@ -99,35 +127,7 @@
    </templateRule>
   </mode>
  </co>
- <co id="6" binds="3 0">
-  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg1342432980" type="xs:anyURI" line="24" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.anyURI.cast(val);" jsCardCheck="function c(n) {return n==1;};">
-   <cvUntyped ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="24" to="xs:anyURI">
-    <cast line="23" as="xs:untypedAtomic" emptiable="0">
-     <fn name="concat">
-      <str val="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22"/>
-      <fn line="22" name="encode-for-uri">
-       <cvUntyped to="xs:string">
-        <cast as="xs:untypedAtomic" emptiable="0">
-         <fn name="concat">
-          <str val="https://www.nb.no/services/search/v2/search?q="/>
-          <fn name="encode-for-uri">
-           <gVarRef name="Q{}q" bSlot="0"/>
-          </fn>
-          <str val="&amp;itemsPerPage="/>
-          <fn name="string">
-           <gVarRef name="Q{}itemsPerPage" bSlot="1"/>
-          </fn>
-         </fn>
-        </cast>
-       </cvUntyped>
-      </fn>
-      <str val="%22&amp;format=xml"/>
-     </fn>
-    </cast>
-   </cvUntyped>
-  </globalVariable>
- </co>
- <co id="7" binds="4">
+ <co id="7" binds="5">
   <template name="Q{}async-transform" flags="os" line="84" module="search-nb.xsl" slots="3">
    <sequence role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="85">
     <param name="Q{}doc-request" slot="0" flags="i" as="xs:anyURI">
@@ -182,7 +182,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="92" global="#&#xA;#Wed Jul 25 13:37:13 CEST 2018&#xA;" local="#&#xA;#Wed Jul 25 13:37:13 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="92" global="#&#xA;#Wed Jul 25 13:41:11 CEST 2018&#xA;" local="#&#xA;#Wed Jul 25 13:41:11 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -205,10 +205,10 @@
    </sequence>
   </template>
  </co>
- <co id="8" binds="9 6">
+ <co id="8" binds="9 1">
   <template name="Q{}initialTemplate" flags="os" line="21" module="search-nb.xsl" slots="0">
    <ufCall role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="24" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="0" eval="6 0 0">
-    <gVarRef name="Q{http://saxon.sf.net/generated-variable}gg1342432980" bSlot="1"/>
+    <gVarRef name="Q{http://saxon.sf.net/generated-variable}gg1485919158" bSlot="1"/>
     <str val="result"/>
     <str val="basic-result"/>
    </ufCall>
@@ -219,7 +219,7 @@
    <true/>
   </globalVariable>
  </co>
- <co id="5" binds="">
+ <co id="6" binds="">
   <mode name="Q{}basic-search" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="0" prio="0.0" seq="0" rank="0" minImp="0" slots="0" flags="s" line="42" module="search-nb.xsl">
     <p.nodeTest role="match" test="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
@@ -390,22 +390,7 @@
   <pre slots="0">
    <accRule slots="1" rank="0">
     <p.nodeTest test="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
-    <check ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="28" card="?" diag="4|0||xsl:accumulator-rule/select">
-     <cvUntyped to="xs:string">
-      <data>
-       <slash>
-        <filter flags="b">
-         <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}link)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='link';"/>
-         <gc op="=" card="1:1" comp="CCC">
-          <attVal name="Q{}rel" chk="0"/>
-          <str val="next"/>
-         </gc>
-        </filter>
-        <axis name="attribute" nodeTest="attribute(Q{}href)" jsTest="return item.name==='href'"/>
-       </slash>
-      </data>
-     </cvUntyped>
-    </check>
+    <str val="test"/>
    </accRule>
   </pre>
   <post slots="0"/>
@@ -415,4 +400,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 7cd29b8c?>
+<?Σ c4e3618c?>
