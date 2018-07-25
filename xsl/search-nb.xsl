@@ -32,7 +32,7 @@
     <xsl:template mode="ixsl:onclick" match="button[@name='next-result']">
         
         <xsl:if test="$debug">
-            <xsl:value-of select="'next '|| accumulator-after('next') || accumulator-before('next')"/>
+            <xsl:message select="'next '|| accumulator-after('next') || accumulator-before('next')"/>
         </xsl:if>
         <!--
         <xsl:variable name="next" select="flub:proxy-doc-uri(accumulator-after('next'))"/>
