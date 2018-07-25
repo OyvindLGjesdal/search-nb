@@ -4,25 +4,46 @@
     xmlns:ixsl="http://saxonica.com/ns/interactiveXSLT"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     xmlns:saxon="http://saxon.sf.net/"
+    xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/"
+    xmlns:nb="http://www.nb.no/xml/search/1.0/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
     xmlns:flub="http://data.ub.uib.no/ns/function-library"
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-    exclude-result-prefixes="xs math"
+    exclude-result-prefixes="xs math atom opensearch nb"
     version="3.0" expand-text="1">
     
     <xsl:param name="q" as="xs:string"/>
+    <xsl:param name="itemsPerPage" as="xs:integer" select="20"/>
     
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
       
     <!-- initial named template-->
     <xsl:template name="initialTemplate">
-        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri($q)}</xsl:text></xsl:variable>
+        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri($q)}&amp;itemsPerPage={string($itemsPerPage)}</xsl:text></xsl:variable>
         <xsl:variable name="proxied-query"><xsl:text>https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($query)}%22&amp;format=xml</xsl:text></xsl:variable>
         <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
     </xsl:template>
     
+    <xsl:accumulator name="next" as="xs:string?" initial-value="()" >
+        <xsl:accumulator-rule match="atom:link[@rel='next']" select="@href"/>
+    </xsl:accumulator>
     <!-- moded templates to handle async doc requests -->
     
-    <xsl:template mode="basic-search" match="*">
+    <xsl:template mode="ixsl:onclick" match="button[@name='next-result']">
+        <xsl:variable name="next" select="flub:proxy-doc-uri(accumulator-after('next'))"/>
+        <xsl:sequence select="flub:async-request($next,'result','basic-result')"/>
+    </xsl:template>
+    
+    <xsl:template mode="basic-search" match="atom:feed" expand-text="1">
+        
+        <div class="container">
+            <span>{opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)} av {opensearch:totalResults}</span>
+              
+            <xsl:variable name="next" select="flub:proxy-doc-uri(atom:link[@rel='next']/@href)"/>
+            <xsl:variable name="prev" select="flub:proxy-doc-uri(atom:link[@rel='prev']/@href)"/>
+            <button name="next-result" class="btn"></button>
+            <button name="prev-result" class="btn"></button>
+       </div>
           <p>1st item node {name()}</p>
         <xsl:comment>
             <xsl:copy-of select="."/>
@@ -73,7 +94,7 @@
         <xsl:param name="callback-name"/>
         <xsl:choose>
             <xsl:when test="$callback-name='basic-result'">
-                <xsl:apply-templates select="self::node()" mode="basic-search"/>
+                <xsl:apply-templates select="self::node()//atom:feed[1]" mode="basic-search"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:message terminate="yes" select="'callback-name: ',$callback-name, ' is not defined in mode transform-async'"></xsl:message>
