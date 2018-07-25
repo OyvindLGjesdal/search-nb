@@ -24,12 +24,16 @@
         <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
     </xsl:template>
     
-    <xsl:accumulator name="next" as="xs:string?" initial-value="()" >
-        <xsl:accumulator-rule match="atom:feed[atom:link[@rel='next']]" select="atom:link[@rel='next']/@href"/>
+    <xsl:accumulator name="next" as="xs:string?" initial-value="()"  >
+        <xsl:accumulator-rule  match="atom:feed" select="atom:link[@rel='next']/@href"/>
     </xsl:accumulator>
     <!-- moded templates to handle async doc requests -->
     
     <xsl:template mode="ixsl:onclick" match="button[@name='next-result']">
+        <xsl:if test="$debug">
+            <xsl:value-of select="'next '|| accumulator-after('next')"/>
+        </xsl:if>
+        
         <xsl:variable name="next" select="flub:proxy-doc-uri(accumulator-after('next'))"/>
         <xsl:sequence select="flub:async-request($next,'result','basic-result')"/>
     </xsl:template>
@@ -40,6 +44,9 @@
             <span>{opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)} av {opensearch:totalResults}</span>
               
             <xsl:variable name="next" select="flub:proxy-doc-uri(atom:link[@rel='next']/@href)"/>
+            <xsl:if test="$debug">
+                <xsl:message select="$next"/>
+            </xsl:if>
             <xsl:variable name="prev" select="flub:proxy-doc-uri(atom:link[@rel='prev']/@href)"/>
             <button name="next-result" class="btn"></button>
             <button name="prev-result" class="btn"></button>
