@@ -133,7 +133,7 @@
         <xsl:choose>
             <xsl:when test="$callback-name='cache'">
                 <xsl:if test="$debug">
-                    <xsl:value-of select="concat(base-uri(),' added to cache')"/>
+             <xsl:message select="concat(base-uri(),' added to cache')"/>
                 </xsl:if>
             </xsl:when>
             <xsl:when test="$callback-name='basic-result'">

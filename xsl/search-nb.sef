@@ -5,7 +5,35 @@
    <int val="20"/>
   </globalParam>
  </co>
- <co id="1" binds="">
+ <co id="1" binds="2 0">
+  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg2121477888" type="xs:anyURI" line="24" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.anyURI.cast(val);" jsCardCheck="function c(n) {return n==1;};">
+   <cvUntyped ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="24" to="xs:anyURI">
+    <cast line="23" as="xs:untypedAtomic" emptiable="0">
+     <fn name="concat">
+      <str val="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22"/>
+      <fn line="22" name="encode-for-uri">
+       <cvUntyped to="xs:string">
+        <cast as="xs:untypedAtomic" emptiable="0">
+         <fn name="concat">
+          <str val="https://www.nb.no/services/search/v2/search?q="/>
+          <fn name="encode-for-uri">
+           <gVarRef name="Q{}q" bSlot="0"/>
+          </fn>
+          <str val="&amp;itemsPerPage="/>
+          <fn name="string">
+           <gVarRef name="Q{}itemsPerPage" bSlot="1"/>
+          </fn>
+         </fn>
+        </cast>
+       </cvUntyped>
+      </fn>
+      <str val="%22&amp;format=xml"/>
+     </fn>
+    </cast>
+   </cvUntyped>
+  </globalVariable>
+ </co>
+ <co id="3" binds="">
   <function name="Q{http://data.ub.uib.no/ns/function-library}proxy-doc-uri" line="150" module="search-nb.xsl" eval="3" flags="pU" as="xs:anyURI*" slots="1">
    <arg name="doc-uri" as="xs:string+"/>
    <forEach role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="152">
@@ -22,7 +50,7 @@
    </forEach>
   </function>
  </co>
- <co id="2" binds="3">
+ <co id="4" binds="5">
   <mode name="Q{http://saxonica.com/ns/interactiveXSLT}onclick" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="0" prio="0.5" seq="0" rank="0" minImp="0" slots="1" flags="s" line="29" module="search-nb.xsl">
     <p.withPredicate role="match">
@@ -88,10 +116,10 @@
    </templateRule>
   </mode>
  </co>
- <co id="4" vis="PUBLIC" binds="">
+ <co id="2" vis="PUBLIC" binds="">
   <globalParam name="Q{}q" type="xs:string" line="15" module="search-nb.xsl" visibility="PUBLIC" flags="i" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};"/>
  </co>
- <co id="5" binds="6">
+ <co id="6" binds="7">
   <mode name="Q{}callback" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="0" prio="-0.5" seq="0" rank="0" minImp="0" slots="1" flags="s" line="131" module="search-nb.xsl">
     <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
@@ -107,14 +135,16 @@
        </data>
        <str val="cache"/>
       </gc>
-      <valueOf line="136">
-       <fn name="concat">
+      <message line="136">
+       <fn role="select" name="concat">
         <fn name="base-uri">
          <dot type="element()"/>
         </fn>
         <str val=" added to cache"/>
        </fn>
-      </valueOf>
+       <str role="terminate" val="no"/>
+       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
+      </message>
       <gc line="139" op="=" card="N:1" comp="GAC|http://www.w3.org/2005/xpath-functions/collation/codepoint">
        <data>
         <varRef name="callback-name" slot="0"/>
@@ -149,7 +179,7 @@
    </templateRule>
   </mode>
  </co>
- <co id="7" binds="5">
+ <co id="8" binds="6">
   <template name="Q{}async-transform" flags="os" line="114" module="search-nb.xsl" slots="3">
    <sequence role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="115">
     <param name="Q{}doc-request" slot="0" flags="i" as="xs:anyURI">
@@ -204,7 +234,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="122" global="#&#xA;#Thu Jul 26 15:33:57 CEST 2018&#xA;" local="#&#xA;#Thu Jul 26 15:33:57 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="122" global="#&#xA;#Thu Jul 26 15:42:52 CEST 2018&#xA;" local="#&#xA;#Thu Jul 26 15:42:52 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -227,10 +257,10 @@
    </sequence>
   </template>
  </co>
- <co id="8" binds="3 9">
+ <co id="9" binds="5 1">
   <template name="Q{}initialTemplate" flags="os" line="21" module="search-nb.xsl" slots="0">
    <ufCall role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="24" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="0" eval="6 0 0">
-    <gVarRef name="Q{http://saxon.sf.net/generated-variable}gg340243629" bSlot="1"/>
+    <gVarRef name="Q{http://saxon.sf.net/generated-variable}gg2121477888" bSlot="1"/>
     <str val="result"/>
     <str val="basic-result"/>
    </ufCall>
@@ -241,7 +271,7 @@
    <true/>
   </globalVariable>
  </co>
- <co id="6" binds="3 4">
+ <co id="7" binds="5 2">
   <mode name="Q{}basic-search" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="0" prio="2.0" seq="1" rank="0" minImp="0" slots="0" flags="s" line="77" module="search-nb.xsl">
     <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
@@ -584,7 +614,7 @@
    </templateRule>
   </mode>
  </co>
- <co id="3" binds="7">
+ <co id="5" binds="8">
   <function name="Q{http://data.ub.uib.no/ns/function-library}async-request" line="96" module="search-nb.xsl" eval="8" flags="pU" as="item()*" slots="3">
    <arg name="doc-request" as="xs:anyURI"/>
    <arg name="page-id" as="xs:string"/>
@@ -623,38 +653,10 @@
  <co id="11" binds="">
   <mode onNo="TC" flags="dWe" patternSlots="0"/>
  </co>
- <co id="9" binds="4 0">
-  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg340243629" type="xs:anyURI" line="24" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.anyURI.cast(val);" jsCardCheck="function c(n) {return n==1;};">
-   <cvUntyped ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="24" to="xs:anyURI">
-    <cast line="23" as="xs:untypedAtomic" emptiable="0">
-     <fn name="concat">
-      <str val="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22"/>
-      <fn line="22" name="encode-for-uri">
-       <cvUntyped to="xs:string">
-        <cast as="xs:untypedAtomic" emptiable="0">
-         <fn name="concat">
-          <str val="https://www.nb.no/services/search/v2/search?q="/>
-          <fn name="encode-for-uri">
-           <gVarRef name="Q{}q" bSlot="0"/>
-          </fn>
-          <str val="&amp;itemsPerPage="/>
-          <fn name="string">
-           <gVarRef name="Q{}itemsPerPage" bSlot="1"/>
-          </fn>
-         </fn>
-        </cast>
-       </cvUntyped>
-      </fn>
-      <str val="%22&amp;format=xml"/>
-     </fn>
-    </cast>
-   </cvUntyped>
-  </globalVariable>
- </co>
  <overridden/>
  <output>
   <property name="{http://saxon.sf.net/}stylesheet-version" value="30"/>
  </output>
  <decimalFormat/>
 </package>
-<?Σ b5d26818?>
+<?Σ dd338f?>
