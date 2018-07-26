@@ -31,7 +31,7 @@
     
     <xsl:template mode="ixsl:onclick" match="button[@name='next-result']">
         <xsl:param name="test" tunnel="yes"/>
-        <xsl:variable name="next" select="ixsl:get(ixsl:page(),'basicResult.next')"/>
+        <xsl:variable name="next" select="ixsl:get(id('result',ixsl:page()),'next')"/>
         <xsl:if test="$debug">
             <xsl:message select="concat('next ',$next, accumulator-after('next'), accumulator-before('next'))"/>
         </xsl:if>
@@ -54,7 +54,7 @@
             <button name="next-result" class="btn"></button>
             <button name="prev-result" class="btn"></button>
         
-            <ixsl:set-property name="next" select="$next" object="'basicResult'"/>
+            <ixsl:set-property name="next" select="$next" object="id('result',ixsl:page())"/>
                     </div>
           <p><xsl:apply-templates mode="#current">
               <xsl:with-param tunnel="yes" name="test" select="'test2'"/>
