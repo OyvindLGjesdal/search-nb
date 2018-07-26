@@ -31,7 +31,7 @@
     
     <xsl:template mode="ixsl:onclick" match="button[@name='next-result']">
         <xsl:param name="test" tunnel="yes"/>
-        <xsl:variable name="next" select="ixsl:get('basicResult','next')"/>
+        <xsl:variable name="next" select="ixsl:get(ixsl:page(),'basicResult.next')"/>
         <xsl:if test="$debug">
             <xsl:message select="concat('next ',$next, accumulator-after('next'), accumulator-before('next'))"/>
         </xsl:if>
@@ -48,13 +48,13 @@
               
             <xsl:variable name="next" select="if (atom:link[@rel='next']) then flub:proxy-doc-uri(atom:link[@rel='next']/@href) else ()"/>
             <xsl:if test="$debug">
-                <xsl:message select="$next"/>
+                <xsl:message select="concat('next: ',$next)"/>
             </xsl:if>
             <xsl:variable name="prev" select="flub:proxy-doc-uri(atom:link[@rel='prev']/@href)"/> 
             <button name="next-result" class="btn"></button>
             <button name="prev-result" class="btn"></button>
         
-            <ixsl:set-property name="next" select="$next" object="'basicResult'"/>
+            <ixsl:set-property name="basicResult.next" select="$next"/>
                     </div>
           <p><xsl:apply-templates mode="#current">
               <xsl:with-param tunnel="yes" name="test" select="'test2'"/>

@@ -1,4 +1,7 @@
 "use strict";
+
+var basicResult = new Object();
+
 function transformSaxon(query){
 console.log(query);
 
@@ -9,5 +12,3 @@ SaxonJS.transform({
 )
 console.log(query);
 }
-
-var basicResult = new Object();
