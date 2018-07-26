@@ -24,7 +24,7 @@
         <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
     </xsl:template>
     
-    <xsl:template mode="ixsl:onclick" match="button[@name='next-result']">
+    <xsl:template mode="ixsl:onclick" match="button[@name='next-result' and not(@disabled)]">
         <xsl:variable name="next" select="xs:anyURI(ixsl:get(id('result',ixsl:page()),'next'))"/>
         <xsl:if test="$debug">
             <xsl:message select="concat('next ',$next)"/>
@@ -36,15 +36,26 @@
         
         <div class="container">
         
-            <span>{opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)} av {opensearch:totalResults}</span>
+            <span>{opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)-1} av {opensearch:totalResults}</span>
               
             <xsl:variable name="next" select="if (atom:link[@rel='next']) then flub:proxy-doc-uri(atom:link[@rel='next']/@href) else ()"/>
             <xsl:if test="$debug">
                 <xsl:message select="concat('next: ',$next)"/>
             </xsl:if>
             <xsl:variable name="prev" select="flub:proxy-doc-uri(atom:link[@rel='prev']/@href)"/> 
-            <button name="next-result" class="btn"></button>
-            <button name="prev-result" class="btn"></button>
+            <button name="prev-result" class="btn">
+                <xsl:if test="not($prev)">
+                    <xsl:attribute name="disabled"/>
+                </xsl:if>
+                <i class="fas fa-arrow-left"/>
+            </button>            
+            <button name="next-result" class="btn">
+                <xsl:if test="not($prev)">
+                    <xsl:attribute name="disabled"/>
+                </xsl:if>
+                <i class="fas fa-arrow-right"/>
+            </button>
+            
         
             <ixsl:set-property name="next" select="$next" object="id('result',ixsl:page())"/>
                     </div>
