@@ -24,6 +24,7 @@
         <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
     </xsl:template>
     
+    <!-- interactive actions-->
     <xsl:template mode="ixsl:onclick" match="button[(@name='next-result' or @name='previous-result')
         and not(@disabled)]">
         <xsl:variable name="action" select="xs:anyURI(
@@ -47,7 +48,7 @@
                 <xsl:message select="concat('next: ',$next)"/>
             </xsl:if>
             <xsl:variable name="previous" select="if (atom:link[@rel='previous']) then  flub:proxy-doc-uri(atom:link[@rel='previous']/@href) else ()"/> 
-            <button name="prev-result" class="btn">
+            <button name="previous-result" class="btn">
                 <xsl:if test="not($previous)">
                     <xsl:attribute name="disabled"/>
                 </xsl:if>
