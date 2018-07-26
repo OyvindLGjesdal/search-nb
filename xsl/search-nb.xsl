@@ -24,12 +24,16 @@
         <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
     </xsl:template>
     
-    <xsl:template mode="ixsl:onclick" match="button[@name='next-result' and not(@disabled)]">
-        <xsl:variable name="next" select="xs:anyURI(ixsl:get(id('result',ixsl:page()),'next'))"/>
+    <xsl:template mode="ixsl:onclick" match="button[(@name='next-result' or @name='previous-result')
+        and not(@disabled)]">
+        <xsl:variable name="action" select="xs:anyURI(
+            ixsl:get(
+            id('result',ixsl:page()),
+            if (@name='next-result') then 'next' else 'previous'))"/>
         <xsl:if test="$debug">
-            <xsl:message select="concat('next ',$next)"/>
+            <xsl:message select="concat('action:', $action)"/>
         </xsl:if>        
-        <xsl:sequence select="flub:async-request($next,'result','basic-result')"/>
+        <xsl:sequence select="flub:async-request($action,'result','basic-result')"/>
     </xsl:template>
     
     <xsl:template mode="basic-search" priority="3.0" match="atom:feed" expand-text="1">
@@ -42,9 +46,9 @@
             <xsl:if test="$debug">
                 <xsl:message select="concat('next: ',$next)"/>
             </xsl:if>
-            <xsl:variable name="prev" select="if (atom:link[@rel='prev']) then  flub:proxy-doc-uri(atom:link[@rel='prev']/@href) else ()"/> 
+            <xsl:variable name="previous" select="if (atom:link[@rel='previous']) then  flub:proxy-doc-uri(atom:link[@rel='previous']/@href) else ()"/> 
             <button name="prev-result" class="btn">
-                <xsl:if test="not($prev)">
+                <xsl:if test="not($previous)">
                     <xsl:attribute name="disabled"/>
                 </xsl:if>
                 <i class="fas fa-arrow-left"/>
@@ -56,7 +60,7 @@
                 <i class="fas fa-arrow-right"/>
             </button>
             <xsl:variable name="result-fragment" select="id('result',ixsl:page())"/>
-            <ixsl:set-property name="prev" select="$prev" object="$result-fragment"/>
+            <ixsl:set-property name="previous" select="$previous" object="$result-fragment"/>
             <ixsl:set-property name="next" select="$next" object="$result-fragment"/>
                     </div>
             
