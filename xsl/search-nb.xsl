@@ -25,7 +25,7 @@
     </xsl:template>
     
     <xsl:template mode="ixsl:onclick" match="button[@name='next-result']">
-        <xsl:variable name="next" select="ixsl:get(id('result',ixsl:page()),'next')"/>
+        <xsl:variable name="next" select="xs:anyURI(ixsl:get(id('result',ixsl:page()),'next'))"/>
         <xsl:if test="$debug">
             <xsl:message select="concat('next ',$next)"/>
         </xsl:if>        
