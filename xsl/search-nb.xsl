@@ -38,34 +38,34 @@
     </xsl:template>
     
     <xsl:template mode="basic-search" priority="3.0" match="atom:feed" expand-text="1">
+        <xsl:variable name="next" select="if (atom:link[@rel='next']) then flub:proxy-doc-uri(atom:link[@rel='next']/@href) else ()"/>
+        <xsl:if test="$debug">
+            <xsl:message select="concat('next: ',$next)"/>
+        </xsl:if>
+        <xsl:variable name="previous" select="if (atom:link[@rel='previous']) then  flub:proxy-doc-uri(atom:link[@rel='previous']/@href) else ()"/> 
         
-        <div class="container">
-        
-            <span>{opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)-1} av {opensearch:totalResults}</span>
-              
-            <xsl:variable name="next" select="if (atom:link[@rel='next']) then flub:proxy-doc-uri(atom:link[@rel='next']/@href) else ()"/>
-            <xsl:if test="$debug">
-                <xsl:message select="concat('next: ',$next)"/>
-            </xsl:if>
-            <xsl:variable name="previous" select="if (atom:link[@rel='previous']) then  flub:proxy-doc-uri(atom:link[@rel='previous']/@href) else ()"/> 
-            <button name="previous-result" class="btn">
-                <xsl:if test="not($previous)">
-                    <xsl:attribute name="disabled"/>
-                </xsl:if>
-                <i class="fas fa-arrow-left"/>
-            </button>            
-            <button name="next-result" class="btn">
-                <xsl:if test="not($next)">
-                    <xsl:attribute name="disabled"/>
-                </xsl:if>
-                <i class="fas fa-arrow-right"/>
-            </button>
-            <xsl:variable name="result-fragment" select="id('result',ixsl:page())"/>
+        <div class="container">                 
+            <span>Resultat av søket: "{$q}" {opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)-1} av {opensearch:totalResults}</span>
+            <div>
+                <button name="previous-result" class="btn">
+                    <xsl:if test="not($previous)">
+                        <xsl:attribute name="disabled"/>
+                    </xsl:if>
+                    <i class="fas fa-arrow-left"/>
+                </button>            
+                <button name="next-result" class="btn">
+                    <xsl:if test="not($next)">
+                        <xsl:attribute name="disabled"/>
+                    </xsl:if>
+                    <i class="fas fa-arrow-right"/>
+                </button>                
+            </div>  
+        <xsl:variable name="result-fragment" select="id('result',ixsl:page())"/>
             <ixsl:set-property name="previous" select="$previous" object="$result-fragment"/>
             <ixsl:set-property name="next" select="$next" object="$result-fragment"/>
-                    </div>
+        </div>
             
-        <div class="list-group">
+        <div class="list-group" id="basic-search-result">
             <xsl:apply-templates mode="#current"/>          
         </div>
         
