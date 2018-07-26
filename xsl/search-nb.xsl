@@ -24,20 +24,12 @@
         <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
     </xsl:template>
     
-    <xsl:accumulator name="next" as="xs:string?" initial-value="()"  >
-        <xsl:accumulator-rule  match="atom:feed" select="'test'"/>
-    </xsl:accumulator>
-    <!-- moded templates to handle async doc requests -->
-    
     <xsl:template mode="ixsl:onclick" match="button[@name='next-result']">
-        <xsl:param name="test" tunnel="yes"/>
         <xsl:variable name="next" select="ixsl:get(id('result',ixsl:page()),'next')"/>
         <xsl:if test="$debug">
-            <xsl:message select="concat('next ',$next, accumulator-after('next'), accumulator-before('next'))"/>
-        </xsl:if>
-        <!--
-        <xsl:variable name="next" select="flub:proxy-doc-uri(accumulator-after('next'))"/>
-        <xsl:sequence select="flub:async-request($next,'result','basic-result')"/>-->
+            <xsl:message select="concat('next ',$next)"/>
+        </xsl:if>        
+        <xsl:sequence select="flub:async-request($next,'result','basic-result')"/>
     </xsl:template>
     
     <xsl:template mode="basic-search" priority="3.0" match="atom:feed" expand-text="1">
@@ -67,9 +59,7 @@
     <xsl:template mode="basic-search" match="*" priority="2.0"></xsl:template>
     
     <xsl:template mode="basic-search" match="atom:entry" priority="3.0">
-    <xsl:if test="$debug">        
-        <xsl:message select="concat('next ', accumulator-after('next'))"></xsl:message>
-    </xsl:if> 
+    
     </xsl:template>
     
     <!-- functions-->
