@@ -43,7 +43,7 @@
             <xsl:message select="concat('next: ',$next)"/>
         </xsl:if>
         <xsl:variable name="previous" select="if (atom:link[@rel='previous']) then  flub:proxy-doc-uri(atom:link[@rel='previous']/@href) else ()"/> 
-        
+        <xsl:sequence select="flub:async-request($next,'cache','cache')"/>
         <div class="container">                 
             <span>Resultat av søket: "{$q}" {opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)-1} av {opensearch:totalResults}</span>
             <div>
@@ -80,7 +80,7 @@
         <li class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{atom:title}</h5>
-            <small>{nb:namecreator} ({nb:year}) </small>
+            <small>{nb:namecreator} ({(nb:year,'Ikke oppgitt')}) </small>
         </div>
         <p class="mb-1">{atom:summary}</p>
         </li>
@@ -131,9 +131,15 @@
     <xsl:template match="*" mode="callback">
         <xsl:param name="callback-name"/>
         <xsl:choose>
+            <xsl:when test="$callback-name='cache'">
+                <xsl:if test="$debug">
+                    <xsl:value-of select="concat(base-uri(),' added to cache')"/>
+                </xsl:if>
+            </xsl:when>
             <xsl:when test="$callback-name='basic-result'">
                 <xsl:apply-templates select="self::node()//atom:feed[1]" mode="basic-search"/>
             </xsl:when>
+            
             <xsl:otherwise>
                 <xsl:message terminate="yes" select="'callback-name: ',$callback-name, ' is not defined in mode transform-async'"></xsl:message>
             </xsl:otherwise>
