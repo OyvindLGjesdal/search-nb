@@ -50,7 +50,7 @@
                 <i class="fas fa-arrow-left"/>
             </button>            
             <button name="next-result" class="btn">
-                <xsl:if test="not($prev)">
+                <xsl:if test="not($next)">
                     <xsl:attribute name="disabled"/>
                 </xsl:if>
                 <i class="fas fa-arrow-right"/>
