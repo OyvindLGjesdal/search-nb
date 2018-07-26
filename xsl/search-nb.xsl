@@ -42,7 +42,7 @@
             <xsl:if test="$debug">
                 <xsl:message select="concat('next: ',$next)"/>
             </xsl:if>
-            <xsl:variable name="prev" select="flub:proxy-doc-uri(atom:link[@rel='prev']/@href)"/> 
+            <xsl:variable name="prev" select="if (atom:link[@rel='prev']) then  flub:proxy-doc-uri(atom:link[@rel='prev']/@href) else ()"/> 
             <button name="prev-result" class="btn">
                 <xsl:if test="not($prev)">
                     <xsl:attribute name="disabled"/>
@@ -55,10 +55,11 @@
                 </xsl:if>
                 <i class="fas fa-arrow-right"/>
             </button>
-            
-        
-            <ixsl:set-property name="next" select="$next" object="id('result',ixsl:page())"/>
+            <xsl:variable name="result-fragment" select="id('result',ixsl:page())"/>
+            <ixsl:set-property name="prev" select="$prev" object="$result-fragment"/>
+            <ixsl:set-property name="next" select="$next" object="$result-fragment"/>
                     </div>
+            
           <p><xsl:apply-templates mode="#current">
               <xsl:with-param tunnel="yes" name="test" select="'test2'"/>
           </xsl:apply-templates></p>
