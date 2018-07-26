@@ -65,9 +65,10 @@
             <ixsl:set-property name="next" select="$next" object="$result-fragment"/>
                     </div>
             
-          <p><xsl:apply-templates mode="#current">
-              <xsl:with-param tunnel="yes" name="test" select="'test2'"/>
-          </xsl:apply-templates></p>
+        <div class="list-group">
+            <xsl:apply-templates mode="#current"/>          
+        </div>
+        
         <xsl:comment>
             <xsl:copy-of select="."/>
         </xsl:comment>
@@ -76,7 +77,6 @@
     <xsl:template mode="basic-search" match="*" priority="2.0"></xsl:template>
     
     <xsl:template mode="basic-search" match="atom:entry" priority="3.0" expand-text="1">
-    <div class="list-group">
         <li class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{atom:title}</h5>
@@ -84,7 +84,6 @@
         </div>
         <p class="mb-1">{atom:summary}</p>
         </li>
-    </div>
         <!-- get stuff from manifest https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest
         -->
     </xsl:template>
