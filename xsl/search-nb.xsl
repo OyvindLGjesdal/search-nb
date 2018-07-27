@@ -142,8 +142,8 @@
         
         <xsl:result-document href="#{string($id)}" method="ixsl:replace-content">
             <xsl:variable name="document" select="if ($method='xml' ) 
-                then document($doc-request)/*
-                else if ($method='json-text') then json-to-xml(parse-json(unparsed-text($doc-request))) else ()"/>            
+                then document($doc-request)
+                else if ($method='json-text') then json-to-xml(parse-json(unparsed-text(string($doc-request)))) else ()"/>            
         
                 <xsl:apply-templates select="$document/*" mode="callback">
                     <xsl:with-param name="callback-name" select="$callback-name"/>
