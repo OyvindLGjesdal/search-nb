@@ -21,6 +21,8 @@
     <xsl:template name="initialTemplate">
         <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri($q)}&amp;itemsPerPage={string($itemsPerPage)}</xsl:text></xsl:variable>
         <xsl:variable name="proxied-query"><xsl:text>https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($query)}%22&amp;format=xml</xsl:text></xsl:variable>
+      <xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />
+        <xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>
         <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
     </xsl:template>
     
@@ -82,7 +84,7 @@
         <li class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{atom:title}</h5>
-            <small>{nb:namecreator} ({(nb:year,'Ikke oppgitt')}) </small>
+            <small>{nb:namecreator} ({(nb:year,'Ikke oppgitt')[1]}) </small>
         </div>
         <p class="mb-1">{atom:summary}</p>
         </li>
@@ -94,11 +96,12 @@
     <!-- async request, which defines a request, an id to update in html-page, and a callback name to handle transformation of request
          http://www.saxonica.com/saxon-js/documentation/index.html#!ixsl-extension/instructions/schedule-action
          ixsl:scheduled-action allows exactly one named template child (async-transform), which is used to update some part of the html-page-->
-    
+       
     <xsl:function name="flub:async-request">
         <xsl:param name="doc-request" as="xs:anyURI"/>
         <xsl:param name="page-id" as="xs:string"/>
-        <xsl:param name="callback-name" as="xs:string"/>        
+        <xsl:param name="callback-name" as="xs:string"/>
+        <xsl:param name="method" as="xs:string"/>
         
         <xsl:if test="$debug">
             <xsl:message select="'flub:async-request: ' || $doc-request"/>
@@ -108,24 +111,44 @@
                 <xsl:with-param name="doc-request" select="$doc-request"/>
                 <xsl:with-param name="callback-name" select="$callback-name"/>
                 <xsl:with-param name="id" select="xs:ID($page-id)"/>
+                <xsl:with-param name="method" select="$method"/>
             </xsl:call-template>            
         </ixsl:schedule-action>
-    </xsl:function>  
+        
+        
+    </xsl:function>
+    
+    <xsl:function name="flub:async-request">
+        <xsl:param name="doc-request" as="xs:anyURI"/>
+        <xsl:param name="page-id" as="xs:string"/>
+        <xsl:param name="callback-name" as="xs:string"/>        
+        
+        <xsl:if test="$debug">
+            <xsl:message select="'flub:async-request: ' || $doc-request"/>
+        </xsl:if>        
+        <xsl:sequence select="flub:async-request($doc-request,$page-id,$callback-name,'xml')"/>
+      </xsl:function>  
     
     <!-- generic named template for delegating async request (ixsl:scheduled-action)-->
     <xsl:template name="async-transform">
         <xsl:param name="doc-request" as="xs:anyURI"/>
         <xsl:param name="id" as="xs:ID"/>
         <xsl:param name="callback-name" as="xs:string"/>
+        <xsl:param name="method"/>
         <xsl:if test="not(id(string($id),ixsl:page()))">
             <xsl:message select="'id: ' || string($id) || ' not present in webpage'" terminate="yes"/>
         </xsl:if>        
         <xsl:assert test="exists(id(string($id),ixsl:page()))"/>
-        <xsl:result-document href="#{string($id)}" method="ixsl:replace-content">            
-            <xsl:apply-templates select="document($doc-request)/*" mode="callback">
-                <xsl:with-param name="callback-name" select="$callback-name"/>
-                <xsl:with-param name="id" select="$id"/>
-            </xsl:apply-templates>
+        
+        <xsl:result-document href="#{string($id)}" method="ixsl:replace-content">
+            <xsl:variable name="document" select="if ($method='xml' ) 
+                then document($doc-request)/*
+                else if ($method='json-text') then json-to-xml(parse-json(unparsed-text($doc-request))) else ()"/>            
+        
+                <xsl:apply-templates select="$document/*" mode="callback">
+                    <xsl:with-param name="callback-name" select="$callback-name"/>
+                    <xsl:with-param name="id" select="$id"/>
+                </xsl:apply-templates>
         </xsl:result-document>        
     </xsl:template>
     
@@ -137,6 +160,9 @@
                 <xsl:if test="$debug">
              <xsl:message select="concat(base-uri(),' added to cache')"/>
                 </xsl:if>
+            </xsl:when>
+            <xsl:when test="$callback-name='json-manifest'">
+                <xsl:message select="concat('hello json', self::node()/name())"/>
             </xsl:when>
             <xsl:when test="$callback-name='basic-result'">
                 <xsl:apply-templates select="self::node()//atom:feed[1]" mode="basic-search"/>
