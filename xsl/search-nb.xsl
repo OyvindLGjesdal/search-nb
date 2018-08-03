@@ -12,7 +12,6 @@
     exclude-result-prefixes="xs math atom opensearch nb"
     version="3.0" expand-text="1">
     
-    <xsl:param name="q" as="xs:string"/>
     <xsl:param name="itemsPerPage" as="xs:integer" select="20"/>
     
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
@@ -59,7 +58,7 @@
             else
             ()"/>
         <div class="container">                 
-            <span>Resultat av søket: "{$q}" {opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)-1} av {opensearch:totalResults}</span>
+            <span>Resultat av søket: {opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)-1} av {opensearch:totalResults}</span>
             <div>
                 <button name="previous-result" class="btn">
                     <xsl:if test="not($previous)">
