@@ -6,5 +6,4 @@ SaxonJS.transform({
          stylesheetLocation: "xsl/search-nb.sef",
          initialTemplate: "initialTemplate"}
 )
-console.log(query);
 
