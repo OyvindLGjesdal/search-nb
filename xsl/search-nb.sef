@@ -32,13 +32,18 @@
       <str val="button-search"/>
      </gc>
     </p.withPredicate>
-    <let role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="39" var="search-string" as="element()*" slot="0" eval="8">
-     <fn name="id">
-      <str val="search-field1"/>
-      <check card="1" diag="0|1||fn:id">
-       <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
+    <let role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom xhtml=http://www.w3.org/1999/xhtml" line="39" var="search-string" as="item()*" slot="0" eval="8">
+     <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}get" type="item()*">
+      <check card="?" diag="0|0||ixsl:get">
+       <fn name="id">
+        <str val="search-field1"/>
+        <check card="1" diag="0|1||fn:id">
+         <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
+        </check>
+       </fn>
       </check>
-     </fn>
+      <str val="value"/>
+     </ifCall>
      <sequence line="44">
       <message>
        <sequence role="select">
@@ -316,7 +321,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="153" global="#&#xA;#Fri Aug 03 22:34:11 CEST 2018&#xA;" local="#&#xA;#Fri Aug 03 22:34:11 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="153" global="#&#xA;#Fri Aug 03 22:40:51 CEST 2018&#xA;" local="#&#xA;#Fri Aug 03 22:40:51 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -798,4 +803,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ fa80fe7b?>
+<?Σ fd405824?>
