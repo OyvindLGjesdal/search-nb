@@ -54,9 +54,9 @@
             <xsl:message select="concat('next: ',$next)"/>
         </xsl:if>
         <xsl:variable name="previous" select="if (atom:link[@rel='previous']) then  flub:proxy-doc-uri(atom:link[@rel='previous']/@href) else ()"/> 
-        <xsl:sequence select="if ($next) then flub:async-request($next,'cache','cache')[2 = 1] 
+        <!--<xsl:sequence select="if ($next) then flub:async-request($next,'cache','cache')[2 = 1] 
             else
-            ()"/>
+            ()"/>-->
         <div class="container">                 
             <span>Resultat av søket: {opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)-1} av {opensearch:totalResults}</span>
             <div>
