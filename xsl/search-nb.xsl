@@ -19,11 +19,7 @@
       
     <!-- initial named template-->
     <xsl:template name="initialTemplate">
-        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri($q)}&amp;itemsPerPage={string($itemsPerPage)}</xsl:text></xsl:variable>
-        <xsl:variable name="proxied-query"><xsl:text>https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($query)}%22&amp;format=xml</xsl:text></xsl:variable>
-      <xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />
-        <xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>
-        <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
+    <xsl:message select="'initial template'"/>   
     </xsl:template>
     
     <!-- interactive actions-->
@@ -37,6 +33,20 @@
             <xsl:message select="concat('action:', $action)"/>
         </xsl:if>        
         <xsl:sequence select="flub:async-request($action,'result','basic-result')"/>
+    </xsl:template>
+    
+    <xsl:template match="button[@name='button-search']" mode="ixsl:onclick">
+        <xsl:variable name="search-string" select="id('search-field1',ixsl:page())"/>
+        
+        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;itemsPerPage={string($itemsPerPage)}</xsl:text></xsl:variable>
+        <xsl:variable name="proxied-query"><xsl:text>https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($query)}%22&amp;format=xml</xsl:text></xsl:variable>
+        <xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />
+        <xsl:message select="'button button search click',$search-string"/>
+        
+        <xsl:if test="string($search-string)">
+        <xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>
+        <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
+        </xsl:if>
     </xsl:template>
     
     <xsl:template mode="basic-search" priority="3.0" match="atom:feed" expand-text="1">
