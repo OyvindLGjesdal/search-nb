@@ -142,7 +142,8 @@
                 </xsl:if>
             </xsl:iterate>
         </xsl:variable>
-        <xsl:if test="$proxy-uri">
+        
+        <xsl:if test="not($proxy-uri)">
             <xsl:message select="$uri, ' not found in $cors-proxied-uris map.', string-join(map:keys($cors-proxied-uris),', '), 'Add a map entry to $cors-proxied-uris' " terminate="yes"/>
         </xsl:if>
         
