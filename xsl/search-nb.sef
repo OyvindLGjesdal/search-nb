@@ -271,20 +271,12 @@
        <str val="basic-result"/>
       </gc>
       <applyT line="201" mode="Q{}basic-search" flags="t" bSlot="0">
-       <docOrder role="select" intra="1">
-        <slash>
-         <slash simple="1">
-          <axis name="self" nodeTest="node()" jsTest="return SaxonJS.U.isNode(item);"/>
-          <axis name="descendant-or-self" nodeTest="node()" jsTest="return true;"/>
-         </slash>
-         <first>
-          <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
-         </first>
-        </slash>
-       </docOrder>
+       <first role="select">
+        <axis name="descendant-or-self" nodeTest="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
+       </first>
       </applyT>
       <true/>
-      <message line="205">
+      <message line="204">
        <sequence role="select">
         <str val="callback-name: "/>
         <varRef name="callback-name" slot="0"/>
@@ -357,7 +349,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="176" global="#&#xA;#Tue Aug 07 23:45:44 CEST 2018&#xA;" local="#&#xA;#Tue Aug 07 23:45:44 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="176" global="#&#xA;#Wed Aug 08 00:20:53 CEST 2018&#xA;" local="#&#xA;#Wed Aug 08 00:20:53 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -813,4 +805,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ c0a1ca5f?>
+<?Σ efb4135d?>

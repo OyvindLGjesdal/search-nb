@@ -198,11 +198,10 @@
                 <xsl:message select="concat('hello json', self::node()/name())"/>
             </xsl:when>
             <xsl:when test="$callback-name='basic-result'">
-                <xsl:apply-templates select="self::node()//atom:feed[1]" mode="basic-search"/>
-            </xsl:when>
-            
+                <xsl:apply-templates select="descendant-or-self::atom:feed[1]" mode="basic-search"/>
+            </xsl:when>            
             <xsl:otherwise>
-                <xsl:message terminate="yes" select="'callback-name: ',$callback-name, ' is not defined in mode transform-async'"></xsl:message>
+                <xsl:message terminate="yes" select="'callback-name: ',$callback-name, ' is not defined in mode transform-async'"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
