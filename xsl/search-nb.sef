@@ -5,7 +5,7 @@
    <int val="20"/>
   </globalParam>
  </co>
- <co id="1" binds="2 2">
+ <co id="1" binds="2 2 2">
   <function name="Q{http://data.ub.uib.no/ns/function-library}cors-uri" line="137" module="search-nb.xsl" eval="7" flags="pU" as="xs:anyURI" slots="2">
    <arg name="uri" as="xs:string"/>
    <let role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="139" var="proxy-uri" as="document-node()" slot="1" eval="7">
@@ -59,9 +59,12 @@
         </choose>
         <cast line="151" as="xs:anyURI" emptiable="0">
          <fn name="concat">
-          <data>
-           <varRef name="proxy-uri" slot="1"/>
-          </data>
+          <ifCall name="Q{http://www.w3.org/2005/xpath-functions/map}get" type="item()*">
+           <gVarRef name="Q{}cors-proxied-uris" bSlot="2"/>
+           <data>
+            <varRef name="proxy-uri" slot="1"/>
+           </data>
+          </ifCall>
           <fn name="substring-after">
            <varRef name="uri" slot="0"/>
            <cvUntyped to="xs:string">
@@ -359,7 +362,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="177" global="#&#xA;#Tue Aug 07 22:13:21 CEST 2018&#xA;" local="#&#xA;#Tue Aug 07 22:13:21 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="177" global="#&#xA;#Tue Aug 07 22:17:50 CEST 2018&#xA;" local="#&#xA;#Tue Aug 07 22:17:50 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -815,4 +818,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ ec976d6?>
+<?Σ 752c1afc?>
