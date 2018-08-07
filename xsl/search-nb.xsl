@@ -148,7 +148,7 @@
             <xsl:message select="$uri, ' not found in $cors-proxied-uris map.', string-join(map:keys($cors-proxied-uris),', '), 'Add a map entry to $cors-proxied-uris' " terminate="yes"/>
         </xsl:if>
         
-        <xsl:sequence select="xs:anyURI(concat($proxy-uri,substring-after($uri,$proxy-uri)))"/>
+        <xsl:sequence select="xs:anyURI(concat(map:get($cors-proxied-uris,$proxy-uri),substring-after($uri,$proxy-uri)))"/>
         
     </xsl:function>
     
