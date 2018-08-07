@@ -20,7 +20,7 @@
     
     <xsl:variable name="cors-proxied-uris" as="map(xs:string,xs:string)">
         <xsl:map>
-            <xsl:map-entry key="'https://www.nb.no/services/search/'" select="'http://158.39.77.227/nb-search/'"/>
+            <xsl:map-entry key="'https://www.nb.no/services/search/'" select="'https://158.39.77.227/nb-search/'"/>
         </xsl:map>
     </xsl:variable>
  
@@ -144,7 +144,7 @@
         </xsl:variable>
         
         <xsl:if test="not($proxy-uri)">
-            <xsl:message select="$uri, ' not found in $cors-proxied-uris map.', string-join(map:keys($cors-proxied-uris),', '), 'Add a map entry to $cors-proxied-uris' " terminate="yes"/>
+            <xsl:message select="$uri, ' not f ound in $cors-proxied-uris map.', string-join(map:keys($cors-proxied-uris),', '), 'Add a map entry to $cors-proxied-uris' " terminate="yes"/>
         </xsl:if>
         
         <xsl:sequence select="xs:anyURI(concat(map:get($cors-proxied-uris,$proxy-uri),substring-after($uri,$proxy-uri)))"/>
