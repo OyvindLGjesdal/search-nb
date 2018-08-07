@@ -12,7 +12,7 @@
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     exclude-result-prefixes="xs math atom opensearch nb"
     version="3.0" expand-text="1">
-    
+    <!-- default values-->
     <xsl:param name="itemsPerPage" as="xs:integer" select="20"/>
     
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
@@ -20,7 +20,7 @@
     
     <xsl:variable name="cors-proxied-uris" as="map(xs:string,xs:string)">
         <xsl:map>
-            <xsl:map-entry key="'http://www.nb.no/services/search/'" select="'http://158.39.77.227/nb-search/'"/>
+            <xsl:map-entry key="'https://www.nb.no/services/search/'" select="'http://158.39.77.227/nb-search/'"/>
         </xsl:map>
     </xsl:variable>
  
