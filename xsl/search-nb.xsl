@@ -43,7 +43,7 @@
         <xsl:message select="'button button search click',$search-string"/>
         
         <xsl:if test="string($search-string)">
-        <xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>
+       <!--<xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>-->
         <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
         </xsl:if>
     </xsl:template>
