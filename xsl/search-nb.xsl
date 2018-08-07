@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:map="http://www.w3.org/2005/xpath-functions/map"
     xmlns:ixsl="http://saxonica.com/ns/interactiveXSLT"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     xmlns:saxon="http://saxon.sf.net/"
@@ -16,6 +17,15 @@
     
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
       
+    <!-- proxied-uris ,http://www.nb.no/services/search/-->
+    <xsl:variable name="search-api" select="'http://158.39.77.227/nb-search/'"/>
+    
+    <xsl:variable name="cors-proxied-uris" as="map(xs:string,xs:string)">
+        <xsl:map>
+            <xsl:map-entry key="'http://www.nb.no/services/search/'" select="'http://158.39.77.227/nb-search/'"/>
+        </xsl:map>
+    </xsl:variable>
+ 
     <!-- initial named template-->
     <xsl:template name="initialTemplate">
     <xsl:message select="'initial template'"/>   
@@ -38,25 +48,23 @@
         <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>
         
         <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;itemsPerPage={string($itemsPerPage)}</xsl:text></xsl:variable>
-        <xsl:variable name="proxied-query"><xsl:text>https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22{encode-for-uri($query)}%22&amp;format=xml</xsl:text></xsl:variable>
-        <xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />
+        
+        <!--<xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />-->
         <xsl:message select="'button button search click',$search-string"/>
         
         <xsl:if test="string($search-string)">
        <!--<xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>-->
-        <xsl:sequence select="flub:async-request($proxied-query,'result','basic-result')"/>    
+        <xsl:sequence select="flub:async-request(xs:anyURI($query),'result','basic-result')"/>    
         </xsl:if>
     </xsl:template>
     
     <xsl:template mode="basic-search" priority="3.0" match="atom:feed" expand-text="1">
-        <xsl:variable name="next" select="if (atom:link[@rel='next']) then flub:proxy-doc-uri(atom:link[@rel='next']/@href) else ()"/>
+        <xsl:variable name="next" select="if (atom:link[@rel='next']) then  flub:cors-uri(atom:link[@rel='next']/@href) else ()"/>
         <xsl:if test="$debug">
             <xsl:message select="concat('next: ',$next)"/>
         </xsl:if>
-        <xsl:variable name="previous" select="if (atom:link[@rel='previous']) then  flub:proxy-doc-uri(atom:link[@rel='previous']/@href) else ()"/> 
-        <!--<xsl:sequence select="if ($next) then flub:async-request($next,'cache','cache')[2 = 1] 
-            else
-            ()"/>-->
+        <xsl:variable name="previous" select="if (atom:link[@rel='previous']) then  flub:cors-uri(atom:link[@rel='previous']/@href) else ()"/> 
+       
         <div class="container">                 
             <span>Resultat av søket: {opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)-1} av {opensearch:totalResults}</span>
             <div>
@@ -122,8 +130,25 @@
                 <xsl:with-param name="id" select="xs:ID($page-id)"/>
                 <xsl:with-param name="method" select="$method"/>
             </xsl:call-template>            
-        </ixsl:schedule-action>
+        </ixsl:schedule-action>        
+    </xsl:function>
+    
+    
+    <xsl:function name="flub:cors-uri" as="xs:anyURI">
+        <xsl:param name="uri" as="xs:string"/>
+        <xsl:variable name="proxy-uri">
+            <xsl:iterate select="map:keys($cors-proxied-uris)">
+                <xsl:if test="starts-with($uri,.)">
+                    <xsl:sequence select="."/>
+                    <xsl:break/>
+                </xsl:if>
+            </xsl:iterate>
+        </xsl:variable>
+        <xsl:if test="$proxy-uri">
+            <xsl:message select="$uri, ' not found in $cors-proxied-uris map.', string-join(map:keys($cors-proxied-uris),', '), 'Add a map entry to $cors-proxied-uris' " terminate="yes"/>
+        </xsl:if>
         
+        <xsl:sequence select="xs:anyURI(concat($proxy-uri,substring-after($uri,$proxy-uri)))"/>
         
     </xsl:function>
     
@@ -183,11 +208,5 @@
         </xsl:choose>
     </xsl:template>
     
-    <!-- takes a uri and adds a proxy to allow cors-->
-    <xsl:function name="flub:proxy-doc-uri" as="xs:anyURI*">
-        <xsl:param name="doc-uri" as="xs:string+"/>
-        <xsl:for-each select="$doc-uri">
-            <xsl:sequence select="xs:anyURI(concat('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%22',encode-for-uri(.),'%22&amp;format=xml'))"/>
-        </xsl:for-each>
-    </xsl:function>
+    
 </xsl:stylesheet>
