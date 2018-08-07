@@ -43,7 +43,7 @@
           <message>
            <sequence role="select">
             <varRef name="uri" slot="0"/>
-            <str val=" not found in $cors-proxied-uris map."/>
+            <str val=" not f ound in $cors-proxied-uris map."/>
             <fn name="string-join">
              <ifCall name="Q{http://www.w3.org/2005/xpath-functions/map}keys" type="xs:anyAtomicType*">
               <gVarRef name="Q{}cors-proxied-uris" bSlot="1"/>
@@ -215,7 +215,7 @@
   <globalVariable name="Q{}cors-proxied-uris" type="map(xs:string, xs:string)" line="21" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="if (typeof val == 'object') {return val;} else {throw SaxonJS.XError('Cannot convert supplied JS value to a map or array');}" jsCardCheck="function c(n) {return n==1;};">
    <map size="1">
     <str val="https://www.nb.no/services/search/"/>
-    <str val="http://158.39.77.227/nb-search/"/>
+    <str val="https://158.39.77.227/nb-search/"/>
    </map>
   </globalVariable>
  </co>
@@ -357,7 +357,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="176" global="#&#xA;#Tue Aug 07 22:28:50 CEST 2018&#xA;" local="#&#xA;#Tue Aug 07 22:28:50 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="176" global="#&#xA;#Tue Aug 07 23:45:44 CEST 2018&#xA;" local="#&#xA;#Tue Aug 07 23:45:44 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -813,4 +813,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 98a79a5f?>
+<?Σ c0a1ca5f?>
