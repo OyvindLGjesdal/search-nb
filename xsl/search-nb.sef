@@ -162,7 +162,7 @@
              </convert>
              <str val=" "/>
             </fn>
-            <str val="&amp;fq=digital:"/>
+            <str val="&amp;fq=digital="/>
             <fn name="string-join">
              <convert from="xs:anyAtomicType" to="xs:string">
               <data>
@@ -388,7 +388,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="179" global="#&#xA;#Thu Aug 09 23:23:10 CEST 2018&#xA;" local="#&#xA;#Thu Aug 09 23:23:10 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="179" global="#&#xA;#Thu Aug 09 23:30:12 CEST 2018&#xA;" local="#&#xA;#Thu Aug 09 23:30:12 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -844,4 +844,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 52439558?>
+<?Σ 52424557?>
