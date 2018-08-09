@@ -8,20 +8,31 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"></link>
     </head>
     <body>
-        <div class="container">
-        <h1>Client for NB search API</h1>
-        
-        
-            <div class="form-group">
-            <label for="search-field1"></label>
-            <input type="search" class="form-control" id="search-field1" placeholder="Search"/>
+        <header>
+        <nav class="navbar navbar-dark bg-primary">
+            <span class="navbar-brand">søk Nasjonalbiblioteket</span>
+        </nav>
+        </header>
+        <div class="container-fluid">
+            <div class="col-12 col-md-3 col-xl-2 bd-sidebar" id="facets">
+            
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" name="button-search">search</button>
+            <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+            <div class="container">
+                <div class="form-group">
+                    <label for="search-field1"></label>
+                    <input type="search" class="form-control" id="search-field1"
+                        placeholder="Search" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" name="button-search"
+                        >search</button>
+                </div>
+
+                <div id="result"></div>
+                <div id="cache"></div>
             </div>
-        
-        <div id="result"></div>
-        <div id="cache"></div>
+            </main>
         </div>
         <script src="Saxon-JS/SaxonJS.min.js"></script>
         <script src="search-nb.js"></script>

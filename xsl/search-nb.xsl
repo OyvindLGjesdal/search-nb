@@ -14,9 +14,11 @@
     version="3.0" expand-text="1">
     <!-- default values-->
     <xsl:param name="itemsPerPage" as="xs:integer" select="20"/>
-    
+    <xsl:param name="mediatype" select="'bøker'"/>
+    <xsl:param name="digitized" select="'True'"/>
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
-      
+    
+    
     
     <xsl:variable name="cors-proxied-uris" as="map(xs:string,xs:string)">
         <xsl:map>
@@ -46,7 +48,7 @@
     <xsl:template match="button[@name='button-search']" mode="ixsl:onclick">
         <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>
         
-        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;itemsPerPage={string($itemsPerPage)}</xsl:text></xsl:variable>
+        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;itemsPerPage={string($itemsPerPage)}&amp;fq=mediatype:{$mediatype}&amp;fq=digital:{$digitized}</xsl:text></xsl:variable>
         
         <!--<xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />-->
         <xsl:message select="'button button search click',$search-string"/>
