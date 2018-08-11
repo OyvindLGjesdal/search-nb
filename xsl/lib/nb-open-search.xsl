@@ -24,7 +24,7 @@
             else $paramname || '='"/> 
     </xsl:function>
     
-    <xsl:function name="flub:property-helper" as="xs:string?" visibility="public">
+    <xsl:function name="flub:param-helper" as="xs:string?" visibility="private">
         <xsl:param name="object"/>        
         <xsl:param name="name" as="xs:string"/>
         <xsl:variable name="value" as="xs:string?" select="string(ixsl:get($object,$name))"/>

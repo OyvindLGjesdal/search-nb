@@ -54,6 +54,7 @@
     <xsl:template match="button[@name='button-search']" mode="ixsl:onclick">
         <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
         <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;{flub:get-params()}</xsl:text></xsl:variable>
+        <xsl:variable name="facet-query" select="xs:anyURI(replace($query,'(itemsPerPage=)[0-9]+','1') || '&amp;facet=all')"/>
         
         <!--<xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />-->
         <xsl:message select="'button button search click',$search-string"/>
@@ -61,6 +62,7 @@
         <xsl:if test="string($search-string)">
        <!--<xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>-->
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($query)),'result','basic-result')"/>    
+        <xsl:sequence select="flub:async-request($facet-query,'facets','facet')"/>
         </xsl:if>
     </xsl:template>
     
@@ -72,7 +74,6 @@
             <xsl:message select="concat('next: ',$next)"/>
         </xsl:if>
         <xsl:variable name="previous" select="if (atom:link[@rel='previous']) then  flub:cors-uri(atom:link[@rel='previous']/@href) else ()"/> 
-       
         <div class="container">                 
             <span>Resultat av søket: {opensearch:startIndex} til {xs:integer(opensearch:startIndex) + xs:integer(opensearch:itemsPerPage)-1} av {opensearch:totalResults}</span>
             <div>
@@ -112,12 +113,21 @@
         -->
     </xsl:template>
     
+    <!-- begin facet-->
+    
+    <xsl:template match="atom:feed" mode="facet">
+        <xsl:message select="'hello facet'"/>
+    </xsl:template>
+    
     <!-- match for adding new modes to async doc request-->
     <xsl:template match="*" mode="callback">
         <xsl:param name="callback-name"/>
         <xsl:choose>         
             <xsl:when test="$callback-name='json-manifest'">
                 <xsl:message select="concat('hello json', self::node()/name())"/>
+            </xsl:when>
+            <xsl:when test="$callback-name='facet'">
+                <xsl:apply-templates select="descendant-or-self::atom:feed[1]" mode="facet"/>
             </xsl:when>
             <xsl:when test="$callback-name='basic-result'">
                 <xsl:apply-templates select="descendant-or-self::atom:feed[1]" mode="basic-search"/>
@@ -130,9 +140,9 @@
     
     <xsl:function name="flub:get-params" as="xs:string?">
         <xsl:variable name="main-object" select="id('main',ixsl:page())"/>
-        <xsl:variable name="itemsPerPage" as="xs:string?" select="flub:property-helper($main-object,'itemsPerPage')"/>
-        <xsl:variable name="mediatype" as="xs:string?" select="flub:property-helper($main-object,'mediatype')"/>
-        <xsl:variable name="digitized" as="xs:string?" select="flub:property-helper($main-object,'digital')"/>
+        <xsl:variable name="itemsPerPage" as="xs:string?" select="flub:param-helper($main-object,'itemsPerPage')"/>
+        <xsl:variable name="mediatype" as="xs:string?" select="flub:param-helper($main-object,'mediatype')"/>
+        <xsl:variable name="digitized" as="xs:string?" select="flub:param-helper($main-object,'digital')"/>
         <xsl:value-of select="string-join(($itemsPerPage,$mediatype,$digitized),'&amp;')"
         />
     </xsl:function>    
