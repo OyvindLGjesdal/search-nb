@@ -33,4 +33,13 @@
             else ()"/>
     </xsl:function>
     
+    <xsl:function name="flub:facet-query" as="xs:anyURI">
+        <xsl:param name="query" as="xs:string"/>
+        <xsl:sequence select="xs:anyURI(
+            replace(
+            replace($query,'itemsPerPage=[0-9]+','itemsPerPage=1')
+            ,'&amp;facet=all','')
+            || '&amp;facet=all')"/>
+    </xsl:function>
+    
 </xsl:stylesheet>

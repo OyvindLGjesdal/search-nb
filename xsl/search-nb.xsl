@@ -14,8 +14,9 @@
     version="3.0" expand-text="1">
     <!-- default values-->
     <xsl:param name="itemsPerPage" as="xs:integer" select="20"/>
-    <xsl:param name="mediatype" select="'bøker'"/>
-    <xsl:param name="digitized" select="'True'"/>
+    <xsl:param name="mediatype" select="'bøker'" as="xs:string"/>
+    <xsl:param name="digitized" select="'True'" as="xs:string"/>
+    <xsl:param name="ignore-facets" select="'ddc1','ddc2', 'ddc3','day','month','dra_base'"/>
     
     <xsl:import href="lib/saxon-js-utils.xsl"/>
     <xsl:include href="lib/nb-open-search.xsl"/>
@@ -54,7 +55,7 @@
     <xsl:template match="button[@name='button-search']" mode="ixsl:onclick">
         <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
         <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;{flub:get-params()}</xsl:text></xsl:variable>
-        <xsl:variable name="facet-query" select="xs:anyURI(replace($query,'(itemsPerPage=)[0-9]+','1') || '&amp;facet=all')"/>
+        
         
         <!--<xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />-->
         <xsl:message select="'button button search click',$search-string"/>
@@ -62,7 +63,7 @@
         <xsl:if test="string($search-string)">
        <!--<xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>-->
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($query)),'result','basic-result')"/>    
-        <xsl:sequence select="flub:async-request($facet-query,'facets','facet')"/>
+        <xsl:sequence select="flub:async-request(flub:facet-query($query),'facets','facet')"/>
         </xsl:if>
     </xsl:template>
     
@@ -117,8 +118,26 @@
     
     <xsl:template match="atom:feed" mode="facet">
         <xsl:message select="'hello facet'"/>
+        <xsl:apply-templates mode="facet"/>
+    </xsl:template>    
+    
+    <xsl:template match="nb:facet[nb:name=$ignore-facets]" mode="facet" priority="4.0"/>
+    
+    <xsl:template match="nb:facet" mode="facet">
+        <div class="ui" id="facet_{nb:name}">
+            <h3><xsl:value-of select="nb:name"/></h3>
+        </div>
+        <div class="list-group">
+            <xsl:apply-templates mode="facet"/>
+        </div>
     </xsl:template>
     
+    <xsl:template match="nb:value" mode="facet">
+        <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
+            <xsl:value-of select="."/>
+            <span class="badge badge-primary badge-pill">{@nb:count}</span>
+        </a>
+    </xsl:template>
     <!-- match for adding new modes to async doc request-->
     <xsl:template match="*" mode="callback">
         <xsl:param name="callback-name"/>
