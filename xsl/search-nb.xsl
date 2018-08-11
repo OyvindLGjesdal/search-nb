@@ -36,8 +36,7 @@
         <!-- insert default (@todo local_storage?) values for query-->
         <ixsl:set-property name="itemsPerPage" select="$itemsPerPage" object="$main"/>
         <ixsl:set-property name="mediatype" select="$mediatype" object="$main"/>
-        <ixsl:set-property name="digital" select="$digitized" object="$main"/>
-        
+        <ixsl:set-property name="digital" select="$digitized" object="$main"/>  
         <ixsl:set-property name="numPerFacet" select="8" object="$facets"/>
         
         </xsl:template>
@@ -58,7 +57,9 @@
     <xsl:template match="a[starts-with(@id,'facet_result_')]" mode="ixsl:onclick">
          <xsl:variable name="query" select="ixsl:get(id('result',ixsl:page()),'query')"/>
         <xsl:variable name="facet-string" select="tokenize(@id,'_')[3]"/> 
-        <xsl:variable name="new-query" select="concat($query, '&amp;fq=',$facet-string,':',span[@class='facet-value'])"/>
+        <xsl:variable name="new-query">
+            <xsl:text>{$query}&amp;fq={$facet-string}:"{span[@class='facet-value']}"</xsl:text>
+        </xsl:variable>
         
         <xsl:sequence select="flub:async-request(xs:anyURI($new-query),'result','basic-search')"/>
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:facet-query($new-query)),'facets','facet')"/>
