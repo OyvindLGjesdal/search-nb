@@ -18,6 +18,7 @@
     <xsl:param name="digitized" select="'True'"/>
     
     <xsl:import href="lib/saxon-js-utils.xsl"/>
+    <xsl:include href="lib/nb-open-search.xsl"/>
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
     <xsl:variable name="cors-proxied-uris" as="map(xs:string,xs:string)">
         <xsl:map>
@@ -28,8 +29,14 @@
  
     <!-- initial named template-->
     <xsl:template name="initialTemplate">
-    <xsl:message select="'initial template'"/>   
-    </xsl:template>
+    <xsl:message select="'initial template'"/>
+        <xsl:variable name="main" select="id('main',ixsl:page())"/>
+        <!-- insert default (@todo local_storage?) values for query-->
+        <ixsl:set-property name="itemsPerPage" select="$itemsPerPage" object="$main"/>
+        <ixsl:set-property name="mediatype" select="$mediatype" object="$main"/>
+        <ixsl:set-property name="digital" select="$digitized" object="$main"/>
+        
+        </xsl:template>
     
     <!-- interactive actions-->
     <xsl:template mode="ixsl:onclick" match="button[(@name='next-result' or @name='previous-result')
@@ -46,7 +53,7 @@
     
     <xsl:template match="button[@name='button-search']" mode="ixsl:onclick">
         <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
-        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;itemsPerPage={string($itemsPerPage)}&amp;fq=mediatype:{$mediatype}&amp;fq=digital={$digitized}</xsl:text></xsl:variable>
+        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;{flub:get-params()}</xsl:text></xsl:variable>
         
         <!--<xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />-->
         <xsl:message select="'button button search click',$search-string"/>
@@ -57,6 +64,8 @@
         </xsl:if>
     </xsl:template>
     
+    <!-- adding modes to update on action-->
+    <!-- basic search -->
     <xsl:template mode="basic-search" priority="3.0" match="atom:feed" expand-text="1">
         <xsl:variable name="next" select="if (atom:link[@rel='next']) then  flub:cors-uri(atom:link[@rel='next']/@href) else ()"/>
         <xsl:if test="$debug">
@@ -83,18 +92,13 @@
         <xsl:variable name="result-fragment" select="id('result',ixsl:page())"/>
             <ixsl:set-property name="previous" select="$previous" object="$result-fragment"/>
             <ixsl:set-property name="next" select="$next" object="$result-fragment"/>
-        </div>
-            
+        </div>            
         <div class="list-group" id="basic-search-result">
             <xsl:apply-templates mode="#current"/>          
         </div>
-        
-        <xsl:comment>
-            <xsl:copy-of select="."/>
-        </xsl:comment>
     </xsl:template>
     
-    <xsl:template mode="basic-search" match="*" priority="2.0"></xsl:template>
+    <xsl:template mode="basic-search" match="*" priority="2.0"/>
     
     <xsl:template mode="basic-search" match="atom:entry" priority="3.0" expand-text="1">
         <li class="list-group-item list-group-item-action flex-column align-items-start">
@@ -111,12 +115,7 @@
     <!-- match for adding new modes to async doc request-->
     <xsl:template match="*" mode="callback">
         <xsl:param name="callback-name"/>
-        <xsl:choose>
-            <xsl:when test="$callback-name='cache'">
-                <xsl:if test="$debug">
-             <xsl:message select="concat(base-uri(),' added to cache')"/>
-                </xsl:if>
-            </xsl:when>
+        <xsl:choose>         
             <xsl:when test="$callback-name='json-manifest'">
                 <xsl:message select="concat('hello json', self::node()/name())"/>
             </xsl:when>
@@ -129,5 +128,12 @@
         </xsl:choose>
     </xsl:template>
     
-    
+    <xsl:function name="flub:get-params" as="xs:string?">
+        <xsl:variable name="main-object" select="id('main',ixsl:page())"/>
+        <xsl:variable name="itemsPerPage" as="xs:string?" select="flub:property-helper($main-object,'itemsPerPage')"/>
+        <xsl:variable name="mediatype" as="xs:string?" select="flub:property-helper($main-object,'mediatype')"/>
+        <xsl:variable name="digitized" as="xs:string?" select="flub:property-helper($main-object,'digital')"/>
+        <xsl:value-of select="string-join(($itemsPerPage,$mediatype,$digitized),'&amp;')"
+        />
+    </xsl:function>    
 </xsl:stylesheet>

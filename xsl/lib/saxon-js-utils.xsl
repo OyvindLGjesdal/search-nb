@@ -52,6 +52,7 @@
         <xsl:sequence select="flub:async-request($doc-request,$page-id,$callback-name,'xml')"/>
     </xsl:function>  
     
+    <!-- translating cors uri by looking up an uri, and checking for existence -->
     <xsl:function name="flub:cors-uri" as="xs:anyURI">
         <xsl:param name="uri" as="xs:string"/>
         <xsl:variable name="proxy-uri">
