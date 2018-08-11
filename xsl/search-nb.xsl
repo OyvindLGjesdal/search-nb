@@ -25,6 +25,7 @@
         <xsl:map>
             <xsl:map-entry key="'https://www.nb.no/services/search/'" select="'https://158.39.77.227/nb-search/'"/>
             <xsl:map-entry key="'http://www.nb.no/services/search/'" select="'https://www.nb.no/services/search/'"/>
+            <xsl:map-entry key="'https://158.39.77.227/'" select="'https://158.39.77.227/'"/>
         </xsl:map>
     </xsl:variable>
  
