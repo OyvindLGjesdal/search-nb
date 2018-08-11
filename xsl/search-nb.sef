@@ -91,25 +91,19 @@
   <function name="Q{http://data.ub.uib.no/ns/function-library}property-helper" line="27" module="nb-open-search.xsl" eval="7" flags="pU" as="xs:string?" slots="3">
    <arg name="object" as="item()*"/>
    <arg name="name" as="xs:string"/>
-   <let role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="30" var="value" as="xs:string?" slot="2" eval="7">
-    <treat as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="3|0|XTTE0570|value">
-     <check card="?" diag="3|0|XTTE0570|value">
-      <cvUntyped to="xs:string">
-       <data>
-        <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}get" type="item()*">
-         <check card="?" diag="0|0||ixsl:get">
-          <varRef name="object" slot="0"/>
-         </check>
-         <varRef name="name" slot="1"/>
-        </ifCall>
-       </data>
-      </cvUntyped>
+   <let role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="30" var="value" as="xs:string" slot="2" eval="8">
+    <fn name="string">
+     <check card="?" diag="0|0||fn:string">
+      <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}get" type="item()*">
+       <check card="?" diag="0|0||ixsl:get">
+        <varRef name="object" slot="0"/>
+       </check>
+       <varRef name="name" slot="1"/>
+      </ifCall>
      </check>
-    </treat>
+    </fn>
     <choose line="33">
-     <fn name="string">
-      <varRef name="value" slot="2"/>
-     </fn>
+     <varRef name="value" slot="2"/>
      <fn name="concat">
       <ufCall name="Q{http://data.ub.uib.no/ns/function-library}get-opensearch-param-prefix" tailCall="false" bSlot="0" eval="6">
        <varRef name="name" slot="1"/>
@@ -525,7 +519,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Sat Aug 11 12:18:22 CEST 2018&#xA;" local="#&#xA;#Sat Aug 11 12:18:22 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Sat Aug 11 12:21:41 CEST 2018&#xA;" local="#&#xA;#Sat Aug 11 12:21:41 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -958,4 +952,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 450422ef?>
+<?Σ 63379fc1?>

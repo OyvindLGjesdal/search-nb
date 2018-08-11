@@ -27,7 +27,7 @@
     <xsl:function name="flub:property-helper" as="xs:string?" visibility="public">
         <xsl:param name="object"/>        
         <xsl:param name="name" as="xs:string"/>
-        <xsl:variable name="value" as="xs:string?" select="ixsl:get($object,$name)"/>
+        <xsl:variable name="value" as="xs:string?" select="string(ixsl:get($object,$name))"/>
         <xsl:sequence select="if (string($value)) 
             then flub:get-opensearch-param-prefix($name) || $value
             else ()"/>
