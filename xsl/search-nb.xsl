@@ -61,7 +61,7 @@
             <xsl:text>{$query}&amp;fq={$facet-string}:"{span[@class='facet-value']}"</xsl:text>
         </xsl:variable>
         
-        <xsl:sequence select="flub:async-request(xs:anyURI($new-query),'result','basic-search')"/>
+        <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($new-query)),'result','basic-result')"/>
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:facet-query($new-query)),'facets','facet')"/>
 
     </xsl:template>

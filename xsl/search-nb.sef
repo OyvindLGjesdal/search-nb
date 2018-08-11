@@ -360,7 +360,7 @@
    </literal>
   </globalParam>
  </co>
- <co id="11" binds="12 13 3 13 13 13 13">
+ <co id="11" binds="12 13 3 13 13 13 3 13">
   <mode name="Q{http://saxonica.com/ns/interactiveXSLT}onclick" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="1" prio="0.5" seq="2" rank="0" minImp="0" slots="3" flags="s" line="69" module="search-nb.xsl">
     <p.withPredicate role="match">
@@ -588,13 +588,15 @@
       </cast>
       <sequence line="64">
        <ufCall name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="5" eval="7 0 0">
-        <cast as="xs:anyURI" emptiable="0">
-         <varRef name="new-query" slot="1"/>
-        </cast>
+        <ufCall name="Q{http://data.ub.uib.no/ns/function-library}cors-uri" tailCall="false" bSlot="6" eval="8">
+         <cvUntyped to="xs:string">
+          <varRef name="new-query" slot="1"/>
+         </cvUntyped>
+        </ufCall>
         <str val="result"/>
-        <str val="basic-search"/>
+        <str val="basic-result"/>
        </ufCall>
-       <ufCall line="65" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="6" eval="7 0 0">
+       <ufCall line="65" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="7" eval="7 0 0">
         <cast ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" module="nb-open-search.xsl" line="42" as="xs:anyURI" emptiable="0">
          <fn name="concat">
           <fn name="replace">
@@ -870,7 +872,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Sat Aug 11 15:26:15 CEST 2018&#xA;" local="#&#xA;#Sat Aug 11 15:26:15 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Sat Aug 11 15:33:58 CEST 2018&#xA;" local="#&#xA;#Sat Aug 11 15:33:58 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1331,4 +1333,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 832185f1?>
+<?Σ 933a3451?>
