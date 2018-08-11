@@ -59,7 +59,7 @@
          <xsl:variable name="query" select="ixsl:get(id('result',ixsl:page()),'query')"/>
         <xsl:variable name="facet-string" select="tokenize(@id,'_')[3]"/> 
         <xsl:variable name="new-query">
-            <xsl:text>{$query}&amp;fq={$facet-string}:{encode-for-uri(span[@class='facet-value'])}</xsl:text>
+            <xsl:text>{$query}&amp;fq={$facet-string}:{encode-for-uri(concat('&quot;',span[@class='facet-value'],'&quot;'))}</xsl:text>
         </xsl:variable>
         
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($new-query)),'result','basic-result')"/>
