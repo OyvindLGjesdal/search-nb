@@ -568,22 +568,22 @@
           <int val="3"/>
          </subscript>
         </fn>
-        <str val=":&#34;"/>
-        <fn name="string-join">
-         <convert from="xs:untypedAtomic" to="xs:string">
-          <data>
-           <filter flags="b">
-            <axis name="child" nodeTest="element(Q{}span)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri===''&amp;&amp;q.local==='span';"/>
-            <gc op="=" card="1:1" comp="CCC">
-             <attVal name="Q{}class" chk="0"/>
-             <str val="facet-value"/>
-            </gc>
-           </filter>
-          </data>
-         </convert>
-         <str val=" "/>
+        <str val=":"/>
+        <fn name="encode-for-uri">
+         <check card="?" diag="0|0||fn:encode-for-uri">
+          <cvUntyped to="xs:string">
+           <data>
+            <filter flags="b">
+             <axis name="child" nodeTest="element(Q{}span)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri===''&amp;&amp;q.local==='span';"/>
+             <gc op="=" card="1:1" comp="CCC">
+              <attVal name="Q{}class" chk="0"/>
+              <str val="facet-value"/>
+             </gc>
+            </filter>
+           </data>
+          </cvUntyped>
+         </check>
         </fn>
-        <str val="&#34;"/>
        </fn>
       </cast>
       <sequence line="65">
@@ -874,7 +874,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Sat Aug 11 15:38:53 CEST 2018&#xA;" local="#&#xA;#Sat Aug 11 15:38:53 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Sat Aug 11 15:44:23 CEST 2018&#xA;" local="#&#xA;#Sat Aug 11 15:44:23 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1335,4 +1335,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 39b5ef54?>
+<?Σ 7e4ec498?>
