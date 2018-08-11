@@ -126,7 +126,7 @@
     
     <xsl:template match="nb:facet[nb:name=$ignore-facets] | text()" mode="facet" priority="4.0"/>
     
-    <xsl:template match="nb:facet" mode="facet">
+    <xsl:template match="nb:facet[nb:values/nb:value]" mode="facet">
         <div class="ui" id="facet_{nb:name}">
             <h3><xsl:value-of select="nb:name"/></h3>
         </div>
