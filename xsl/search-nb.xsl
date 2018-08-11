@@ -16,10 +16,9 @@
     <xsl:param name="itemsPerPage" as="xs:integer" select="20"/>
     <xsl:param name="mediatype" select="'bøker'"/>
     <xsl:param name="digitized" select="'True'"/>
+    
+    <xsl:import href="lib/saxon-js-utils.xsl"/>
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
-    
-    
-    
     <xsl:variable name="cors-proxied-uris" as="map(xs:string,xs:string)">
         <xsl:map>
             <xsl:map-entry key="'https://www.nb.no/services/search/'" select="'https://158.39.77.227/nb-search/'"/>
@@ -42,12 +41,11 @@
         <xsl:if test="$debug">
             <xsl:message select="concat('action:', $action)"/>
         </xsl:if>        
-        <xsl:sequence select="flub:async-request($action,'result','basic-result')"/>
+        <xsl:sequence select="flub:async-request($action,'result','basic-result')"/>        
     </xsl:template>
     
     <xsl:template match="button[@name='button-search']" mode="ixsl:onclick">
-        <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>
-        
+        <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
         <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;itemsPerPage={string($itemsPerPage)}&amp;fq=mediatype:{$mediatype}&amp;fq=digital={$digitized}</xsl:text></xsl:variable>
         
         <!--<xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />-->
@@ -108,84 +106,6 @@
         </li>
         <!-- get stuff from manifest https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest
         -->
-    </xsl:template>
-    
-    <!-- functions-->
-    <!-- async request, which defines a request, an id to update in html-page, and a callback name to handle transformation of request
-         http://www.saxonica.com/saxon-js/documentation/index.html#!ixsl-extension/instructions/schedule-action
-         ixsl:scheduled-action allows exactly one named template child (async-transform), which is used to update some part of the html-page-->
-       
-    <xsl:function name="flub:async-request">
-        <xsl:param name="doc-request" as="xs:anyURI"/>
-        <xsl:param name="page-id" as="xs:string"/>
-        <xsl:param name="callback-name" as="xs:string"/>
-        <xsl:param name="method" as="xs:string"/>
-        
-        <xsl:if test="$debug">
-            <xsl:message select="'flub:async-request: ' || $doc-request"/>
-        </xsl:if>
-        <ixsl:schedule-action document="{$doc-request}">
-            <xsl:call-template name="async-transform"  >
-                <xsl:with-param name="doc-request" select="$doc-request"/>
-                <xsl:with-param name="callback-name" select="$callback-name"/>
-                <xsl:with-param name="id" select="xs:ID($page-id)"/>
-                <xsl:with-param name="method" select="$method"/>
-            </xsl:call-template>            
-        </ixsl:schedule-action>        
-    </xsl:function>
-    
-    
-    <xsl:function name="flub:cors-uri" as="xs:anyURI">
-        <xsl:param name="uri" as="xs:string"/>
-        <xsl:variable name="proxy-uri">
-            <xsl:iterate select="map:keys($cors-proxied-uris)">
-                <xsl:if test="starts-with($uri,.)">
-                    <xsl:sequence select="."/>
-                    <xsl:break/>
-                </xsl:if>
-            </xsl:iterate>
-        </xsl:variable>
-        
-        <xsl:if test="not(map:get($cors-proxied-uris,$proxy-uri))">
-            <xsl:message select="$uri, ' not f ound in $cors-proxied-uris map.', string-join(map:keys($cors-proxied-uris),', '), 'Add a map entry to $cors-proxied-uris' " terminate="yes"/>
-        </xsl:if>
-        
-        <xsl:sequence select="xs:anyURI(concat(map:get($cors-proxied-uris,$proxy-uri),substring-after($uri,$proxy-uri)))"/>
-        
-    </xsl:function>
-    
-    <xsl:function name="flub:async-request">
-        <xsl:param name="doc-request" as="xs:anyURI"/>
-        <xsl:param name="page-id" as="xs:string"/>
-        <xsl:param name="callback-name" as="xs:string"/>        
-        
-        <xsl:if test="$debug">
-            <xsl:message select="'flub:async-request: ' || $doc-request"/>
-        </xsl:if>        
-        <xsl:sequence select="flub:async-request($doc-request,$page-id,$callback-name,'xml')"/>
-      </xsl:function>  
-    
-    <!-- generic named template for delegating async request (ixsl:scheduled-action)-->
-    <xsl:template name="async-transform">
-        <xsl:param name="doc-request" as="xs:anyURI"/>
-        <xsl:param name="id" as="xs:ID"/>
-        <xsl:param name="callback-name" as="xs:string"/>
-        <xsl:param name="method"/>
-        <xsl:if test="not(id(string($id),ixsl:page()))">
-            <xsl:message select="'id: ' || string($id) || ' not present in webpage'" terminate="yes"/>
-        </xsl:if>        
-        <xsl:assert test="exists(id(string($id),ixsl:page()))"/>
-        
-        <xsl:result-document href="#{string($id)}" method="ixsl:replace-content">
-            <xsl:variable name="document" select="if ($method='xml' ) 
-                then document($doc-request)
-                else if ($method='json-text') then json-to-xml(parse-json(unparsed-text(string($doc-request)))) else ()"/>            
-        
-                <xsl:apply-templates select="$document/*" mode="callback">
-                    <xsl:with-param name="callback-name" select="$callback-name"/>
-                    <xsl:with-param name="id" select="$id"/>
-                </xsl:apply-templates>
-        </xsl:result-document>        
     </xsl:template>
     
     <!-- match for adding new modes to async doc request-->
