@@ -91,6 +91,7 @@
             <xsl:apply-templates select="$document/*" mode="callback">
                 <xsl:with-param name="callback-name" select="$callback-name"/>
                 <xsl:with-param name="id" select="$id"/>
+                <xsl:with-param name="query" select="$doc-request"/>
             </xsl:apply-templates>
         </xsl:result-document>        
     </xsl:template>

@@ -55,7 +55,18 @@
         <xsl:sequence select="flub:async-request($action,'result','basic-result')"/>        
     </xsl:template>
     
+    <xsl:template match="a[starts-with(@id,'facet_result_')]" mode="ixsl:onclick">
+         <xsl:variable name="query" select="ixsl:get(id('result',ixsl:page()),'query')"/>
+        <xsl:variable name="facet-string" select="tokenize(@id,'_')[3]"/> 
+        <xsl:variable name="new-query" select="concat($query, '&amp;fq=',$facet-string,':',span[@class='facet-value'])"/>
+        
+        <xsl:sequence select="flub:async-request(xs:anyURI($new-query),'result','basic-search')"/>
+        <xsl:sequence select="flub:async-request(xs:anyURI(flub:facet-query($new-query)),'facets','facet')"/>
+
+    </xsl:template>
+    
     <xsl:template match="button[@name='button-search']" mode="ixsl:onclick">
+        <xsl:variable name="main" select="id('main',ixsl:page())"/>
         <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
         <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;{flub:get-params()}</xsl:text></xsl:variable>
         
@@ -67,12 +78,13 @@
        <!--<xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>-->
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($query)),'result','basic-result')"/>    
         <xsl:sequence select="flub:async-request(flub:facet-query($query),'facets','facet')"/>
-        </xsl:if>
+        </xsl:if>        
     </xsl:template>
     
     <!-- adding modes to update on action-->
     <!-- basic search -->
     <xsl:template mode="basic-search" priority="3.0" match="atom:feed" expand-text="1">
+        <xsl:param name="query" tunnel="yes"/>
         <xsl:variable name="next" select="if (atom:link[@rel='next']) then  flub:cors-uri(atom:link[@rel='next']/@href) else ()"/>
         <xsl:if test="$debug">
             <xsl:message select="concat('next: ',$next)"/>
@@ -94,13 +106,15 @@
                     <i class="fas fa-arrow-right"/>
                 </button>                
             </div>  
-        <xsl:variable name="result-fragment" select="id('result',ixsl:page())"/>
-            <ixsl:set-property name="previous" select="$previous" object="$result-fragment"/>
-            <ixsl:set-property name="next" select="$next" object="$result-fragment"/>
         </div>            
         <div class="list-group" id="basic-search-result">
             <xsl:apply-templates mode="#current"/>          
         </div>
+        <xsl:message select="'mode facet query:' || $query"/>
+        <xsl:variable name="result-fragment" select="id('result',ixsl:page())"/>
+        <ixsl:set-property name="previous" select="$previous" object="$result-fragment"/>
+        <ixsl:set-property name="next" select="$next" object="$result-fragment"/>
+        <ixsl:set-property name="query" select="$query" object="$result-fragment" />
     </xsl:template>
     
     <xsl:template mode="basic-search" match="*" priority="2.0"/>
@@ -119,9 +133,8 @@
     
     <!-- begin facet-->
     
-    <xsl:template match="atom:feed" mode="facet">
-        <xsl:message select="'hello facet'"/>
-        <xsl:apply-templates mode="facet"/>
+    <xsl:template match="atom:feed" mode="facet">       
+        <xsl:apply-templates mode="facet"/>   
     </xsl:template>    
     
     <xsl:template match="nb:facet[nb:name=$ignore-facets] | text()" mode="facet" priority="4.0"/>
@@ -129,15 +142,16 @@
     <xsl:template match="nb:facet[nb:values/nb:value]" mode="facet">
         <div class="ui" id="facet_{nb:name}">
             <h3><xsl:value-of select="nb:name"/></h3>
-        </div>
+        
         <div class="list-group">
             <xsl:apply-templates mode="facet"/>
         </div>
+            </div>
     </xsl:template>
-    
+   
     <xsl:template match="nb:value[count(preceding-sibling::*) &lt; 8]" mode="facet">
-        <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-            <xsl:value-of select="."/>
+        <a id="facet_result_{ancestor::nb:facet/nb:name}_{generate-id()}" class="list-group-item d-flex justify-content-between align-items-center">
+            <span class="facet-value"><xsl:value-of select="."/></span>
             <span class="badge badge-primary badge-pill">{@nb:count}</span>
         </a>
     </xsl:template>    
@@ -145,15 +159,20 @@
     <!-- match for adding new modes to async doc request-->
     <xsl:template match="*" mode="callback">
         <xsl:param name="callback-name"/>
+        <xsl:param name="query"/>
         <xsl:choose>         
             <xsl:when test="$callback-name='json-manifest'">
                 <xsl:message select="concat('hello json', self::node()/name())"/>
             </xsl:when>
             <xsl:when test="$callback-name='facet'">
-                <xsl:apply-templates select="descendant-or-self::atom:feed[1]" mode="facet"/>
+                <xsl:apply-templates select="descendant-or-self::atom:feed[1]" mode="facet">
+                    <xsl:with-param name="query" tunnel="yes"/>
+                </xsl:apply-templates>
             </xsl:when>
             <xsl:when test="$callback-name='basic-result'">
-                <xsl:apply-templates select="descendant-or-self::atom:feed[1]" mode="basic-search"/>
+                <xsl:apply-templates select="descendant-or-self::atom:feed[1]" mode="basic-search">
+                    <xsl:with-param name="query" select="$query" tunnel="yes"/>
+                </xsl:apply-templates>
             </xsl:when>            
             <xsl:otherwise>
                 <xsl:message terminate="yes" select="'callback-name: ',$callback-name, ' is not defined in mode transform-async'"/>
