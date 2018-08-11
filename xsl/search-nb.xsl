@@ -32,10 +32,13 @@
     <xsl:template name="initialTemplate">
     <xsl:message select="'initial template'"/>
         <xsl:variable name="main" select="id('main',ixsl:page())"/>
+        <xsl:variable name="facets" select="id('facets',ixsl:page())"/>
         <!-- insert default (@todo local_storage?) values for query-->
         <ixsl:set-property name="itemsPerPage" select="$itemsPerPage" object="$main"/>
         <ixsl:set-property name="mediatype" select="$mediatype" object="$main"/>
         <ixsl:set-property name="digital" select="$digitized" object="$main"/>
+        
+        <ixsl:set-property name="numPerFacet" select="8" object="$facets"/>
         
         </xsl:template>
     
@@ -121,7 +124,7 @@
         <xsl:apply-templates mode="facet"/>
     </xsl:template>    
     
-    <xsl:template match="nb:facet[nb:name=$ignore-facets]" mode="facet" priority="4.0"/>
+    <xsl:template match="nb:facet[nb:name=$ignore-facets] | text()" mode="facet" priority="4.0"/>
     
     <xsl:template match="nb:facet" mode="facet">
         <div class="ui" id="facet_{nb:name}">
@@ -132,12 +135,13 @@
         </div>
     </xsl:template>
     
-    <xsl:template match="nb:value" mode="facet">
+    <xsl:template match="nb:value[count(preceding-sibling::*) &lt; 8]" mode="facet">
         <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
             <xsl:value-of select="."/>
             <span class="badge badge-primary badge-pill">{@nb:count}</span>
         </a>
-    </xsl:template>
+    </xsl:template>    
+    
     <!-- match for adding new modes to async doc request-->
     <xsl:template match="*" mode="callback">
         <xsl:param name="callback-name"/>
