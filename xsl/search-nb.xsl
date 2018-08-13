@@ -189,7 +189,7 @@
             </xsl:when>
             <xsl:when test="$callback-name='facet'">
                 <xsl:apply-templates select="descendant-or-self::atom:feed[1]" mode="facet">
-                    <xsl:with-param name="query" tunnel="yes"/>
+                    <xsl:with-param name="query" tunnel="yes" select="$query"/>
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:when test="$callback-name='basic-result'">

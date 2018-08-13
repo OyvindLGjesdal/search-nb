@@ -941,8 +941,8 @@
        <first role="select">
         <axis name="descendant-or-self" nodeTest="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
        </first>
-       <withParam name="Q{}query" flags="t" as="xs:string">
-        <str val=""/>
+       <withParam name="Q{}query" flags="t">
+        <varRef line="192" name="query" slot="1"/>
        </withParam>
       </applyT>
       <gc line="195" op="=" card="N:1" comp="GAC|http://www.w3.org/2005/xpath-functions/collation/codepoint">
@@ -1103,7 +1103,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Mon Aug 13 23:27:41 CEST 2018&#xA;" local="#&#xA;#Mon Aug 13 23:27:41 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Mon Aug 13 23:29:29 CEST 2018&#xA;" local="#&#xA;#Mon Aug 13 23:29:29 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1564,4 +1564,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 423890af?>
+<?Σ 46077e69?>
