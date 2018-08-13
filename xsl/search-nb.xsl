@@ -170,7 +170,7 @@
         <xsl:variable name="facet-name" select="ancestor::nb:facet/nb:name" as="xs:string"/>
         <xsl:variable name="facet-comp" select="flub:facet-uri-component($facet-name,.)" as="xs:string"/>
         
-        <xsl:if test="count(preceding-sibling::*) &lt; 8 or contains($query,$facet-comp)">
+        <xsl:if test="(count(preceding-sibling::*)+count(following-sibling::*[contains($query,flub:facet-uri-component($facet-name,.))])) &lt; 8 or contains($query,$facet-comp)">
         <a id="facet_result_{$facet-name}_{generate-id()}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center
             {if (contains($query,$facet-comp))
             then 

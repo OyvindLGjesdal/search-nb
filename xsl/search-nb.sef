@@ -107,16 +107,42 @@
        <choose line="173">
         <or op="or">
          <compareToInt op="lt" val="8">
-          <fn name="count">
-           <fn name="subsequence">
+          <arith op="+" calc="i+i">
+           <fn name="count">
             <slash simple="1">
              <dot type="element(Q{http://www.nb.no/xml/search/1.0/}value)"/>
              <axis name="preceding-sibling" nodeTest="element()" jsTest="return item.nodeType===1;"/>
             </slash>
-            <int val="1"/>
-            <int val="9"/>
            </fn>
-          </fn>
+           <fn name="count">
+            <filter flags="b">
+             <axis name="following-sibling" nodeTest="element()" jsTest="return item.nodeType===1;"/>
+             <fn name="contains">
+              <varRef name="query" slot="0"/>
+              <cvUntyped to="xs:string">
+               <cast ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" module="nb-open-search.xsl" line="54" as="xs:untypedAtomic" emptiable="0">
+                <fn name="concat">
+                 <str val="&amp;fq="/>
+                 <varRef ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="173" name="facet-name" slot="1"/>
+                 <str val=":"/>
+                 <fn name="encode-for-uri">
+                  <fn name="concat">
+                   <str val="&#34;"/>
+                   <cvUntyped ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="173" to="xs:string">
+                    <data>
+                     <dot type="element()"/>
+                    </data>
+                   </cvUntyped>
+                   <str val="&#34;"/>
+                  </fn>
+                 </fn>
+                </fn>
+               </cast>
+              </cvUntyped>
+             </fn>
+            </filter>
+           </fn>
+          </arith>
          </compareToInt>
          <fn name="contains">
           <varRef name="query" slot="0"/>
@@ -1115,7 +1141,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Mon Aug 13 23:35:21 CEST 2018&#xA;" local="#&#xA;#Mon Aug 13 23:35:21 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Mon Aug 13 23:41:34 CEST 2018&#xA;" local="#&#xA;#Mon Aug 13 23:41:34 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1576,4 +1602,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 6655a374?>
+<?Σ bdc13933?>
