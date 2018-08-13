@@ -169,15 +169,22 @@
         <xsl:param name="query" as="xs:string" tunnel="yes"/>
         <xsl:variable name="facet-name" select="ancestor::nb:facet/nb:name" as="xs:string"/>
         <xsl:variable name="facet-comp" select="flub:facet-uri-component($facet-name,.)" as="xs:string"/>
-        
-        <xsl:if test="(count(preceding-sibling::*)+count(following-sibling::*[contains($query,flub:facet-uri-component($facet-name,.))])) &lt; 8 or contains($query,$facet-comp)">
+        <xsl:variable name="is-active" select="contains($query,$facet-comp)" as="xs:boolean"/>
+        <xsl:if test="(count(preceding-sibling::*)+count(following-sibling::*[contains($query,flub:facet-uri-component($facet-name,.))])) &lt; 8
+            or $is-active">
         <a id="facet_result_{$facet-name}_{generate-id()}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center
-            {if (contains($query,$facet-comp))
+            {if ($is-active)
             then 
             ' active' 
             else ''}">
+            <xsl:if test="$is-active">
+                <xsl:attribute name="style" select="'color: white'"/>
+            </xsl:if>
             <span class="facet-value"><xsl:value-of select="."/></span>
-            <span class="badge badge-primary badge-pill">{@nb:count}</span>
+            <span class="badge badge-primary badge-pill">
+                <xsl:if test="$is-active">
+                    <xsl:attribute name="style" select="'background-color: white'"></xsl:attribute>
+                </xsl:if>{@nb:count}</span>
         </a>
         </xsl:if>
     </xsl:template>    
