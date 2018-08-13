@@ -165,10 +165,12 @@
             </div>
     </xsl:template>
    
-    <xsl:template match="nb:value[count(preceding-sibling::*) &lt; 8]" mode="facet">
+    <xsl:template match="nb:value" mode="facet">
         <xsl:param name="query" as="xs:string" tunnel="yes"/>
         <xsl:variable name="facet-name" select="ancestor::nb:facet/nb:name" as="xs:string"/>
         <xsl:variable name="facet-comp" select="flub:facet-uri-component($facet-name,.)" as="xs:string"/>
+        
+        <xsl:if test="count(preceding-sibling::*) &lt; 8 or contains($query,$facet-comp)">
         <a id="facet_result_{$facet-name}_{generate-id()}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center
             {if (contains($query,$facet-comp))
             then 
@@ -177,6 +179,7 @@
             <span class="facet-value"><xsl:value-of select="."/></span>
             <span class="badge badge-primary badge-pill">{@nb:count}</span>
         </a>
+        </xsl:if>
     </xsl:template>    
     
     <!-- match for adding new modes to async doc request-->
