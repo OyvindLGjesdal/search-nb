@@ -58,13 +58,13 @@
     <xsl:template match="a[starts-with(@id,'facet_result_')]" mode="ixsl:onclick">
          <xsl:variable name="query" select="ixsl:get(id('result',ixsl:page()),'query')"/>
         <xsl:variable name="facet-string" select="tokenize(@id,'_')[3]"/>
-        <xsl:variable name="facet-uri-component" select="concat('&amp;fq=',$facet-string,':',encode-for-uri(concat('&quot;',span[@class='facet-value'],'&quot;')))"/>
+        <xsl:variable name="facet-uri-component" select="flub:facet-uri-component($facet-string,span[@class='facet-value'])"/>
         <xsl:variable name="new-query">
             <xsl:text>{flub:set-startindex($query,1)}{$facet-uri-component}</xsl:text>
         </xsl:variable>
         
         <xsl:choose>
-            <xsl:when test="contains(@class,'active')">
+            <xsl:when test="contains($query,$facet-uri-component)">
                 <xsl:variable name="remove-facet-query" select="flub:set-startindex(
                     substring-before($query,$facet-uri-component) || substring-after($query,$facet-uri-component)
                     ,1)" as="xs:string"/>
@@ -166,7 +166,14 @@
     </xsl:template>
    
     <xsl:template match="nb:value[count(preceding-sibling::*) &lt; 8]" mode="facet">
-        <a id="facet_result_{ancestor::nb:facet/nb:name}_{generate-id()}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+        <xsl:variable name="query" select="ixsl:get(id('result',ixsl:page()),'query')"/>
+        <xsl:variable name="facet-name" select="ancestor::nb:facet/nb:name" as="xs:string"/>
+        <xsl:variable name="facet-comp" select="flub:facet-uri-component($facet-name,.)" as="xs:string"/>
+        <a id="facet_result_{$facet-name}_{generate-id()}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center
+            {if (contains($query,$facet-comp))
+            then 
+            ' active' 
+            else ''}">
             <span class="facet-value"><xsl:value-of select="."/></span>
             <span class="badge badge-primary badge-pill">{@nb:count}</span>
         </a>
@@ -195,6 +202,8 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
+    
     
     <xsl:function name="flub:get-params" as="xs:string?">
         <xsl:variable name="main-object" select="id('main',ixsl:page())"/>

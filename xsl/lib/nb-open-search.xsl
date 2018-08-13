@@ -48,4 +48,9 @@
         <xsl:value-of select="replace($query,'&amp;startIndex=[0-9]+','') || concat('startIndex=',string($index))"/>
     </xsl:function>
     
+    <xsl:function name="flub:facet-uri-component">
+        <xsl:param name="facet-name" as="xs:string"/>
+        <xsl:param name="facet-value" as="xs:string"/>
+        <xsl:value-of select="concat('&amp;fq=',$facet-name,':',encode-for-uri(concat('&quot;',$facet-value,'&quot;')))"/>
+    </xsl:function>
 </xsl:stylesheet>
