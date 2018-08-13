@@ -183,7 +183,7 @@
             <span class="facet-value"><xsl:value-of select="."/></span>
             <span class="badge badge-primary badge-pill">
                 <xsl:if test="$is-active">
-                    <xsl:attribute name="style" select="'background-color: white'"></xsl:attribute>
+                    <xsl:attribute name="style" select="'background-color: white; color: black'"/>
                 </xsl:if>{@nb:count}</span>
         </a>
         </xsl:if>

@@ -200,7 +200,7 @@
             <choose line="185">
              <varRef name="is-active" slot="2"/>
              <att line="186" name="style" flags="l">
-              <str val="background-color: white"/>
+              <str val="background-color: white; color: black"/>
              </att>
             </choose>
             <valueOf flags="el">
@@ -1150,7 +1150,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Mon Aug 13 23:46:12 CEST 2018&#xA;" local="#&#xA;#Mon Aug 13 23:46:12 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Mon Aug 13 23:47:56 CEST 2018&#xA;" local="#&#xA;#Mon Aug 13 23:47:56 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1611,4 +1611,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 5a40d44f?>
+<?Σ dadb62db?>
