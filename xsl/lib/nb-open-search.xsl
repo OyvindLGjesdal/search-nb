@@ -42,4 +42,10 @@
             || '&amp;facet=all')"/>
     </xsl:function>
     
+    <xsl:function name="flub:set-startindex" as="xs:string">
+        <xsl:param name="query" as="xs:string"/>
+        <xsl:param name="index" as="xs:integer"/>
+        <xsl:value-of select="replace($query,'&amp;startIndex=[0-9]+','') || concat('startIndex=',string($index))"/>
+    </xsl:function>
+    
 </xsl:stylesheet>

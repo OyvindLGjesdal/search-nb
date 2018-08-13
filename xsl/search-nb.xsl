@@ -23,7 +23,7 @@
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
     <xsl:variable name="cors-proxied-uris" as="map(xs:string,xs:string)">
         <xsl:map>
-            <xsl:map-entry key="'https://www.nb.no/services/search/'" select="'https://158.39.77.227/nb-search/'"/>
+            <xsl:map-entry key="'https://www.nb.no/services/search/'" select="'https://www.nb.no/services/search/'"/>
             <xsl:map-entry key="'http://www.nb.no/services/search/'" select="'https://www.nb.no/services/search/'"/>
             <xsl:map-entry key="'https://158.39.77.227/'" select="'https://158.39.77.227/'"/>
         </xsl:map>
@@ -57,15 +57,29 @@
     
     <xsl:template match="a[starts-with(@id,'facet_result_')]" mode="ixsl:onclick">
          <xsl:variable name="query" select="ixsl:get(id('result',ixsl:page()),'query')"/>
-        <xsl:variable name="facet-string" select="tokenize(@id,'_')[3]"/> 
+        <xsl:variable name="facet-string" select="tokenize(@id,'_')[3]"/>
+        <xsl:variable name="facet-uri-component" select="concat('&amp;fq=',$facet-string,':',encode-for-uri(concat('&quot;',span[@class='facet-value'],'&quot;')))"/>
         <xsl:variable name="new-query">
-            <xsl:text>{$query}&amp;fq={$facet-string}:{encode-for-uri(concat('&quot;',span[@class='facet-value'],'&quot;'))}</xsl:text>
+            <xsl:text>{flub:set-startindex($query,1)}{$facet-uri-component}</xsl:text>
         </xsl:variable>
         
-        <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($new-query)),'result','basic-result')"/>
-        <xsl:sequence select="flub:async-request(xs:anyURI(flub:facet-query($new-query)),'facets','facet')"/>
-
-    </xsl:template>
+        <xsl:choose>
+            <xsl:when test="contains(@class,'active')">
+                <xsl:variable name="remove-facet-query" select="flub:set-startindex(
+                    substring-before($query,$facet-uri-component) || substring-after($query,$facet-uri-component)
+                    ,1)" as="xs:string"/>
+                <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($remove-facet-query)),'result','basic-result')"/>
+                <xsl:sequence select="flub:async-request(xs:anyURI(flub:facet-query($remove-facet-query)),'facets','facet')"/>
+                <ixsl:set-attribute name="class" select="replace(@class,'\sactive','')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <ixsl:set-attribute name="class" select="@class || ' active'"/>
+                <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($new-query)),'result','basic-result')"/>
+                <xsl:sequence select="flub:async-request(xs:anyURI(flub:facet-query($new-query)),'facets','facet')"/>
+                
+            </xsl:otherwise>
+        </xsl:choose>
+        </xsl:template>
     
     <xsl:template match="button[@name='button-search']" mode="ixsl:onclick">
         <xsl:variable name="main" select="id('main',ixsl:page())"/>
@@ -152,7 +166,7 @@
     </xsl:template>
    
     <xsl:template match="nb:value[count(preceding-sibling::*) &lt; 8]" mode="facet">
-        <a id="facet_result_{ancestor::nb:facet/nb:name}_{generate-id()}" class="list-group-item d-flex justify-content-between align-items-center">
+        <a id="facet_result_{ancestor::nb:facet/nb:name}_{generate-id()}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
             <span class="facet-value"><xsl:value-of select="."/></span>
             <span class="badge badge-primary badge-pill">{@nb:count}</span>
         </a>
