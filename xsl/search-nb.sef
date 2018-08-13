@@ -1103,7 +1103,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Mon Aug 13 23:29:29 CEST 2018&#xA;" local="#&#xA;#Mon Aug 13 23:29:29 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Mon Aug 13 23:29:46 CEST 2018&#xA;" local="#&#xA;#Mon Aug 13 23:29:46 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1564,4 +1564,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 46077e69?>
+<?Σ 46068669?>
