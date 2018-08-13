@@ -14,7 +14,7 @@
        <str val=""/>
       </fn>
       <fn name="concat">
-       <str val="startIndex="/>
+       <str val="&amp;startIndex="/>
        <fn name="string">
         <varRef name="index" slot="1"/>
        </fn>
@@ -578,7 +578,7 @@
              <str val=""/>
              <str val=""/>
             </fn>
-            <str val="startIndex=1"/>
+            <str val="&amp;startIndex=1"/>
            </fn>
           </cast>
          </cvUntyped>
@@ -649,7 +649,7 @@
              <str val=""/>
              <str val=""/>
             </fn>
-            <str val="startIndex=1"/>
+            <str val="&amp;startIndex=1"/>
            </fn>
           </cast>
          </cvUntyped>
@@ -1150,7 +1150,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Mon Aug 13 23:47:56 CEST 2018&#xA;" local="#&#xA;#Mon Aug 13 23:47:56 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Mon Aug 13 23:52:49 CEST 2018&#xA;" local="#&#xA;#Mon Aug 13 23:52:49 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1611,4 +1611,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ dadb62db?>
+<?Σ cce51adb?>
