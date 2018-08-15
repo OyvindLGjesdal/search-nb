@@ -28,9 +28,12 @@
         <xsl:param name="object"/>        
         <xsl:param name="name" as="xs:string"/>
         <xsl:variable name="quot" select="'&quot;'"/>
-        <xsl:variable name="value" as="xs:string?" select="string(ixsl:get($object,$name))"/>
-        <xsl:sequence select="if (string($value)) 
-            then flub:get-opensearch-param-prefix($name) ||  encode-for-uri($quot || $value || $quot)
+        <xsl:variable name="value-of-param" select="string(ixsl:get($object,$name))"/>
+        <xsl:variable name="encoded-value" as="xs:string?" select="if ($name='mediatype') then encode-for-uri($quot || $value-of-param || $quot )
+            else encode-for-uri($value-of-param)
+            "/>
+        <xsl:sequence select="if (string($value-of-param)) 
+            then flub:get-opensearch-param-prefix($name) || $encoded-value 
             else ()"/>
     </xsl:function>
     
