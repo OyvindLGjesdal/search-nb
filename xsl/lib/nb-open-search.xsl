@@ -27,9 +27,10 @@
     <xsl:function name="flub:param-helper" as="xs:string?" visibility="private">
         <xsl:param name="object"/>        
         <xsl:param name="name" as="xs:string"/>
+        <xsl:variable name="quot" select="'&quot;'"/>
         <xsl:variable name="value" as="xs:string?" select="string(ixsl:get($object,$name))"/>
         <xsl:sequence select="if (string($value)) 
-            then flub:get-opensearch-param-prefix($name) || $value
+            then flub:get-opensearch-param-prefix($name) ||  encode-for-uri($quot || $value || $quot)
             else ()"/>
     </xsl:function>
     
@@ -51,6 +52,9 @@
     <xsl:function name="flub:facet-uri-component">
         <xsl:param name="facet-name" as="xs:string"/>
         <xsl:param name="facet-value" as="xs:string"/>
-        <xsl:value-of select="concat('&amp;fq=',$facet-name,':',encode-for-uri(concat('&quot;',$facet-value,'&quot;')))"/>
+        
+        <xsl:value-of select="concat('&amp;fq=',$facet-name,
+            ':'
+            ,encode-for-uri(concat('&quot;',$facet-value,'&quot;')))"/>
     </xsl:function>
 </xsl:stylesheet>

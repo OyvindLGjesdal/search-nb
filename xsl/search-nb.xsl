@@ -191,8 +191,8 @@
     
     <!-- match for adding new modes to async doc request-->
     <xsl:template match="*" mode="callback">
-        <xsl:param name="callback-name"/>
-        <xsl:param name="query"/>
+        <xsl:param name="callback-name" as="xs:string"/>
+        <xsl:param name="query" as="xs:string"/>
         <xsl:choose>         
             <xsl:when test="$callback-name='json-manifest'">
                 <xsl:message select="concat('hello json', self::node()/name())"/>
@@ -212,8 +212,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
-    
     
     <xsl:function name="flub:get-params" as="xs:string?">
         <xsl:variable name="main-object" select="id('main',ixsl:page())"/>
