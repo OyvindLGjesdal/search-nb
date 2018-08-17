@@ -88,12 +88,12 @@
     <!-- search-->
     <xsl:template match="button[@name='button-search']"
         mode="ixsl:onclick ixsl:onkeyup">
-        <xsl:message select="'event: ',map:keys(ixsl:event())"/>
+        <xsl:message select="'event: ',ixsl:get(ixsl:event(),'type')"/>
         <xsl:variable name="main" select="id('main',ixsl:page())"/>
         <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
         <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;{flub:get-params()}</xsl:text></xsl:variable>
         
-        
+            
         <!--<xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />-->
         <xsl:message select="'button button search click',$search-string"/>
         
