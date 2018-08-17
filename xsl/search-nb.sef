@@ -963,9 +963,15 @@
         <varRef name="event" slot="0"/>
         <str val="key"/>
        </ifCall>
+       <str val="id "/>
        <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}get" type="item()*">
-        <varRef name="event" slot="0"/>
-        <str val="target"/>
+        <check card="?" diag="0|0||ixsl:get">
+         <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}get" type="item()*">
+          <varRef name="event" slot="0"/>
+          <str val="target"/>
+         </ifCall>
+        </check>
+        <str val="id"/>
        </ifCall>
       </sequence>
       <str role="terminate" val="no"/>
@@ -1233,7 +1239,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Fri Aug 17 20:23:57 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 20:23:57 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Fri Aug 17 20:39:17 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 20:39:17 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1707,4 +1713,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ ccc5bfc2?>
+<?Σ 9289db7d?>

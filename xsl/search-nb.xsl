@@ -87,7 +87,7 @@
     
     <xsl:template mode="ixsl:onkeyup" match=".">        
         <xsl:variable name="event" select="ixsl:event()"/>
-        <xsl:message select="'event: ',ixsl:get($event,'type'),'key:',ixsl:get($event,'key'),ixsl:get($event,'target')"/>
+        <xsl:message select="'event: ',ixsl:get($event,'type'),'key:',ixsl:get($event,'key'),'id ',ixsl:get(ixsl:get($event,'target'),'id')"/>
     </xsl:template>
     <!-- search-->
     <xsl:template match="button[@name='button-search']"
