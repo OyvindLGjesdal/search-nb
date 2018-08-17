@@ -244,25 +244,13 @@
       </check>
      </treat>
     </param>
-    <resultDoc line="243" global="#&#xA;#Fri Aug 17 21:53:39 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 21:53:39 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="243" global="#&#xA;#Fri Aug 17 22:31:08 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 22:31:08 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <str role="href" val="#manifest"/>
      <applyT role="content" line="244" mode="Q{}manifest" bSlot="0">
       <fn role="select" line="241" name="json-to-xml">
-       <treat as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="0|0||fn:json-to-xml">
-        <check card="?" diag="0|0||fn:json-to-xml">
-         <cvUntyped to="xs:string">
-          <data>
-           <fn name="parse-json">
-            <check card="1" diag="0|0||fn:parse-json">
-             <fn name="unparsed-text">
-              <varRef name="manifest" slot="0"/>
-             </fn>
-            </check>
-           </fn>
-          </data>
-         </cvUntyped>
-        </check>
-       </treat>
+       <fn name="unparsed-text">
+        <varRef name="manifest" slot="0"/>
+       </fn>
       </fn>
      </applyT>
     </resultDoc>
@@ -510,7 +498,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Fri Aug 17 21:53:39 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 21:53:39 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Fri Aug 17 22:31:08 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 22:31:08 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1844,4 +1832,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ b48ffd34?>
+<?Σ e70ff8a?>

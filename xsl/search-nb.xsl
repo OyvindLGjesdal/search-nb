@@ -238,10 +238,10 @@
     
     <xsl:template name="manifest">
         <xsl:param name="manifest" as="xs:string"/>
-        <xsl:variable name="manifest" select="json-to-xml(parse-json(unparsed-text($manifest)))"/>
+        <xsl:variable name="manifest" select="json-to-xml(unparsed-text($manifest))"/>
         
         <xsl:result-document href="#manifest" method="ixsl:replace-content">
-            <xsl:apply-templates mode="manifest" select="$manifest"></xsl:apply-templates>
+            <xsl:apply-templates mode="manifest" select="$manifest"/>
         </xsl:result-document>
     </xsl:template>
     <!-- named templates used for multiple interactive modes -->    
