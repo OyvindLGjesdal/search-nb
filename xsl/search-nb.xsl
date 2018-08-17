@@ -85,7 +85,8 @@
         </xsl:choose>
         </xsl:template>
     
-    <xsl:template mode="ixsl:onkeyup" match=".">        
+    <xsl:template mode="ixsl:onkeyup" match=".[matches(ixsl:get(ixsl:event(),'key'),'enter','i')
+        and ixsl:get(ixsl:get(ixsl:event(),'target'),'id')='search-field1']">        
         <xsl:variable name="event" select="ixsl:event()"/>
         <xsl:message select="'event: ',ixsl:get($event,'type'),'key:',ixsl:get($event,'key'),'id ',ixsl:get(ixsl:get($event,'target'),'id')"/>
     </xsl:template>
