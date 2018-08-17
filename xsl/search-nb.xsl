@@ -245,6 +245,7 @@
         <xsl:for-each select="?body">
             <xsl:message select="."/>
             <xsl:result-document href="#manifest" method="ixsl:replace-content">
+                <xsl:message select="."/>
             <xsl:apply-templates select="json-to-xml(.)" mode="manifest"/>
             </xsl:result-document>
         </xsl:for-each>
