@@ -103,10 +103,15 @@
     <!-- click search result item-->
     <xsl:template match="li[starts-with(@id,'sesam_')]" mode="ixsl:onclick">
         <xsl:message select="'result item'"/>
-        <xsl:variable name="request"><xsl:text expand-text="1">https://api.nb.no/catalog/v1/iiif/{substring-after(@id,'sesam_')}/manifest</xsl:text></xsl:variable>
-        <ixsl:schedule-action document="{flub:cors-uri($request)}">
+        <xsl:variable name="request" as="xs:string"><xsl:text expand-text="1">https://api.nb.no/catalog/v1/iiif/{substring-after(@id,'sesam_')}/manifest</xsl:text></xsl:variable>
+        <xsl:variable name="request-map" select="
+            map{
+            'method': 'GET',
+            'href': string(flub:cors-uri($request)),
+           'media-type': 'text/plain'
+            } "/>
+        <ixsl:schedule-action http-request="$request-map">
             <xsl:call-template name="manifest">
-                <xsl:with-param name="manifest" select="flub:cors-uri($request)"/>
             </xsl:call-template>
         </ixsl:schedule-action>      
     </xsl:template>
@@ -237,12 +242,16 @@
     </xsl:template>
     
     <xsl:template name="manifest">
-        <xsl:param name="manifest" as="xs:string"/>
-        <xsl:variable name="manifest" select="json-to-xml(unparsed-text($manifest))"/>
+        <xsl:for-each select="?body">
+            <xsl:message select="."/>
+            <xsl:result-document href="#manifest" method="ixsl:replace-content">
+            <xsl:apply-templates select="json-to-xml(.)" mode="manifest"/>
+            </xsl:result-document>
+        </xsl:for-each>
+       
+    
+            
         
-        <xsl:result-document href="#manifest" method="ixsl:replace-content">
-            <xsl:apply-templates mode="manifest" select="$manifest"/>
-        </xsl:result-document>
     </xsl:template>
     <!-- named templates used for multiple interactive modes -->    
     <xsl:template name="basic-search">
