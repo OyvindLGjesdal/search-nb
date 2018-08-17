@@ -784,7 +784,13 @@
      <message>
       <sequence role="select">
        <str val="event: "/>
-       <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}event" type="item()?"/>
+       <ifCall name="Q{http://www.w3.org/2005/xpath-functions/map}keys" type="xs:anyAtomicType*">
+        <treat as="map(*)" jsTest="return SaxonJS.U.isMap(item)" diag="0|0||map:keys">
+         <check card="1" diag="0|0||map:keys">
+          <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}event" type="item()?"/>
+         </check>
+        </treat>
+       </ifCall>
       </sequence>
       <str role="terminate" val="no"/>
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
@@ -956,7 +962,13 @@
      <message>
       <sequence role="select">
        <str val="event: "/>
-       <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}event" type="item()?"/>
+       <ifCall name="Q{http://www.w3.org/2005/xpath-functions/map}keys" type="xs:anyAtomicType*">
+        <treat as="map(*)" jsTest="return SaxonJS.U.isMap(item)" diag="0|0||map:keys">
+         <check card="1" diag="0|0||map:keys">
+          <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}event" type="item()?"/>
+         </check>
+        </treat>
+       </ifCall>
       </sequence>
       <str role="terminate" val="no"/>
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
@@ -1310,7 +1322,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Fri Aug 17 19:51:28 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 19:51:28 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Fri Aug 17 19:53:30 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 19:53:30 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1784,4 +1796,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 2a0d7add?>
+<?Σ e0dd23dd?>
