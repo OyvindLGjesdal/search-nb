@@ -85,7 +85,7 @@
         </xsl:choose>
         </xsl:template>
     
-    <xsl:template mode="ixsl:onkeyup" match=".[matches(ixsl:get(ixsl:event(),'key'),'enter','i')
+    <xsl:template mode="ixsl:onkeyup" match=".[lower-case(ixsl:get(ixsl:event(),'key'))='enter'
         and ixsl:get(ixsl:get(ixsl:event(),'target'),'id')='search-field1']">        
         <xsl:call-template name="basic-search"/>
         <xsl:variable name="event" select="ixsl:event()"/>
@@ -100,8 +100,14 @@
     </xsl:template>
     
     <!-- click search result item-->
-    <xsl:template match="div[contains(@class,'result-item')]" mode="ixsl:onclick">
+    <xsl:template match="li[starts-with(@id,'sesam_')]" mode="ixsl:onclick">
         <xsl:message select="'result item'"/>
+        <xsl:variable name="request"><xsl:text expand-text="1">https://api.nb.no/catalog/v1/iiif/{substring-after(@id,'sesam_')}/manifest</xsl:text></xsl:variable>
+        <ixsl:schedule-action document="{$request}">
+            <xsl:call-template name="manifest">
+                <xsl:with-param name="manifest"></xsl:with-param>
+            </xsl:call-template>
+        </ixsl:schedule-action>      
     </xsl:template>
     <!-- adding modes to update on action-->
     
@@ -146,8 +152,8 @@
     <xsl:template mode="basic-search" match="*" priority="2.0"/>
     
     <xsl:template mode="basic-search" match="atom:entry" priority="3.0" expand-text="1">
-        <li class="list-group-item list-group-item-action flex-column align-items-start">
-        <div class="d-flex w-100 justify-content-between result-item" id="_{nb:sesamid}">
+        <li class="list-group-item list-group-item-action flex-column align-items-start" id="sesam_{nb:sesamid}">
+        <div class="d-flex w-100 justify-content-between">
             
             <h5 class="mb-1">{atom:title}</h5>
             <small>{nb:namecreator} ({(nb:year,'Ikke oppgitt')[1]}) </small>
@@ -223,8 +229,20 @@
                 <xsl:message terminate="yes" select="'callback-name: ',$callback-name, ' is not defined in mode transform-async'"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>    
+    
+    <xsl:template mode="manifest" match="*">
+        <xsl:message select="name()"/>
     </xsl:template>
-
+    
+    <xsl:template name="manifest">
+        <xsl:param name="manifest" as="xs:string"/>
+        <xsl:variable name="manifest" select="json-to-xml(parse-json(unparsed-text($manifest)))"/>
+        
+        <xsl:result-document href="modal" method="ixsl:replace-content">
+            <xsl:apply-templates mode="manifest" select="$manifest"></xsl:apply-templates>
+        </xsl:result-document>
+    </xsl:template>
     <!-- named templates used for multiple interactive modes -->    
     <xsl:template name="basic-search">
     <xsl:variable name="main" select="id('main',ixsl:page())"/>
