@@ -86,9 +86,9 @@
         </xsl:template>
     
     <!-- search-->
-    <xsl:template match="button[@name='button-search' and
-        (ixsl:get(ixsl:event(),'type')='click' or ixsl:get(ixsl:event(),'key')='ENTER')]"
+    <xsl:template match="button[@name='button-search']"
         mode="ixsl:onclick ixsl:onkeyup">
+        <xsl:message select="'event: ',ixsl:event()"/>
         <xsl:variable name="main" select="id('main',ixsl:page())"/>
         <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
         <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;{flub:get-params()}</xsl:text></xsl:variable>
