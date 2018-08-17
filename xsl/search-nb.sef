@@ -24,277 +24,12 @@
    </cvUntyped>
   </function>
  </co>
- <co id="1" binds="">
-  <function name="Q{http://data.ub.uib.no/ns/function-library}facet-uri-component" line="55" module="nb-open-search.xsl" eval="9" flags="pU" as="item()*" slots="2">
-   <arg name="facet-name" as="xs:string"/>
-   <arg name="facet-value" as="xs:string"/>
-   <valueOf role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="61">
-    <fn name="concat">
-     <str val="&amp;fq="/>
-     <varRef name="facet-name" slot="0"/>
-     <str val=":"/>
-     <fn name="encode-for-uri">
-      <fn name="concat">
-       <str val="&#34;"/>
-       <varRef name="facet-value" slot="1"/>
-       <str val="&#34;"/>
-      </fn>
-     </fn>
-    </fn>
-   </valueOf>
-  </function>
- </co>
- <co id="2" vis="PUBLIC" binds="">
+ <co id="1" vis="PUBLIC" binds="">
   <globalParam name="Q{}itemsPerPage" type="xs:integer" line="16" module="search-nb.xsl" visibility="PUBLIC" jsAcceptor="return SaxonJS.U.Atomic.integer.cast(val);" jsCardCheck="function c(n) {return n==1;};">
    <int val="20"/>
   </globalParam>
  </co>
- <co id="3" binds="4 3 3">
-  <mode name="Q{}facet" onNo="TC" flags="W" patternSlots="0">
-   <templateRule prec="1" prio="4.0" seq="1" rank="2" minImp="0" slots="0" flags="s" line="179" module="search-nb.xsl">
-    <p.withPredicate role="match">
-     <p.nodeTest test="element(Q{http://www.nb.no/xml/search/1.0/}facet)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='facet';"/>
-     <gc ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="179" op="=" card="M:N" comp="GAC|http://www.w3.org/2005/xpath-functions/collation/codepoint">
-      <data>
-       <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}name)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='name';"/>
-      </data>
-      <data>
-       <gVarRef name="Q{}ignore-facets" bSlot="0"/>
-      </data>
-     </gc>
-    </p.withPredicate>
-    <empty role="action"/>
-   </templateRule>
-   <templateRule prec="1" prio="0.5" seq="2" rank="1" minImp="0" slots="0" flags="s" line="181" module="search-nb.xsl">
-    <p.withPredicate role="match">
-     <p.nodeTest test="element(Q{http://www.nb.no/xml/search/1.0/}facet)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='facet';"/>
-     <slash ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="181">
-      <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}values)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='values';"/>
-      <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}value)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='value';"/>
-     </slash>
-    </p.withPredicate>
-    <elem role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="182" name="div" nsuri="" namespaces="map ixsl xhtml saxon flub">
-     <sequence>
-      <att name="class" flags="l">
-       <str val="ui"/>
-      </att>
-      <att name="id" flags="l">
-       <fn name="concat">
-        <str val="facet_"/>
-        <fn name="string-join">
-         <convert from="xs:untypedAtomic" to="xs:string">
-          <data>
-           <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}name)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='name';"/>
-          </data>
-         </convert>
-         <str val=" "/>
-        </fn>
-       </fn>
-      </att>
-      <elem line="183" name="h3" nsuri="" flags="l">
-       <valueOf flags="l">
-        <fn name="string-join">
-         <convert from="xs:untypedAtomic" to="xs:string">
-          <data>
-           <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}name)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='name';"/>
-          </data>
-         </convert>
-         <str val=" "/>
-        </fn>
-       </valueOf>
-      </elem>
-      <elem line="185" name="div" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
-       <sequence>
-        <att name="class" flags="l">
-         <str val="list-group"/>
-        </att>
-        <applyT line="186" mode="Q{}facet" flags="i" bSlot="1">
-         <axis role="select" name="child" nodeTest="node()" jsTest="return true;"/>
-        </applyT>
-       </sequence>
-      </elem>
-     </sequence>
-    </elem>
-   </templateRule>
-   <templateRule prec="1" prio="0.0" seq="0" rank="0" minImp="0" slots="0" flags="s" line="175" module="search-nb.xsl">
-    <p.nodeTest role="match" test="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
-    <applyT role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="176" mode="Q{}facet" flags="ti" bSlot="2">
-     <axis role="select" name="child" nodeTest="node()" jsTest="return true;"/>
-    </applyT>
-   </templateRule>
-   <templateRule prec="1" prio="0.0" seq="3" rank="0" minImp="0" slots="3" flags="s" line="191" module="search-nb.xsl">
-    <p.nodeTest role="match" test="element(Q{http://www.nb.no/xml/search/1.0/}value)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='value';"/>
-    <sequence role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="192">
-     <param name="Q{}query" slot="0" flags="ti" as="xs:string">
-      <treat role="conversion" as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="8|0|XTTE0590|query">
-       <check card="1" diag="8|0|XTTE0590|query">
-        <cvUntyped to="xs:string">
-         <data>
-          <supplied slot="0"/>
-         </data>
-        </cvUntyped>
-       </check>
-      </treat>
-     </param>
-     <let line="193" var="facet-name" as="xs:string" slot="1" eval="7">
-      <check card="1" diag="3|0|XTTE0570|facet-name">
-       <cvUntyped to="xs:string">
-        <data>
-         <docOrder intra="1">
-          <slash>
-           <fn name="reverse">
-            <slash simple="1">
-             <dot type="element(Q{http://www.nb.no/xml/search/1.0/}value)"/>
-             <axis name="ancestor" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}facet)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='facet';"/>
-            </slash>
-           </fn>
-           <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}name)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='name';"/>
-          </slash>
-         </docOrder>
-        </data>
-       </cvUntyped>
-      </check>
-      <let line="195" var="is-active" as="xs:boolean" slot="2" eval="8">
-       <fn name="contains">
-        <varRef name="query" slot="0"/>
-        <cvUntyped line="194" to="xs:string">
-         <cast ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" module="nb-open-search.xsl" line="61" as="xs:untypedAtomic" emptiable="0">
-          <fn name="concat">
-           <str val="&amp;fq="/>
-           <varRef ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="194" name="facet-name" slot="1"/>
-           <str val=":"/>
-           <fn name="encode-for-uri">
-            <fn name="concat">
-             <str val="&#34;"/>
-             <cvUntyped ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="194" to="xs:string">
-              <data>
-               <dot type="element(Q{http://www.nb.no/xml/search/1.0/}value)"/>
-              </data>
-             </cvUntyped>
-             <str val="&#34;"/>
-            </fn>
-           </fn>
-          </fn>
-         </cast>
-        </cvUntyped>
-       </fn>
-       <choose line="197">
-        <or op="or">
-         <compareToInt op="lt" val="8">
-          <arith op="+" calc="i+i">
-           <fn name="count">
-            <slash simple="1">
-             <dot type="element(Q{http://www.nb.no/xml/search/1.0/}value)"/>
-             <axis name="preceding-sibling" nodeTest="element()" jsTest="return item.nodeType===1;"/>
-            </slash>
-           </fn>
-           <fn name="count">
-            <filter flags="b">
-             <axis name="following-sibling" nodeTest="element()" jsTest="return item.nodeType===1;"/>
-             <fn name="contains">
-              <varRef name="query" slot="0"/>
-              <cvUntyped to="xs:string">
-               <cast ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" module="nb-open-search.xsl" line="61" as="xs:untypedAtomic" emptiable="0">
-                <fn name="concat">
-                 <str val="&amp;fq="/>
-                 <varRef ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="197" name="facet-name" slot="1"/>
-                 <str val=":"/>
-                 <fn name="encode-for-uri">
-                  <fn name="concat">
-                   <str val="&#34;"/>
-                   <cvUntyped ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="197" to="xs:string">
-                    <data>
-                     <dot type="element()"/>
-                    </data>
-                   </cvUntyped>
-                   <str val="&#34;"/>
-                  </fn>
-                 </fn>
-                </fn>
-               </cast>
-              </cvUntyped>
-             </fn>
-            </filter>
-           </fn>
-          </arith>
-         </compareToInt>
-         <varRef name="is-active" slot="2"/>
-        </or>
-        <elem line="202" name="a" nsuri="" namespaces="map ixsl xhtml saxon flub">
-         <sequence>
-          <att name="id" flags="l">
-           <fn name="concat">
-            <str val="facet_result_"/>
-            <varRef name="facet-name" slot="1"/>
-            <str val="_"/>
-            <fn name="generate-id">
-             <dot type="element(Q{http://www.nb.no/xml/search/1.0/}value)"/>
-            </fn>
-           </fn>
-          </att>
-          <att name="class" flags="l">
-           <fn name="concat">
-            <str val="list-group-item list-group-item-action d-flex justify-content-between align-items-center             "/>
-            <choose>
-             <varRef name="is-active" slot="2"/>
-             <str val=" active"/>
-             <true/>
-             <str val=""/>
-            </choose>
-           </fn>
-          </att>
-          <choose line="203">
-           <varRef name="is-active" slot="2"/>
-           <att line="204" name="style" flags="l">
-            <str val="color: white"/>
-           </att>
-          </choose>
-          <elem line="206" name="span" nsuri="" flags="l">
-           <sequence>
-            <att name="class" flags="l">
-             <str val="facet-value"/>
-            </att>
-            <valueOf flags="l">
-             <convert from="xs:untypedAtomic" to="xs:string">
-              <data>
-               <dot type="element(Q{http://www.nb.no/xml/search/1.0/}value)"/>
-              </data>
-             </convert>
-            </valueOf>
-           </sequence>
-          </elem>
-          <elem line="207" name="span" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
-           <sequence>
-            <att name="class" flags="l">
-             <str val="badge badge-primary badge-pill"/>
-            </att>
-            <choose line="208">
-             <varRef name="is-active" slot="2"/>
-             <att line="209" name="style" flags="l">
-              <str val="background-color: white; color: black"/>
-             </att>
-            </choose>
-            <valueOf flags="el">
-             <convert from="xs:untypedAtomic" to="xs:string">
-              <attVal name="Q{http://www.nb.no/xml/search/1.0/}count" chk="0"/>
-             </convert>
-            </valueOf>
-           </sequence>
-          </elem>
-         </sequence>
-        </elem>
-       </choose>
-      </let>
-     </let>
-    </sequence>
-   </templateRule>
-   <templateRule prec="1" prio="4.0" seq="1" rank="2" minImp="0" slots="0" flags="s" line="179" module="search-nb.xsl">
-    <p.nodeTest role="match" test="text()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===3;"/>
-    <empty role="action"/>
-   </templateRule>
-  </mode>
- </co>
- <co id="5" binds="6 6 6 6">
+ <co id="2" binds="3 3 3 3">
   <function name="Q{http://data.ub.uib.no/ns/function-library}cors-uri" line="56" module="saxon-js-utils.xsl" eval="7" flags="pU" as="xs:anyURI" slots="2">
    <arg name="uri" as="xs:string"/>
    <let role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math map=http://www.w3.org/2005/xpath-functions/map" line="58" var="proxy-uri" as="document-node()" slot="1" eval="7">
@@ -376,7 +111,7 @@
    </let>
   </function>
  </co>
- <co id="7" binds="">
+ <co id="4" binds="">
   <function name="Q{http://data.ub.uib.no/ns/function-library}get-opensearch-param-prefix" line="18" module="nb-open-search.xsl" eval="7" flags="pU" as="item()*" slots="2">
    <arg name="paramname" as="xs:string"/>
    <choose role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="24">
@@ -413,7 +148,7 @@
    </choose>
   </function>
  </co>
- <co id="8" binds="">
+ <co id="5" binds="">
   <globalVariable name="Q{}fq" type="xs:string+" line="16" module="nb-open-search.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n&gt;=1;};">
    <literal count="7">
     <str val="year"/>
@@ -426,17 +161,12 @@
    </literal>
   </globalVariable>
  </co>
- <co id="9" vis="PUBLIC" binds="">
-  <globalParam name="Q{}mediatype" type="xs:string" line="17" module="search-nb.xsl" visibility="PUBLIC" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};">
-   <str val="bøker"/>
-  </globalParam>
- </co>
- <co id="10" vis="PUBLIC" binds="">
+ <co id="6" vis="PUBLIC" binds="">
   <globalParam name="Q{}digitized" type="xs:string" line="18" module="search-nb.xsl" visibility="PUBLIC" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};">
    <str val="True"/>
   </globalParam>
  </co>
- <co id="11" binds="">
+ <co id="7" binds="">
   <function name="Q{http://data.ub.uib.no/ns/function-library}facet-query" line="40" module="nb-open-search.xsl" eval="7" flags="pU" as="xs:anyURI" slots="1">
    <arg name="query" as="xs:string"/>
    <cast role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="46" as="xs:anyURI" emptiable="0">
@@ -457,7 +187,7 @@
    </cast>
   </function>
  </co>
- <co id="12" binds="7">
+ <co id="8" binds="4">
   <function name="Q{http://data.ub.uib.no/ns/function-library}param-helper" line="27" module="nb-open-search.xsl" eval="7" flags="pU" as="xs:string?" slots="3">
    <arg name="object" as="item()*"/>
    <arg name="name" as="xs:string"/>
@@ -500,7 +230,920 @@
    </let>
   </function>
  </co>
- <co id="4" vis="PUBLIC" binds="">
+ <co id="9" binds="8 8 8">
+  <function name="Q{http://data.ub.uib.no/ns/function-library}get-params" line="246" module="search-nb.xsl" eval="8" flags="pU" as="xs:string?" slots="1">
+   <let role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="247" var="main-object" as="element()*" slot="0" eval="8">
+    <fn name="id">
+     <str val="main"/>
+     <check card="1" diag="0|1||fn:id">
+      <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
+     </check>
+    </fn>
+    <cvUntyped line="252" to="xs:string">
+     <cast as="xs:untypedAtomic" emptiable="0">
+      <fn name="string-join">
+       <sequence>
+        <ufCall line="248" name="Q{http://data.ub.uib.no/ns/function-library}param-helper" tailCall="false" bSlot="0" eval="4 0">
+         <varRef name="main-object" slot="0"/>
+         <str val="itemsPerPage"/>
+        </ufCall>
+        <ufCall line="249" name="Q{http://data.ub.uib.no/ns/function-library}param-helper" tailCall="false" bSlot="1" eval="4 0">
+         <varRef name="main-object" slot="0"/>
+         <str val="mediatype"/>
+        </ufCall>
+        <ufCall line="250" name="Q{http://data.ub.uib.no/ns/function-library}param-helper" tailCall="false" bSlot="2" eval="4 0">
+         <varRef name="main-object" slot="0"/>
+         <str val="digital"/>
+        </ufCall>
+       </sequence>
+       <str val="&amp;"/>
+      </fn>
+     </cast>
+    </cvUntyped>
+   </let>
+  </function>
+ </co>
+ <co id="10" binds="11 12">
+  <mode name="Q{}callback" onNo="TC" flags="W" patternSlots="0">
+   <templateRule prec="1" prio="-0.5" seq="1" rank="1" minImp="0" slots="2" flags="s" line="205" module="search-nb.xsl">
+    <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
+    <sequence role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="206">
+     <param name="Q{}callback-name" slot="0" flags="i" as="xs:string">
+      <treat role="conversion" as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="8|0|XTTE0590|callback-name">
+       <check card="1" diag="8|0|XTTE0590|callback-name">
+        <cvUntyped to="xs:string">
+         <data>
+          <supplied slot="0"/>
+         </data>
+        </cvUntyped>
+       </check>
+      </treat>
+     </param>
+     <param line="207" name="Q{}query" slot="1" flags="i" as="xs:string">
+      <treat role="conversion" as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="8|0|XTTE0590|query">
+       <check card="1" diag="8|0|XTTE0590|query">
+        <cvUntyped to="xs:string">
+         <data>
+          <supplied slot="1"/>
+         </data>
+        </cvUntyped>
+       </check>
+      </treat>
+     </param>
+     <choose line="209">
+      <vc op="eq" onEmpty="0" comp="CCC">
+       <varRef name="callback-name" slot="0"/>
+       <str val="json-manifest"/>
+      </vc>
+      <message line="210">
+       <fn role="select" name="concat">
+        <str val="hello json"/>
+        <slash>
+         <axis name="self" nodeTest="node()" jsTest="return SaxonJS.U.isNode(item);"/>
+         <fn name="name">
+          <dot type="element()"/>
+         </fn>
+        </slash>
+       </fn>
+       <str role="terminate" val="no"/>
+       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
+      </message>
+      <vc line="212" op="eq" onEmpty="0" comp="CCC">
+       <varRef name="callback-name" slot="0"/>
+       <str val="facet"/>
+      </vc>
+      <applyT line="213" mode="Q{}facet" flags="t" bSlot="0">
+       <first role="select">
+        <axis name="descendant-or-self" nodeTest="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
+       </first>
+       <withParam name="Q{}query" flags="t" as="xs:string">
+        <varRef line="214" name="query" slot="1"/>
+       </withParam>
+      </applyT>
+      <vc line="217" op="eq" onEmpty="0" comp="CCC">
+       <varRef name="callback-name" slot="0"/>
+       <str val="basic-result"/>
+      </vc>
+      <applyT line="218" mode="Q{}basic-search" flags="t" bSlot="1">
+       <first role="select">
+        <axis name="descendant-or-self" nodeTest="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
+       </first>
+       <withParam name="Q{}query" flags="t" as="xs:string">
+        <varRef line="219" name="query" slot="1"/>
+       </withParam>
+      </applyT>
+      <true/>
+      <message line="223">
+       <sequence role="select">
+        <str val="callback-name: "/>
+        <varRef name="callback-name" slot="0"/>
+        <str val=" is not defined in mode transform-async"/>
+       </sequence>
+       <str role="terminate" val="yes"/>
+       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
+      </message>
+     </choose>
+    </sequence>
+   </templateRule>
+   <templateRule prec="0" prio="-0.5" seq="0" rank="0" minImp="0" slots="0" flags="s" line="16" module="saxon-js-utils.xsl">
+    <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
+    <message role="action" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math map=http://www.w3.org/2005/xpath-functions/map" line="17">
+     <str role="select" val="saxon-js-utils: template match =* mode callback must be implemented in importing stylesheet"/>
+     <str role="terminate" val="yes"/>
+     <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
+    </message>
+   </templateRule>
+  </mode>
+ </co>
+ <co id="13" binds="1 14 6">
+  <template name="Q{}initialTemplate" flags="os" line="34" module="search-nb.xsl" slots="2">
+   <sequence role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="36">
+    <message>
+     <str role="select" val="initial template"/>
+     <str role="terminate" val="no"/>
+     <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
+    </message>
+    <let line="38" var="main" as="element()*" slot="0" eval="8">
+     <fn name="id">
+      <str val="main"/>
+      <check card="1" diag="0|1||fn:id">
+       <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
+      </check>
+     </fn>
+     <let line="39" var="facets" as="element()*" slot="1" eval="8">
+      <fn name="id">
+       <str val="facets"/>
+       <check card="1" diag="0|1||fn:id">
+        <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
+       </check>
+      </fn>
+      <sequence line="41">
+       <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
+        <str val="itemsPerPage"/>
+        <gVarRef name="Q{}itemsPerPage" bSlot="0"/>
+        <check card="1" diag="0|2||ixsl:set-property">
+         <varRef name="main" slot="0"/>
+        </check>
+       </ifCall>
+       <ifCall line="42" name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
+        <str val="mediatype"/>
+        <gVarRef name="Q{}mediatype" bSlot="1"/>
+        <check card="1" diag="0|2||ixsl:set-property">
+         <varRef name="main" slot="0"/>
+        </check>
+       </ifCall>
+       <ifCall line="43" name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
+        <str val="digital"/>
+        <gVarRef name="Q{}digitized" bSlot="2"/>
+        <check card="1" diag="0|2||ixsl:set-property">
+         <varRef name="main" slot="0"/>
+        </check>
+       </ifCall>
+       <ifCall line="44" name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
+        <str val="numPerFacet"/>
+        <int val="8"/>
+        <check card="1" diag="0|2||ixsl:set-property">
+         <varRef name="facets" slot="1"/>
+        </check>
+       </ifCall>
+      </sequence>
+     </let>
+    </let>
+   </sequence>
+  </template>
+ </co>
+ <co id="15" binds="10">
+  <template name="Q{}async-transform" flags="os" line="76" module="saxon-js-utils.xsl" slots="4">
+   <sequence role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math map=http://www.w3.org/2005/xpath-functions/map" line="77">
+    <param name="Q{}doc-request" slot="0" flags="i" as="xs:anyURI">
+     <treat role="conversion" as="xs:anyURI" jsTest="return SaxonJS.U.Atomic.anyURI.matches(item);" diag="8|0|XTTE0590|doc-request">
+      <check card="1" diag="8|0|XTTE0590|doc-request">
+       <cvUntyped to="xs:anyURI">
+        <data>
+         <supplied slot="0"/>
+        </data>
+       </cvUntyped>
+      </check>
+     </treat>
+    </param>
+    <param line="78" name="Q{}id" slot="1" flags="i" as="xs:ID">
+     <treat role="conversion" as="xs:ID" jsTest="return SaxonJS.U.Atomic.ID.matches(item);" diag="8|0|XTTE0590|id">
+      <check card="1" diag="8|0|XTTE0590|id">
+       <cvUntyped to="xs:ID">
+        <data>
+         <supplied slot="1"/>
+        </data>
+       </cvUntyped>
+      </check>
+     </treat>
+    </param>
+    <param line="79" name="Q{}callback-name" slot="2" flags="i" as="xs:string">
+     <treat role="conversion" as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="8|0|XTTE0590|callback-name">
+      <check card="1" diag="8|0|XTTE0590|callback-name">
+       <cvUntyped to="xs:string">
+        <data>
+         <supplied slot="2"/>
+        </data>
+       </cvUntyped>
+      </check>
+     </treat>
+    </param>
+    <param line="80" name="Q{}method" slot="3">
+     <str role="select" val=""/>
+     <supplied role="conversion" slot="3"/>
+    </param>
+    <choose line="81">
+     <fn name="empty">
+      <fn name="id">
+       <varRef name="id" slot="1"/>
+       <check card="1" diag="0|1||fn:id">
+        <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
+       </check>
+      </fn>
+     </fn>
+     <message line="82">
+      <fn role="select" name="concat">
+       <str val="id: "/>
+       <varRef name="id" slot="1"/>
+       <str val=" not present in webpage"/>
+      </fn>
+      <str role="terminate" val="yes"/>
+      <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
+     </message>
+    </choose>
+    <resultDoc line="86" global="#&#xA;#Fri Aug 17 20:59:53 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 20:59:53 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+     <fn role="href" name="concat">
+      <str val="#"/>
+      <varRef name="id" slot="1"/>
+     </fn>
+     <applyT role="content" line="91" mode="Q{}callback" bSlot="0">
+      <slash role="select" simple="1">
+       <treat as="node()" jsTest="return SaxonJS.U.isNode(item);" diag="1|0|XPTY0019|/">
+        <choose line="89">
+         <gc op="=" card="N:1" comp="GAC|http://www.w3.org/2005/xpath-functions/collation/codepoint">
+          <data>
+           <varRef name="method" slot="3"/>
+          </data>
+          <str val="xml"/>
+         </gc>
+         <fn name="document">
+          <varRef name="doc-request" slot="0"/>
+         </fn>
+         <gc op="=" card="N:1" comp="GAC|http://www.w3.org/2005/xpath-functions/collation/codepoint">
+          <data>
+           <varRef name="method" slot="3"/>
+          </data>
+          <str val="json-text"/>
+         </gc>
+         <fn name="json-to-xml">
+          <treat as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="0|0||fn:json-to-xml">
+           <check card="?" diag="0|0||fn:json-to-xml">
+            <cvUntyped to="xs:string">
+             <data>
+              <fn name="parse-json">
+               <check card="1" diag="0|0||fn:parse-json">
+                <fn name="unparsed-text">
+                 <fn name="string">
+                  <varRef name="doc-request" slot="0"/>
+                 </fn>
+                </fn>
+               </check>
+              </fn>
+             </data>
+            </cvUntyped>
+           </check>
+          </treat>
+         </fn>
+        </choose>
+       </treat>
+       <axis name="child" nodeTest="element()" jsTest="return item.nodeType===1;"/>
+      </slash>
+      <withParam name="Q{}callback-name" as="xs:string">
+       <varRef line="92" name="callback-name" slot="2"/>
+      </withParam>
+      <withParam name="Q{}id" as="xs:ID">
+       <varRef line="93" name="id" slot="1"/>
+      </withParam>
+      <withParam name="Q{}query" as="xs:anyURI">
+       <varRef line="94" name="doc-request" slot="0"/>
+      </withParam>
+     </applyT>
+    </resultDoc>
+   </sequence>
+  </template>
+ </co>
+ <co id="12" binds="2 2">
+  <mode name="Q{}basic-search" onNo="TC" flags="W" patternSlots="0">
+   <templateRule prec="1" prio="2.0" seq="1" rank="0" minImp="0" slots="0" flags="s" line="146" module="search-nb.xsl">
+    <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
+    <empty role="action"/>
+   </templateRule>
+   <templateRule prec="1" prio="3.0" seq="0" rank="1" minImp="0" slots="4" flags="s" line="109" module="search-nb.xsl">
+    <p.nodeTest role="match" test="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
+    <sequence role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="110">
+     <param name="Q{}query" slot="0" flags="t">
+      <str role="select" val=""/>
+      <supplied role="conversion" slot="0"/>
+     </param>
+     <let line="111" var="next" as="xs:anyURI?" slot="1" eval="7">
+      <choose>
+       <fn name="exists">
+        <filter flags="b">
+         <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}link)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='link';"/>
+         <gc op="=" card="1:1" comp="CCC">
+          <attVal name="Q{}rel" chk="0"/>
+          <str val="next"/>
+         </gc>
+        </filter>
+       </fn>
+       <ufCall name="Q{http://data.ub.uib.no/ns/function-library}cors-uri" tailCall="false" bSlot="0" eval="4">
+        <check card="1" diag="0|0||flub:cors-uri">
+         <cvUntyped to="xs:string">
+          <data>
+           <slash>
+            <filter flags="b">
+             <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}link)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='link';"/>
+             <gc op="=" card="1:1" comp="CCC">
+              <attVal name="Q{}rel" chk="0"/>
+              <str val="next"/>
+             </gc>
+            </filter>
+            <axis name="attribute" nodeTest="attribute(Q{}href)" jsTest="return item.name==='href'"/>
+           </slash>
+          </data>
+         </cvUntyped>
+        </check>
+       </ufCall>
+      </choose>
+      <sequence line="113">
+       <message>
+        <fn role="select" name="concat">
+         <str val="next: "/>
+         <varRef name="next" slot="1"/>
+        </fn>
+        <str role="terminate" val="no"/>
+        <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
+       </message>
+       <let line="115" var="previous" as="xs:anyURI?" slot="2" eval="7">
+        <choose>
+         <fn name="exists">
+          <filter flags="b">
+           <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}link)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='link';"/>
+           <gc op="=" card="1:1" comp="CCC">
+            <attVal name="Q{}rel" chk="0"/>
+            <str val="previous"/>
+           </gc>
+          </filter>
+         </fn>
+         <ufCall name="Q{http://data.ub.uib.no/ns/function-library}cors-uri" tailCall="false" bSlot="1" eval="4">
+          <check card="1" diag="0|0||flub:cors-uri">
+           <cvUntyped to="xs:string">
+            <data>
+             <slash>
+              <filter flags="b">
+               <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}link)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='link';"/>
+               <gc op="=" card="1:1" comp="CCC">
+                <attVal name="Q{}rel" chk="0"/>
+                <str val="previous"/>
+               </gc>
+              </filter>
+              <axis name="attribute" nodeTest="attribute(Q{}href)" jsTest="return item.name==='href'"/>
+             </slash>
+            </data>
+           </cvUntyped>
+          </check>
+         </ufCall>
+        </choose>
+        <sequence line="116">
+         <elem name="div" nsuri="" namespaces="map ixsl xhtml saxon flub">
+          <sequence>
+           <att name="class" flags="l">
+            <str val="container"/>
+           </att>
+           <elem line="117" name="span" nsuri="" flags="l">
+            <valueOf flags="el">
+             <fn name="concat">
+              <str val="Resultat av søket: "/>
+              <fn name="string-join">
+               <convert from="xs:untypedAtomic" to="xs:string">
+                <data>
+                 <axis name="child" nodeTest="element(Q{http://a9.com/-/spec/opensearch/1.1/}startIndex)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://a9.com/-/spec/opensearch/1.1/'&amp;&amp;q.local==='startIndex';"/>
+                </data>
+               </convert>
+               <str val=" "/>
+              </fn>
+              <str val=" til "/>
+              <fn name="string">
+               <convert from="xs:integer" to="xs:string">
+                <arith op="-" calc="i-i">
+                 <arith op="+" calc="i+i">
+                  <cast as="xs:integer" emptiable="1">
+                   <atomSing card="?" diag="2|0||cast as">
+                    <axis name="child" nodeTest="element(Q{http://a9.com/-/spec/opensearch/1.1/}startIndex)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://a9.com/-/spec/opensearch/1.1/'&amp;&amp;q.local==='startIndex';"/>
+                   </atomSing>
+                  </cast>
+                  <cast as="xs:integer" emptiable="1">
+                   <atomSing card="?" diag="2|0||cast as">
+                    <axis name="child" nodeTest="element(Q{http://a9.com/-/spec/opensearch/1.1/}itemsPerPage)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://a9.com/-/spec/opensearch/1.1/'&amp;&amp;q.local==='itemsPerPage';"/>
+                   </atomSing>
+                  </cast>
+                 </arith>
+                 <int val="1"/>
+                </arith>
+               </convert>
+              </fn>
+              <str val=" av "/>
+              <fn name="string-join">
+               <convert from="xs:untypedAtomic" to="xs:string">
+                <data>
+                 <axis name="child" nodeTest="element(Q{http://a9.com/-/spec/opensearch/1.1/}totalResults)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://a9.com/-/spec/opensearch/1.1/'&amp;&amp;q.local==='totalResults';"/>
+                </data>
+               </convert>
+               <str val=" "/>
+              </fn>
+             </fn>
+            </valueOf>
+           </elem>
+           <elem line="119" name="div" nsuri="" flags="l">
+            <sequence>
+             <elem name="button" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
+              <sequence>
+               <att name="name" flags="l">
+                <str val="previous-result"/>
+               </att>
+               <att name="class" flags="l">
+                <str val="btn"/>
+               </att>
+               <choose line="120">
+                <fn name="not">
+                 <varRef name="previous" slot="2"/>
+                </fn>
+                <att name="disabled" flags="l">
+                 <str val=""/>
+                </att>
+               </choose>
+               <elem line="123" name="i" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
+                <att name="class" flags="l">
+                 <str val="fas fa-arrow-left"/>
+                </att>
+               </elem>
+              </sequence>
+             </elem>
+             <elem line="125" name="button" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
+              <sequence>
+               <att name="name" flags="l">
+                <str val="next-result"/>
+               </att>
+               <att name="class" flags="l">
+                <str val="btn"/>
+               </att>
+               <choose line="126">
+                <fn name="not">
+                 <varRef name="next" slot="1"/>
+                </fn>
+                <att name="disabled" flags="l">
+                 <str val=""/>
+                </att>
+               </choose>
+               <elem line="129" name="i" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
+                <att name="class" flags="l">
+                 <str val="fas fa-arrow-right"/>
+                </att>
+               </elem>
+              </sequence>
+             </elem>
+            </sequence>
+           </elem>
+          </sequence>
+         </elem>
+         <elem line="133" name="div" nsuri="" namespaces="map ixsl xhtml saxon flub">
+          <sequence>
+           <att name="class" flags="l">
+            <str val="list-group"/>
+           </att>
+           <att name="id" flags="l">
+            <str val="basic-search-result"/>
+           </att>
+           <applyT line="134" flags="ci" bSlot="-1">
+            <axis role="select" name="child" nodeTest="node()" jsTest="return true;"/>
+           </applyT>
+          </sequence>
+         </elem>
+         <message line="137">
+          <fn role="select" name="concat">
+           <str val="mode facet query:"/>
+           <atomSing card="?" diag="0|1||fn:concat">
+            <varRef name="query" slot="0"/>
+           </atomSing>
+          </fn>
+          <str role="terminate" val="no"/>
+          <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
+         </message>
+         <let line="140" var="result-fragment" as="element()*" slot="3" eval="8">
+          <fn name="id">
+           <str val="result"/>
+           <check card="1" diag="0|1||fn:id">
+            <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
+           </check>
+          </fn>
+          <sequence line="141">
+           <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
+            <str val="previous"/>
+            <varRef name="previous" slot="2"/>
+            <check card="1" diag="0|2||ixsl:set-property">
+             <varRef name="result-fragment" slot="3"/>
+            </check>
+           </ifCall>
+           <ifCall line="142" name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
+            <str val="next"/>
+            <varRef name="next" slot="1"/>
+            <check card="1" diag="0|2||ixsl:set-property">
+             <varRef name="result-fragment" slot="3"/>
+            </check>
+           </ifCall>
+           <ifCall line="143" name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
+            <str val="query"/>
+            <check card="?" diag="0|1||ixsl:set-property">
+             <varRef name="query" slot="0"/>
+            </check>
+            <check card="1" diag="0|2||ixsl:set-property">
+             <varRef name="result-fragment" slot="3"/>
+            </check>
+           </ifCall>
+          </sequence>
+         </let>
+        </sequence>
+       </let>
+      </sequence>
+     </let>
+    </sequence>
+   </templateRule>
+   <templateRule prec="1" prio="3.0" seq="2" rank="1" minImp="0" slots="0" flags="s" line="148" module="search-nb.xsl">
+    <p.nodeTest role="match" test="element(Q{http://www.w3.org/2005/Atom}entry)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='entry';"/>
+    <elem role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="149" name="li" nsuri="" namespaces="map ixsl xhtml saxon flub">
+     <sequence>
+      <att name="class" flags="l">
+       <str val="list-group-item list-group-item-action flex-column align-items-start"/>
+      </att>
+      <elem line="150" name="div" nsuri="" flags="l">
+       <sequence>
+        <att name="class" flags="l">
+         <str val="d-flex w-100 justify-content-between result-item"/>
+        </att>
+        <att name="id" flags="l">
+         <fn name="concat">
+          <str val="_"/>
+          <fn name="string-join">
+           <convert from="xs:untypedAtomic" to="xs:string">
+            <data>
+             <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}sesamid)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='sesamid';"/>
+            </data>
+           </convert>
+           <str val=" "/>
+          </fn>
+         </fn>
+        </att>
+        <elem line="152" name="h5" nsuri="" flags="l">
+         <sequence>
+          <att name="class" flags="l">
+           <str val="mb-1"/>
+          </att>
+          <valueOf flags="el">
+           <fn name="string-join">
+            <convert from="xs:untypedAtomic" to="xs:string">
+             <data>
+              <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}title)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='title';"/>
+             </data>
+            </convert>
+            <str val=" "/>
+           </fn>
+          </valueOf>
+         </sequence>
+        </elem>
+        <elem line="153" name="small" nsuri="" flags="l">
+         <valueOf flags="el">
+          <fn name="concat">
+           <fn name="string-join">
+            <convert from="xs:untypedAtomic" to="xs:string">
+             <data>
+              <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}namecreator)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='namecreator';"/>
+             </data>
+            </convert>
+            <str val=" "/>
+           </fn>
+           <str val=" ("/>
+           <fn name="string-join">
+            <convert from="xs:anyAtomicType" to="xs:string">
+             <data>
+              <first>
+               <sequence>
+                <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}year)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='year';"/>
+                <str val="Ikke oppgitt"/>
+               </sequence>
+              </first>
+             </data>
+            </convert>
+            <str val=" "/>
+           </fn>
+           <str val=") "/>
+          </fn>
+         </valueOf>
+        </elem>
+       </sequence>
+      </elem>
+      <elem line="155" name="p" nsuri="" flags="l">
+       <sequence>
+        <att name="class" flags="l">
+         <str val="mb-1"/>
+        </att>
+        <valueOf flags="el">
+         <fn name="string-join">
+          <convert from="xs:untypedAtomic" to="xs:string">
+           <data>
+            <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}summary)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='summary';"/>
+           </data>
+          </convert>
+          <str val=" "/>
+         </fn>
+        </valueOf>
+       </sequence>
+      </elem>
+     </sequence>
+    </elem>
+   </templateRule>
+  </mode>
+ </co>
+ <co id="16" binds="">
+  <function name="Q{http://data.ub.uib.no/ns/function-library}facet-uri-component" line="55" module="nb-open-search.xsl" eval="9" flags="pU" as="item()*" slots="2">
+   <arg name="facet-name" as="xs:string"/>
+   <arg name="facet-value" as="xs:string"/>
+   <valueOf role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" line="61">
+    <fn name="concat">
+     <str val="&amp;fq="/>
+     <varRef name="facet-name" slot="0"/>
+     <str val=":"/>
+     <fn name="encode-for-uri">
+      <fn name="concat">
+       <str val="&#34;"/>
+       <varRef name="facet-value" slot="1"/>
+       <str val="&#34;"/>
+      </fn>
+     </fn>
+    </fn>
+   </valueOf>
+  </function>
+ </co>
+ <co id="11" binds="17 11 11">
+  <mode name="Q{}facet" onNo="TC" flags="W" patternSlots="0">
+   <templateRule prec="1" prio="4.0" seq="1" rank="2" minImp="0" slots="0" flags="s" line="167" module="search-nb.xsl">
+    <p.withPredicate role="match">
+     <p.nodeTest test="element(Q{http://www.nb.no/xml/search/1.0/}facet)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='facet';"/>
+     <gc ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="167" op="=" card="M:N" comp="GAC|http://www.w3.org/2005/xpath-functions/collation/codepoint">
+      <data>
+       <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}name)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='name';"/>
+      </data>
+      <data>
+       <gVarRef name="Q{}ignore-facets" bSlot="0"/>
+      </data>
+     </gc>
+    </p.withPredicate>
+    <empty role="action"/>
+   </templateRule>
+   <templateRule prec="1" prio="0.5" seq="2" rank="1" minImp="0" slots="0" flags="s" line="169" module="search-nb.xsl">
+    <p.withPredicate role="match">
+     <p.nodeTest test="element(Q{http://www.nb.no/xml/search/1.0/}facet)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='facet';"/>
+     <slash ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="169">
+      <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}values)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='values';"/>
+      <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}value)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='value';"/>
+     </slash>
+    </p.withPredicate>
+    <elem role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="170" name="div" nsuri="" namespaces="map ixsl xhtml saxon flub">
+     <sequence>
+      <att name="class" flags="l">
+       <str val="ui"/>
+      </att>
+      <att name="id" flags="l">
+       <fn name="concat">
+        <str val="facet_"/>
+        <fn name="string-join">
+         <convert from="xs:untypedAtomic" to="xs:string">
+          <data>
+           <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}name)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='name';"/>
+          </data>
+         </convert>
+         <str val=" "/>
+        </fn>
+       </fn>
+      </att>
+      <elem line="171" name="h3" nsuri="" flags="l">
+       <valueOf flags="l">
+        <fn name="string-join">
+         <convert from="xs:untypedAtomic" to="xs:string">
+          <data>
+           <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}name)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='name';"/>
+          </data>
+         </convert>
+         <str val=" "/>
+        </fn>
+       </valueOf>
+      </elem>
+      <elem line="173" name="div" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
+       <sequence>
+        <att name="class" flags="l">
+         <str val="list-group"/>
+        </att>
+        <applyT line="174" mode="Q{}facet" flags="i" bSlot="1">
+         <axis role="select" name="child" nodeTest="node()" jsTest="return true;"/>
+        </applyT>
+       </sequence>
+      </elem>
+     </sequence>
+    </elem>
+   </templateRule>
+   <templateRule prec="1" prio="0.0" seq="0" rank="0" minImp="0" slots="0" flags="s" line="163" module="search-nb.xsl">
+    <p.nodeTest role="match" test="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
+    <applyT role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="164" mode="Q{}facet" flags="ti" bSlot="2">
+     <axis role="select" name="child" nodeTest="node()" jsTest="return true;"/>
+    </applyT>
+   </templateRule>
+   <templateRule prec="1" prio="0.0" seq="3" rank="0" minImp="0" slots="3" flags="s" line="179" module="search-nb.xsl">
+    <p.nodeTest role="match" test="element(Q{http://www.nb.no/xml/search/1.0/}value)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='value';"/>
+    <sequence role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="180">
+     <param name="Q{}query" slot="0" flags="ti" as="xs:string">
+      <treat role="conversion" as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="8|0|XTTE0590|query">
+       <check card="1" diag="8|0|XTTE0590|query">
+        <cvUntyped to="xs:string">
+         <data>
+          <supplied slot="0"/>
+         </data>
+        </cvUntyped>
+       </check>
+      </treat>
+     </param>
+     <let line="181" var="facet-name" as="xs:string" slot="1" eval="7">
+      <check card="1" diag="3|0|XTTE0570|facet-name">
+       <cvUntyped to="xs:string">
+        <data>
+         <docOrder intra="1">
+          <slash>
+           <fn name="reverse">
+            <slash simple="1">
+             <dot type="element(Q{http://www.nb.no/xml/search/1.0/}value)"/>
+             <axis name="ancestor" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}facet)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='facet';"/>
+            </slash>
+           </fn>
+           <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}name)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='name';"/>
+          </slash>
+         </docOrder>
+        </data>
+       </cvUntyped>
+      </check>
+      <let line="183" var="is-active" as="xs:boolean" slot="2" eval="8">
+       <fn name="contains">
+        <varRef name="query" slot="0"/>
+        <cvUntyped line="182" to="xs:string">
+         <cast ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" module="nb-open-search.xsl" line="61" as="xs:untypedAtomic" emptiable="0">
+          <fn name="concat">
+           <str val="&amp;fq="/>
+           <varRef ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="182" name="facet-name" slot="1"/>
+           <str val=":"/>
+           <fn name="encode-for-uri">
+            <fn name="concat">
+             <str val="&#34;"/>
+             <cvUntyped ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="182" to="xs:string">
+              <data>
+               <dot type="element(Q{http://www.nb.no/xml/search/1.0/}value)"/>
+              </data>
+             </cvUntyped>
+             <str val="&#34;"/>
+            </fn>
+           </fn>
+          </fn>
+         </cast>
+        </cvUntyped>
+       </fn>
+       <choose line="185">
+        <or op="or">
+         <compareToInt op="lt" val="8">
+          <arith op="+" calc="i+i">
+           <fn name="count">
+            <slash simple="1">
+             <dot type="element(Q{http://www.nb.no/xml/search/1.0/}value)"/>
+             <axis name="preceding-sibling" nodeTest="element()" jsTest="return item.nodeType===1;"/>
+            </slash>
+           </fn>
+           <fn name="count">
+            <filter flags="b">
+             <axis name="following-sibling" nodeTest="element()" jsTest="return item.nodeType===1;"/>
+             <fn name="contains">
+              <varRef name="query" slot="0"/>
+              <cvUntyped to="xs:string">
+               <cast ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" module="nb-open-search.xsl" line="61" as="xs:untypedAtomic" emptiable="0">
+                <fn name="concat">
+                 <str val="&amp;fq="/>
+                 <varRef ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="185" name="facet-name" slot="1"/>
+                 <str val=":"/>
+                 <fn name="encode-for-uri">
+                  <fn name="concat">
+                   <str val="&#34;"/>
+                   <cvUntyped ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="185" to="xs:string">
+                    <data>
+                     <dot type="element()"/>
+                    </data>
+                   </cvUntyped>
+                   <str val="&#34;"/>
+                  </fn>
+                 </fn>
+                </fn>
+               </cast>
+              </cvUntyped>
+             </fn>
+            </filter>
+           </fn>
+          </arith>
+         </compareToInt>
+         <varRef name="is-active" slot="2"/>
+        </or>
+        <elem line="190" name="a" nsuri="" namespaces="map ixsl xhtml saxon flub">
+         <sequence>
+          <att name="id" flags="l">
+           <fn name="concat">
+            <str val="facet_result_"/>
+            <varRef name="facet-name" slot="1"/>
+            <str val="_"/>
+            <fn name="generate-id">
+             <dot type="element(Q{http://www.nb.no/xml/search/1.0/}value)"/>
+            </fn>
+           </fn>
+          </att>
+          <att name="class" flags="l">
+           <fn name="concat">
+            <str val="list-group-item list-group-item-action d-flex justify-content-between align-items-center             "/>
+            <choose>
+             <varRef name="is-active" slot="2"/>
+             <str val=" active"/>
+             <true/>
+             <str val=""/>
+            </choose>
+           </fn>
+          </att>
+          <choose line="191">
+           <varRef name="is-active" slot="2"/>
+           <att line="192" name="style" flags="l">
+            <str val="color: white"/>
+           </att>
+          </choose>
+          <elem line="194" name="span" nsuri="" flags="l">
+           <sequence>
+            <att name="class" flags="l">
+             <str val="facet-value"/>
+            </att>
+            <valueOf flags="l">
+             <convert from="xs:untypedAtomic" to="xs:string">
+              <data>
+               <dot type="element(Q{http://www.nb.no/xml/search/1.0/}value)"/>
+              </data>
+             </convert>
+            </valueOf>
+           </sequence>
+          </elem>
+          <elem line="195" name="span" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
+           <sequence>
+            <att name="class" flags="l">
+             <str val="badge badge-primary badge-pill"/>
+            </att>
+            <choose line="196">
+             <varRef name="is-active" slot="2"/>
+             <att line="197" name="style" flags="l">
+              <str val="background-color: white; color: black"/>
+             </att>
+            </choose>
+            <valueOf flags="el">
+             <convert from="xs:untypedAtomic" to="xs:string">
+              <attVal name="Q{http://www.nb.no/xml/search/1.0/}count" chk="0"/>
+             </convert>
+            </valueOf>
+           </sequence>
+          </elem>
+         </sequence>
+        </elem>
+       </choose>
+      </let>
+     </let>
+    </sequence>
+   </templateRule>
+   <templateRule prec="1" prio="4.0" seq="1" rank="2" minImp="0" slots="0" flags="s" line="167" module="search-nb.xsl">
+    <p.nodeTest role="match" test="text()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===3;"/>
+    <empty role="action"/>
+   </templateRule>
+  </mode>
+ </co>
+ <co id="14" vis="PUBLIC" binds="">
+  <globalParam name="Q{}mediatype" type="xs:string" line="17" module="search-nb.xsl" visibility="PUBLIC" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};">
+   <str val="bøker"/>
+  </globalParam>
+ </co>
+ <co id="17" vis="PUBLIC" binds="">
   <globalParam name="Q{}ignore-facets" type="item()*" line="19" module="search-nb.xsl" visibility="PUBLIC" jsAcceptor="return val;" jsCardCheck="function c() {return true;};">
    <literal count="6">
     <str val="ddc1"/>
@@ -512,7 +1155,7 @@
    </literal>
   </globalParam>
  </co>
- <co id="13" binds="14 5 14 14 5 14 15 14 5 14 14">
+ <co id="18" binds="19 2 19 19 2 19 20 19">
   <mode name="Q{http://saxonica.com/ns/interactiveXSLT}onclick" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="1" prio="0.5" seq="1" rank="0" minImp="0" slots="4" flags="s" line="63" module="search-nb.xsl">
     <p.withPredicate role="match">
@@ -756,130 +1399,31 @@
      </let>
     </let>
    </templateRule>
-   <templateRule prec="1" prio="0.5" seq="3" rank="0" minImp="0" slots="0" flags="s" line="115" module="search-nb.xsl">
+   <templateRule prec="1" prio="0.5" seq="3" rank="0" minImp="0" slots="0" flags="s" line="103" module="search-nb.xsl">
     <p.withPredicate role="match">
      <p.nodeTest test="element(Q{}div)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri===''&amp;&amp;q.local==='div';"/>
-     <fn ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="115" name="contains">
+     <fn ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="103" name="contains">
       <cvUntyped to="xs:string">
        <attVal name="Q{}class" chk="0"/>
       </cvUntyped>
       <str val="result-item"/>
      </fn>
     </p.withPredicate>
-    <message role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="116">
+    <message role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="104">
      <str role="select" val="result item"/>
      <str role="terminate" val="no"/>
      <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
     </message>
    </templateRule>
-   <templateRule prec="1" prio="0.5" seq="2" rank="0" minImp="0" slots="3" flags="s" line="97" module="search-nb.xsl">
+   <templateRule prec="1" prio="0.5" seq="2" rank="0" minImp="0" slots="0" flags="s" line="98" module="search-nb.xsl">
     <p.withPredicate role="match">
      <p.nodeTest test="element(Q{}button)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri===''&amp;&amp;q.local==='button';"/>
-     <gc ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="97" op="=" card="1:1" comp="CCC">
+     <gc ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="98" op="=" card="1:1" comp="CCC">
       <attVal name="Q{}name" chk="0"/>
       <str val="button-search"/>
      </gc>
     </p.withPredicate>
-    <sequence role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="98">
-     <message>
-      <sequence role="select">
-       <str val="event: "/>
-       <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}get" type="item()*">
-        <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}event" type="item()?"/>
-        <str val="type"/>
-       </ifCall>
-      </sequence>
-      <str role="terminate" val="no"/>
-      <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
-     </message>
-     <let line="99" var="main" as="element()*" slot="0" eval="8">
-      <fn name="id">
-       <str val="main"/>
-       <check card="1" diag="0|1||fn:id">
-        <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
-       </check>
-      </fn>
-      <let line="100" var="search-string" as="item()*" slot="1" eval="8">
-       <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}get" type="item()*">
-        <check card="?" diag="0|0||ixsl:get">
-         <fn name="id">
-          <str val="search-field1"/>
-          <check card="1" diag="0|1||fn:id">
-           <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
-          </check>
-         </fn>
-        </check>
-        <str val="value"/>
-       </ifCall>
-       <let line="101" var="query" as="xs:string" slot="2" eval="8">
-        <cvUntyped to="xs:string">
-         <cast as="xs:untypedAtomic" emptiable="0">
-          <fn name="concat">
-           <str val="https://www.nb.no/services/search/v2/search?q="/>
-           <fn name="encode-for-uri">
-            <fn name="string">
-             <check card="?" diag="0|0||fn:string">
-              <varRef name="search-string" slot="1"/>
-             </check>
-            </fn>
-           </fn>
-           <str val="&amp;"/>
-           <fn name="string">
-            <ufCall name="Q{http://data.ub.uib.no/ns/function-library}get-params" tailCall="false" bSlot="6"/>
-           </fn>
-          </fn>
-         </cast>
-        </cvUntyped>
-        <sequence line="105">
-         <message>
-          <sequence role="select">
-           <str val="button button search click"/>
-           <varRef name="search-string" slot="1"/>
-          </sequence>
-          <str role="terminate" val="no"/>
-          <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
-         </message>
-         <choose line="107">
-          <fn name="string">
-           <check card="?" diag="0|0||fn:string">
-            <varRef name="search-string" slot="1"/>
-           </check>
-          </fn>
-          <sequence line="109">
-           <ufCall name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="7" eval="7 0 0">
-            <ufCall name="Q{http://data.ub.uib.no/ns/function-library}cors-uri" tailCall="false" bSlot="8" eval="6">
-             <varRef name="query" slot="2"/>
-            </ufCall>
-            <str val="result"/>
-            <str val="basic-result"/>
-           </ufCall>
-           <ufCall line="110" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="9" eval="7 0 0">
-            <cast ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" module="nb-open-search.xsl" line="46" as="xs:anyURI" emptiable="0">
-             <fn name="concat">
-              <fn name="replace">
-               <fn name="replace">
-                <varRef ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="110" name="query" slot="2"/>
-                <str val="itemsPerPage=[0-9]+"/>
-                <str val="itemsPerPage=1"/>
-                <str val=""/>
-               </fn>
-               <str val="&amp;facet=all"/>
-               <str val=""/>
-               <str val=""/>
-              </fn>
-              <str val="&amp;facet=all"/>
-             </fn>
-            </cast>
-            <str val="facets"/>
-            <str val="facet"/>
-           </ufCall>
-          </sequence>
-         </choose>
-        </sequence>
-       </let>
-      </let>
-     </let>
-    </sequence>
+    <callT role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="99" name="basic-search" bSlot="6" flags="t"/>
    </templateRule>
    <templateRule prec="1" prio="0.5" seq="0" rank="0" minImp="0" slots="1" flags="s" line="51" module="search-nb.xsl">
     <p.withPredicate role="match">
@@ -933,7 +1477,7 @@
        <str role="terminate" val="no"/>
        <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
       </message>
-      <ufCall line="59" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="10" eval="7 0 0">
+      <ufCall line="59" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="7" eval="7 0 0">
        <check card="1" diag="0|0||flub:async-request">
         <varRef name="action" slot="0"/>
        </check>
@@ -945,7 +1489,7 @@
    </templateRule>
   </mode>
  </co>
- <co id="16" binds="">
+ <co id="21" binds="20">
   <mode name="Q{http://saxonica.com/ns/interactiveXSLT}onkeyup" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="1" prio="1.0" seq="0" rank="0" minImp="0" slots="1" flags="s" line="89" module="search-nb.xsl">
     <p.booleanExp role="match">
@@ -982,10 +1526,11 @@
       </gc>
      </and>
     </p.booleanExp>
-    <let role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="90" var="event" as="item()?" slot="0" eval="8">
-     <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}event" type="item()?"/>
-     <sequence line="92">
-      <message>
+    <sequence role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="90">
+     <callT name="basic-search" bSlot="0"/>
+     <let line="91" var="event" as="item()?" slot="0" eval="8">
+      <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}event" type="item()?"/>
+      <message line="93">
        <sequence role="select">
         <str val="event: "/>
         <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}get" type="item()*">
@@ -1011,57 +1556,12 @@
        <str role="terminate" val="no"/>
        <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
       </message>
-      <ifCall line="93" name="Q{http://saxonica.com/ns/interactiveXSLT}call" type="item()?">
-       <check card="1" diag="0|0||ixsl:call">
-        <slash simple="1">
-         <treat as="node()" jsTest="return SaxonJS.U.isNode(item);" diag="14|12|XPTY0020|">
-          <dot/>
-         </treat>
-         <axis name="self" nodeTest="node()" jsTest="return SaxonJS.U.isNode(item);"/>
-        </slash>
-       </check>
-       <str val="blur"/>
-       <arrayBlock/>
-      </ifCall>
-     </sequence>
-    </let>
+     </let>
+    </sequence>
    </templateRule>
   </mode>
  </co>
- <co id="15" binds="12 12 12">
-  <function name="Q{http://data.ub.uib.no/ns/function-library}get-params" line="240" module="search-nb.xsl" eval="8" flags="pU" as="xs:string?" slots="1">
-   <let role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="241" var="main-object" as="element()*" slot="0" eval="8">
-    <fn name="id">
-     <str val="main"/>
-     <check card="1" diag="0|1||fn:id">
-      <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
-     </check>
-    </fn>
-    <cvUntyped line="246" to="xs:string">
-     <cast as="xs:untypedAtomic" emptiable="0">
-      <fn name="string-join">
-       <sequence>
-        <ufCall line="242" name="Q{http://data.ub.uib.no/ns/function-library}param-helper" tailCall="false" bSlot="0" eval="4 0">
-         <varRef name="main-object" slot="0"/>
-         <str val="itemsPerPage"/>
-        </ufCall>
-        <ufCall line="243" name="Q{http://data.ub.uib.no/ns/function-library}param-helper" tailCall="false" bSlot="1" eval="4 0">
-         <varRef name="main-object" slot="0"/>
-         <str val="mediatype"/>
-        </ufCall>
-        <ufCall line="244" name="Q{http://data.ub.uib.no/ns/function-library}param-helper" tailCall="false" bSlot="2" eval="4 0">
-         <varRef name="main-object" slot="0"/>
-         <str val="digital"/>
-        </ufCall>
-       </sequence>
-       <str val="&amp;"/>
-      </fn>
-     </cast>
-    </cvUntyped>
-   </let>
-  </function>
- </co>
- <co id="6" binds="">
+ <co id="3" binds="">
   <globalVariable name="Q{}cors-proxied-uris" type="map(xs:string, xs:string)" line="24" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="if (typeof val == 'object') {return val;} else {throw SaxonJS.XError('Cannot convert supplied JS value to a map or array');}" jsCardCheck="function c(n) {return n==1;};">
    <map size="3">
     <str val="https://158.39.77.227/"/>
@@ -1073,281 +1573,12 @@
    </map>
   </globalVariable>
  </co>
- <co id="17" binds="3 18">
-  <mode name="Q{}callback" onNo="TC" flags="W" patternSlots="0">
-   <templateRule prec="1" prio="-0.5" seq="1" rank="1" minImp="0" slots="2" flags="s" line="217" module="search-nb.xsl">
-    <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
-    <sequence role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="218">
-     <param name="Q{}callback-name" slot="0" flags="i" as="xs:string">
-      <treat role="conversion" as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="8|0|XTTE0590|callback-name">
-       <check card="1" diag="8|0|XTTE0590|callback-name">
-        <cvUntyped to="xs:string">
-         <data>
-          <supplied slot="0"/>
-         </data>
-        </cvUntyped>
-       </check>
-      </treat>
-     </param>
-     <param line="219" name="Q{}query" slot="1" flags="i" as="xs:string">
-      <treat role="conversion" as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="8|0|XTTE0590|query">
-       <check card="1" diag="8|0|XTTE0590|query">
-        <cvUntyped to="xs:string">
-         <data>
-          <supplied slot="1"/>
-         </data>
-        </cvUntyped>
-       </check>
-      </treat>
-     </param>
-     <choose line="221">
-      <vc op="eq" onEmpty="0" comp="CCC">
-       <varRef name="callback-name" slot="0"/>
-       <str val="json-manifest"/>
-      </vc>
-      <message line="222">
-       <fn role="select" name="concat">
-        <str val="hello json"/>
-        <slash>
-         <axis name="self" nodeTest="node()" jsTest="return SaxonJS.U.isNode(item);"/>
-         <fn name="name">
-          <dot type="element()"/>
-         </fn>
-        </slash>
-       </fn>
-       <str role="terminate" val="no"/>
-       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
-      </message>
-      <vc line="224" op="eq" onEmpty="0" comp="CCC">
-       <varRef name="callback-name" slot="0"/>
-       <str val="facet"/>
-      </vc>
-      <applyT line="225" mode="Q{}facet" flags="t" bSlot="0">
-       <first role="select">
-        <axis name="descendant-or-self" nodeTest="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
-       </first>
-       <withParam name="Q{}query" flags="t" as="xs:string">
-        <varRef line="226" name="query" slot="1"/>
-       </withParam>
-      </applyT>
-      <vc line="229" op="eq" onEmpty="0" comp="CCC">
-       <varRef name="callback-name" slot="0"/>
-       <str val="basic-result"/>
-      </vc>
-      <applyT line="230" mode="Q{}basic-search" flags="t" bSlot="1">
-       <first role="select">
-        <axis name="descendant-or-self" nodeTest="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
-       </first>
-       <withParam name="Q{}query" flags="t" as="xs:string">
-        <varRef line="231" name="query" slot="1"/>
-       </withParam>
-      </applyT>
-      <true/>
-      <message line="235">
-       <sequence role="select">
-        <str val="callback-name: "/>
-        <varRef name="callback-name" slot="0"/>
-        <str val=" is not defined in mode transform-async"/>
-       </sequence>
-       <str role="terminate" val="yes"/>
-       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
-      </message>
-     </choose>
-    </sequence>
-   </templateRule>
-   <templateRule prec="0" prio="-0.5" seq="0" rank="0" minImp="0" slots="0" flags="s" line="16" module="saxon-js-utils.xsl">
-    <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
-    <message role="action" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math map=http://www.w3.org/2005/xpath-functions/map" line="17">
-     <str role="select" val="saxon-js-utils: template match =* mode callback must be implemented in importing stylesheet"/>
-     <str role="terminate" val="yes"/>
-     <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
-    </message>
-   </templateRule>
-  </mode>
- </co>
- <co id="19" binds="2 9 10">
-  <template name="Q{}initialTemplate" flags="os" line="34" module="search-nb.xsl" slots="2">
-   <sequence role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="36">
-    <message>
-     <str role="select" val="initial template"/>
-     <str role="terminate" val="no"/>
-     <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
-    </message>
-    <let line="38" var="main" as="element()*" slot="0" eval="8">
-     <fn name="id">
-      <str val="main"/>
-      <check card="1" diag="0|1||fn:id">
-       <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
-      </check>
-     </fn>
-     <let line="39" var="facets" as="element()*" slot="1" eval="8">
-      <fn name="id">
-       <str val="facets"/>
-       <check card="1" diag="0|1||fn:id">
-        <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
-       </check>
-      </fn>
-      <sequence line="41">
-       <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
-        <str val="itemsPerPage"/>
-        <gVarRef name="Q{}itemsPerPage" bSlot="0"/>
-        <check card="1" diag="0|2||ixsl:set-property">
-         <varRef name="main" slot="0"/>
-        </check>
-       </ifCall>
-       <ifCall line="42" name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
-        <str val="mediatype"/>
-        <gVarRef name="Q{}mediatype" bSlot="1"/>
-        <check card="1" diag="0|2||ixsl:set-property">
-         <varRef name="main" slot="0"/>
-        </check>
-       </ifCall>
-       <ifCall line="43" name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
-        <str val="digital"/>
-        <gVarRef name="Q{}digitized" bSlot="2"/>
-        <check card="1" diag="0|2||ixsl:set-property">
-         <varRef name="main" slot="0"/>
-        </check>
-       </ifCall>
-       <ifCall line="44" name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
-        <str val="numPerFacet"/>
-        <int val="8"/>
-        <check card="1" diag="0|2||ixsl:set-property">
-         <varRef name="facets" slot="1"/>
-        </check>
-       </ifCall>
-      </sequence>
-     </let>
-    </let>
-   </sequence>
-  </template>
- </co>
- <co id="20" binds="">
+ <co id="22" binds="">
   <globalVariable name="Q{}debug" type="xs:boolean" line="23" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.boolean.cast(val);" jsCardCheck="function c(n) {return n==1;};">
    <true/>
   </globalVariable>
  </co>
- <co id="21" binds="17">
-  <template name="Q{}async-transform" flags="os" line="76" module="saxon-js-utils.xsl" slots="4">
-   <sequence role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math map=http://www.w3.org/2005/xpath-functions/map" line="77">
-    <param name="Q{}doc-request" slot="0" flags="i" as="xs:anyURI">
-     <treat role="conversion" as="xs:anyURI" jsTest="return SaxonJS.U.Atomic.anyURI.matches(item);" diag="8|0|XTTE0590|doc-request">
-      <check card="1" diag="8|0|XTTE0590|doc-request">
-       <cvUntyped to="xs:anyURI">
-        <data>
-         <supplied slot="0"/>
-        </data>
-       </cvUntyped>
-      </check>
-     </treat>
-    </param>
-    <param line="78" name="Q{}id" slot="1" flags="i" as="xs:ID">
-     <treat role="conversion" as="xs:ID" jsTest="return SaxonJS.U.Atomic.ID.matches(item);" diag="8|0|XTTE0590|id">
-      <check card="1" diag="8|0|XTTE0590|id">
-       <cvUntyped to="xs:ID">
-        <data>
-         <supplied slot="1"/>
-        </data>
-       </cvUntyped>
-      </check>
-     </treat>
-    </param>
-    <param line="79" name="Q{}callback-name" slot="2" flags="i" as="xs:string">
-     <treat role="conversion" as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="8|0|XTTE0590|callback-name">
-      <check card="1" diag="8|0|XTTE0590|callback-name">
-       <cvUntyped to="xs:string">
-        <data>
-         <supplied slot="2"/>
-        </data>
-       </cvUntyped>
-      </check>
-     </treat>
-    </param>
-    <param line="80" name="Q{}method" slot="3">
-     <str role="select" val=""/>
-     <supplied role="conversion" slot="3"/>
-    </param>
-    <choose line="81">
-     <fn name="empty">
-      <fn name="id">
-       <varRef name="id" slot="1"/>
-       <check card="1" diag="0|1||fn:id">
-        <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
-       </check>
-      </fn>
-     </fn>
-     <message line="82">
-      <fn role="select" name="concat">
-       <str val="id: "/>
-       <varRef name="id" slot="1"/>
-       <str val=" not present in webpage"/>
-      </fn>
-      <str role="terminate" val="yes"/>
-      <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
-     </message>
-    </choose>
-    <resultDoc line="86" global="#&#xA;#Fri Aug 17 20:53:47 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 20:53:47 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
-     <fn role="href" name="concat">
-      <str val="#"/>
-      <varRef name="id" slot="1"/>
-     </fn>
-     <applyT role="content" line="91" mode="Q{}callback" bSlot="0">
-      <slash role="select" simple="1">
-       <treat as="node()" jsTest="return SaxonJS.U.isNode(item);" diag="1|0|XPTY0019|/">
-        <choose line="89">
-         <gc op="=" card="N:1" comp="GAC|http://www.w3.org/2005/xpath-functions/collation/codepoint">
-          <data>
-           <varRef name="method" slot="3"/>
-          </data>
-          <str val="xml"/>
-         </gc>
-         <fn name="document">
-          <varRef name="doc-request" slot="0"/>
-         </fn>
-         <gc op="=" card="N:1" comp="GAC|http://www.w3.org/2005/xpath-functions/collation/codepoint">
-          <data>
-           <varRef name="method" slot="3"/>
-          </data>
-          <str val="json-text"/>
-         </gc>
-         <fn name="json-to-xml">
-          <treat as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="0|0||fn:json-to-xml">
-           <check card="?" diag="0|0||fn:json-to-xml">
-            <cvUntyped to="xs:string">
-             <data>
-              <fn name="parse-json">
-               <check card="1" diag="0|0||fn:parse-json">
-                <fn name="unparsed-text">
-                 <fn name="string">
-                  <varRef name="doc-request" slot="0"/>
-                 </fn>
-                </fn>
-               </check>
-              </fn>
-             </data>
-            </cvUntyped>
-           </check>
-          </treat>
-         </fn>
-        </choose>
-       </treat>
-       <axis name="child" nodeTest="element()" jsTest="return item.nodeType===1;"/>
-      </slash>
-      <withParam name="Q{}callback-name" as="xs:string">
-       <varRef line="92" name="callback-name" slot="2"/>
-      </withParam>
-      <withParam name="Q{}id" as="xs:ID">
-       <varRef line="93" name="id" slot="1"/>
-      </withParam>
-      <withParam name="Q{}query" as="xs:anyURI">
-       <varRef line="94" name="doc-request" slot="0"/>
-      </withParam>
-     </applyT>
-    </resultDoc>
-   </sequence>
-  </template>
- </co>
- <co id="22" binds="21">
+ <co id="23" binds="15">
   <function name="Q{http://data.ub.uib.no/ns/function-library}async-request" line="25" module="saxon-js-utils.xsl" eval="8" flags="pU" as="item()*" slots="4">
    <arg name="doc-request" as="xs:anyURI"/>
    <arg name="page-id" as="xs:string"/>
@@ -1387,348 +1618,7 @@
    </sequence>
   </function>
  </co>
- <co id="18" binds="5 5">
-  <mode name="Q{}basic-search" onNo="TC" flags="W" patternSlots="0">
-   <templateRule prec="1" prio="2.0" seq="1" rank="0" minImp="0" slots="0" flags="s" line="158" module="search-nb.xsl">
-    <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
-    <empty role="action"/>
-   </templateRule>
-   <templateRule prec="1" prio="3.0" seq="0" rank="1" minImp="0" slots="4" flags="s" line="121" module="search-nb.xsl">
-    <p.nodeTest role="match" test="element(Q{http://www.w3.org/2005/Atom}feed)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='feed';"/>
-    <sequence role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="122">
-     <param name="Q{}query" slot="0" flags="t">
-      <str role="select" val=""/>
-      <supplied role="conversion" slot="0"/>
-     </param>
-     <let line="123" var="next" as="xs:anyURI?" slot="1" eval="7">
-      <choose>
-       <fn name="exists">
-        <filter flags="b">
-         <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}link)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='link';"/>
-         <gc op="=" card="1:1" comp="CCC">
-          <attVal name="Q{}rel" chk="0"/>
-          <str val="next"/>
-         </gc>
-        </filter>
-       </fn>
-       <ufCall name="Q{http://data.ub.uib.no/ns/function-library}cors-uri" tailCall="false" bSlot="0" eval="4">
-        <check card="1" diag="0|0||flub:cors-uri">
-         <cvUntyped to="xs:string">
-          <data>
-           <slash>
-            <filter flags="b">
-             <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}link)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='link';"/>
-             <gc op="=" card="1:1" comp="CCC">
-              <attVal name="Q{}rel" chk="0"/>
-              <str val="next"/>
-             </gc>
-            </filter>
-            <axis name="attribute" nodeTest="attribute(Q{}href)" jsTest="return item.name==='href'"/>
-           </slash>
-          </data>
-         </cvUntyped>
-        </check>
-       </ufCall>
-      </choose>
-      <sequence line="125">
-       <message>
-        <fn role="select" name="concat">
-         <str val="next: "/>
-         <varRef name="next" slot="1"/>
-        </fn>
-        <str role="terminate" val="no"/>
-        <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
-       </message>
-       <let line="127" var="previous" as="xs:anyURI?" slot="2" eval="7">
-        <choose>
-         <fn name="exists">
-          <filter flags="b">
-           <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}link)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='link';"/>
-           <gc op="=" card="1:1" comp="CCC">
-            <attVal name="Q{}rel" chk="0"/>
-            <str val="previous"/>
-           </gc>
-          </filter>
-         </fn>
-         <ufCall name="Q{http://data.ub.uib.no/ns/function-library}cors-uri" tailCall="false" bSlot="1" eval="4">
-          <check card="1" diag="0|0||flub:cors-uri">
-           <cvUntyped to="xs:string">
-            <data>
-             <slash>
-              <filter flags="b">
-               <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}link)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='link';"/>
-               <gc op="=" card="1:1" comp="CCC">
-                <attVal name="Q{}rel" chk="0"/>
-                <str val="previous"/>
-               </gc>
-              </filter>
-              <axis name="attribute" nodeTest="attribute(Q{}href)" jsTest="return item.name==='href'"/>
-             </slash>
-            </data>
-           </cvUntyped>
-          </check>
-         </ufCall>
-        </choose>
-        <sequence line="128">
-         <elem name="div" nsuri="" namespaces="map ixsl xhtml saxon flub">
-          <sequence>
-           <att name="class" flags="l">
-            <str val="container"/>
-           </att>
-           <elem line="129" name="span" nsuri="" flags="l">
-            <valueOf flags="el">
-             <fn name="concat">
-              <str val="Resultat av søket: "/>
-              <fn name="string-join">
-               <convert from="xs:untypedAtomic" to="xs:string">
-                <data>
-                 <axis name="child" nodeTest="element(Q{http://a9.com/-/spec/opensearch/1.1/}startIndex)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://a9.com/-/spec/opensearch/1.1/'&amp;&amp;q.local==='startIndex';"/>
-                </data>
-               </convert>
-               <str val=" "/>
-              </fn>
-              <str val=" til "/>
-              <fn name="string">
-               <convert from="xs:integer" to="xs:string">
-                <arith op="-" calc="i-i">
-                 <arith op="+" calc="i+i">
-                  <cast as="xs:integer" emptiable="1">
-                   <atomSing card="?" diag="2|0||cast as">
-                    <axis name="child" nodeTest="element(Q{http://a9.com/-/spec/opensearch/1.1/}startIndex)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://a9.com/-/spec/opensearch/1.1/'&amp;&amp;q.local==='startIndex';"/>
-                   </atomSing>
-                  </cast>
-                  <cast as="xs:integer" emptiable="1">
-                   <atomSing card="?" diag="2|0||cast as">
-                    <axis name="child" nodeTest="element(Q{http://a9.com/-/spec/opensearch/1.1/}itemsPerPage)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://a9.com/-/spec/opensearch/1.1/'&amp;&amp;q.local==='itemsPerPage';"/>
-                   </atomSing>
-                  </cast>
-                 </arith>
-                 <int val="1"/>
-                </arith>
-               </convert>
-              </fn>
-              <str val=" av "/>
-              <fn name="string-join">
-               <convert from="xs:untypedAtomic" to="xs:string">
-                <data>
-                 <axis name="child" nodeTest="element(Q{http://a9.com/-/spec/opensearch/1.1/}totalResults)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://a9.com/-/spec/opensearch/1.1/'&amp;&amp;q.local==='totalResults';"/>
-                </data>
-               </convert>
-               <str val=" "/>
-              </fn>
-             </fn>
-            </valueOf>
-           </elem>
-           <elem line="131" name="div" nsuri="" flags="l">
-            <sequence>
-             <elem name="button" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
-              <sequence>
-               <att name="name" flags="l">
-                <str val="previous-result"/>
-               </att>
-               <att name="class" flags="l">
-                <str val="btn"/>
-               </att>
-               <choose line="132">
-                <fn name="not">
-                 <varRef name="previous" slot="2"/>
-                </fn>
-                <att name="disabled" flags="l">
-                 <str val=""/>
-                </att>
-               </choose>
-               <elem line="135" name="i" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
-                <att name="class" flags="l">
-                 <str val="fas fa-arrow-left"/>
-                </att>
-               </elem>
-              </sequence>
-             </elem>
-             <elem line="137" name="button" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
-              <sequence>
-               <att name="name" flags="l">
-                <str val="next-result"/>
-               </att>
-               <att name="class" flags="l">
-                <str val="btn"/>
-               </att>
-               <choose line="138">
-                <fn name="not">
-                 <varRef name="next" slot="1"/>
-                </fn>
-                <att name="disabled" flags="l">
-                 <str val=""/>
-                </att>
-               </choose>
-               <elem line="141" name="i" nsuri="" flags="l" namespaces="map ixsl xhtml saxon flub">
-                <att name="class" flags="l">
-                 <str val="fas fa-arrow-right"/>
-                </att>
-               </elem>
-              </sequence>
-             </elem>
-            </sequence>
-           </elem>
-          </sequence>
-         </elem>
-         <elem line="145" name="div" nsuri="" namespaces="map ixsl xhtml saxon flub">
-          <sequence>
-           <att name="class" flags="l">
-            <str val="list-group"/>
-           </att>
-           <att name="id" flags="l">
-            <str val="basic-search-result"/>
-           </att>
-           <applyT line="146" flags="ci" bSlot="-1">
-            <axis role="select" name="child" nodeTest="node()" jsTest="return true;"/>
-           </applyT>
-          </sequence>
-         </elem>
-         <message line="149">
-          <fn role="select" name="concat">
-           <str val="mode facet query:"/>
-           <atomSing card="?" diag="0|1||fn:concat">
-            <varRef name="query" slot="0"/>
-           </atomSing>
-          </fn>
-          <str role="terminate" val="no"/>
-          <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
-         </message>
-         <let line="152" var="result-fragment" as="element()*" slot="3" eval="8">
-          <fn name="id">
-           <str val="result"/>
-           <check card="1" diag="0|1||fn:id">
-            <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
-           </check>
-          </fn>
-          <sequence line="153">
-           <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
-            <str val="previous"/>
-            <varRef name="previous" slot="2"/>
-            <check card="1" diag="0|2||ixsl:set-property">
-             <varRef name="result-fragment" slot="3"/>
-            </check>
-           </ifCall>
-           <ifCall line="154" name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
-            <str val="next"/>
-            <varRef name="next" slot="1"/>
-            <check card="1" diag="0|2||ixsl:set-property">
-             <varRef name="result-fragment" slot="3"/>
-            </check>
-           </ifCall>
-           <ifCall line="155" name="Q{http://saxonica.com/ns/interactiveXSLT}set-property" type="item()?">
-            <str val="query"/>
-            <check card="?" diag="0|1||ixsl:set-property">
-             <varRef name="query" slot="0"/>
-            </check>
-            <check card="1" diag="0|2||ixsl:set-property">
-             <varRef name="result-fragment" slot="3"/>
-            </check>
-           </ifCall>
-          </sequence>
-         </let>
-        </sequence>
-       </let>
-      </sequence>
-     </let>
-    </sequence>
-   </templateRule>
-   <templateRule prec="1" prio="3.0" seq="2" rank="1" minImp="0" slots="0" flags="s" line="160" module="search-nb.xsl">
-    <p.nodeTest role="match" test="element(Q{http://www.w3.org/2005/Atom}entry)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='entry';"/>
-    <elem role="action" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="161" name="li" nsuri="" namespaces="map ixsl xhtml saxon flub">
-     <sequence>
-      <att name="class" flags="l">
-       <str val="list-group-item list-group-item-action flex-column align-items-start"/>
-      </att>
-      <elem line="162" name="div" nsuri="" flags="l">
-       <sequence>
-        <att name="class" flags="l">
-         <str val="d-flex w-100 justify-content-between result-item"/>
-        </att>
-        <att name="id" flags="l">
-         <fn name="concat">
-          <str val="_"/>
-          <fn name="string-join">
-           <convert from="xs:untypedAtomic" to="xs:string">
-            <data>
-             <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}sesamid)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='sesamid';"/>
-            </data>
-           </convert>
-           <str val=" "/>
-          </fn>
-         </fn>
-        </att>
-        <elem line="164" name="h5" nsuri="" flags="l">
-         <sequence>
-          <att name="class" flags="l">
-           <str val="mb-1"/>
-          </att>
-          <valueOf flags="el">
-           <fn name="string-join">
-            <convert from="xs:untypedAtomic" to="xs:string">
-             <data>
-              <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}title)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='title';"/>
-             </data>
-            </convert>
-            <str val=" "/>
-           </fn>
-          </valueOf>
-         </sequence>
-        </elem>
-        <elem line="165" name="small" nsuri="" flags="l">
-         <valueOf flags="el">
-          <fn name="concat">
-           <fn name="string-join">
-            <convert from="xs:untypedAtomic" to="xs:string">
-             <data>
-              <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}namecreator)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='namecreator';"/>
-             </data>
-            </convert>
-            <str val=" "/>
-           </fn>
-           <str val=" ("/>
-           <fn name="string-join">
-            <convert from="xs:anyAtomicType" to="xs:string">
-             <data>
-              <first>
-               <sequence>
-                <axis name="child" nodeTest="element(Q{http://www.nb.no/xml/search/1.0/}year)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='year';"/>
-                <str val="Ikke oppgitt"/>
-               </sequence>
-              </first>
-             </data>
-            </convert>
-            <str val=" "/>
-           </fn>
-           <str val=") "/>
-          </fn>
-         </valueOf>
-        </elem>
-       </sequence>
-      </elem>
-      <elem line="167" name="p" nsuri="" flags="l">
-       <sequence>
-        <att name="class" flags="l">
-         <str val="mb-1"/>
-        </att>
-        <valueOf flags="el">
-         <fn name="string-join">
-          <convert from="xs:untypedAtomic" to="xs:string">
-           <data>
-            <axis name="child" nodeTest="element(Q{http://www.w3.org/2005/Atom}summary)" jsTest="var q=SaxonJS.U.nameOfNode(item); return item.nodeType===1 &amp;&amp; q.uri==='http://www.w3.org/2005/Atom'&amp;&amp;q.local==='summary';"/>
-           </data>
-          </convert>
-          <str val=" "/>
-         </fn>
-        </valueOf>
-       </sequence>
-      </elem>
-     </sequence>
-    </elem>
-   </templateRule>
-  </mode>
- </co>
- <co id="14" binds="22">
+ <co id="19" binds="23">
   <function name="Q{http://data.ub.uib.no/ns/function-library}async-request" line="44" module="saxon-js-utils.xsl" eval="3" flags="pU" as="item()*" slots="3">
    <arg name="doc-request" as="xs:anyURI"/>
    <arg name="page-id" as="xs:string"/>
@@ -1751,7 +1641,110 @@
    </sequence>
   </function>
  </co>
- <co id="23" binds="">
+ <co id="20" binds="9 19 2 19">
+  <template name="Q{}basic-search" flags="os" line="229" module="search-nb.xsl" slots="3">
+   <let role="body" ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" line="230" var="main" as="element()*" slot="0" eval="8">
+    <fn name="id">
+     <str val="main"/>
+     <check card="1" diag="0|1||fn:id">
+      <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
+     </check>
+    </fn>
+    <let line="231" var="search-string" as="item()*" slot="1" eval="8">
+     <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}get" type="item()*">
+      <check card="?" diag="0|0||ixsl:get">
+       <fn name="id">
+        <str val="search-field1"/>
+        <check card="1" diag="0|1||fn:id">
+         <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
+        </check>
+       </fn>
+      </check>
+      <str val="value"/>
+     </ifCall>
+     <let line="232" var="query" as="xs:string" slot="2" eval="8">
+      <cvUntyped to="xs:string">
+       <cast as="xs:untypedAtomic" emptiable="0">
+        <fn name="concat">
+         <str val="https://www.nb.no/services/search/v2/search?q="/>
+         <fn name="encode-for-uri">
+          <fn name="string">
+           <check card="?" diag="0|0||fn:string">
+            <varRef name="search-string" slot="1"/>
+           </check>
+          </fn>
+         </fn>
+         <str val="&amp;"/>
+         <fn name="string">
+          <ufCall name="Q{http://data.ub.uib.no/ns/function-library}get-params" tailCall="false" bSlot="0"/>
+         </fn>
+        </fn>
+       </cast>
+      </cvUntyped>
+      <sequence line="236">
+       <message>
+        <sequence role="select">
+         <str val="button button search click"/>
+         <varRef name="search-string" slot="1"/>
+        </sequence>
+        <str role="terminate" val="no"/>
+        <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
+       </message>
+       <choose line="238">
+        <fn name="string">
+         <check card="?" diag="0|0||fn:string">
+          <varRef name="search-string" slot="1"/>
+         </check>
+        </fn>
+        <sequence line="240">
+         <ufCall name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="1" eval="7 0 0">
+          <ufCall name="Q{http://data.ub.uib.no/ns/function-library}cors-uri" tailCall="false" bSlot="2" eval="6">
+           <varRef name="query" slot="2"/>
+          </ufCall>
+          <str val="result"/>
+          <str val="basic-result"/>
+         </ufCall>
+         <ufCall line="241" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="3" eval="7 0 0">
+          <cast ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math" module="nb-open-search.xsl" line="46" as="xs:anyURI" emptiable="0">
+           <fn name="concat">
+            <fn name="replace">
+             <fn name="replace">
+              <varRef ns="xsl=~ flub=http://data.ub.uib.no/ns/function-library nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ saxon=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map xhtml=http://www.w3.org/1999/xhtml" module="search-nb.xsl" line="241" name="query" slot="2"/>
+              <str val="itemsPerPage=[0-9]+"/>
+              <str val="itemsPerPage=1"/>
+              <str val=""/>
+             </fn>
+             <str val="&amp;facet=all"/>
+             <str val=""/>
+             <str val=""/>
+            </fn>
+            <str val="&amp;facet=all"/>
+           </fn>
+          </cast>
+          <str val="facets"/>
+          <str val="facet"/>
+         </ufCall>
+         <ifCall line="242" name="Q{http://saxonica.com/ns/interactiveXSLT}call" type="item()?">
+          <check card="1" diag="0|0||ixsl:call">
+           <slash simple="1">
+            <treat as="node()" jsTest="return SaxonJS.U.isNode(item);" diag="14|12|XPTY0020|">
+             <dot flags="a"/>
+            </treat>
+            <axis name="self" nodeTest="node()" jsTest="return SaxonJS.U.isNode(item);"/>
+           </slash>
+          </check>
+          <str val="blur"/>
+          <arrayBlock/>
+         </ifCall>
+        </sequence>
+       </choose>
+      </sequence>
+     </let>
+    </let>
+   </let>
+  </template>
+ </co>
+ <co id="24" binds="">
   <mode onNo="TC" flags="dWe" patternSlots="0"/>
  </co>
  <overridden/>
@@ -1760,4 +1753,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ ba0723d?>
+<?Σ f8172b99?>

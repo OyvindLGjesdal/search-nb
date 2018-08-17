@@ -87,28 +87,16 @@
     
     <xsl:template mode="ixsl:onkeyup" match=".[matches(ixsl:get(ixsl:event(),'key'),'enter','i')
         and ixsl:get(ixsl:get(ixsl:event(),'target'),'id')='search-field1']">        
+        <xsl:call-template name="basic-search"/>
         <xsl:variable name="event" select="ixsl:event()"/>
         
         <xsl:message select="'event: ',ixsl:get($event,'type'),'key:',ixsl:get($event,'key'),'id ',ixsl:get(ixsl:get($event,'target'),'id')"/>
-        <xsl:sequence select="ixsl:call(self::node(),'blur',[])"/>
+        
     </xsl:template>
     <!-- search-->
     <xsl:template match="button[@name='button-search']"
-        mode="ixsl:onclick">
-        <xsl:message select="'event: ',ixsl:get(ixsl:event(),'type')"/>
-        <xsl:variable name="main" select="id('main',ixsl:page())"/>
-        <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
-        <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;{flub:get-params()}</xsl:text></xsl:variable>
-        
-            
-        <!--<xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />-->
-        <xsl:message select="'button button search click',$search-string"/>
-        
-        <xsl:if test="string($search-string)">
-       <!--<xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>-->
-        <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($query)),'result','basic-result')"/>    
-        <xsl:sequence select="flub:async-request(flub:facet-query($query),'facets','facet')"/>
-        </xsl:if>        
+        mode="ixsl:onclick">        
+     <xsl:call-template name="basic-search"/>
     </xsl:template>
     
     <!-- click search result item-->
@@ -236,7 +224,25 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+    <!-- named templates used for multiple interactive modes -->    
+    <xsl:template name="basic-search">
+    <xsl:variable name="main" select="id('main',ixsl:page())"/>
+    <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
+    <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;{flub:get-params()}</xsl:text></xsl:variable>
     
+    
+    <!--<xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />-->
+    <xsl:message select="'button button search click',$search-string"/>
+    
+    <xsl:if test="string($search-string)">
+        <!--<xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>-->
+        <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($query)),'result','basic-result')"/>    
+        <xsl:sequence select="flub:async-request(flub:facet-query($query),'facets','facet')"/>
+        <xsl:sequence select="ixsl:call(self::node(),'blur',[])"/>
+    </xsl:if>   
+    </xsl:template>
+    <!-- functions-->
     <xsl:function name="flub:get-params" as="xs:string?">
         <xsl:variable name="main-object" select="id('main',ixsl:page())"/>
         <xsl:variable name="itemsPerPage" as="xs:string?" select="flub:param-helper($main-object,'itemsPerPage')"/>
