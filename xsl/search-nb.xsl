@@ -85,6 +85,9 @@
         </xsl:choose>
         </xsl:template>
     
+    <xsl:template mode="ixsl:onkeyup" match="button[@name='button-search']">
+        <xsl:message select="'event: ',ixsl:get(ixsl:event(),'type')"/>
+    </xsl:template>
     <!-- search-->
     <xsl:template match="button[@name='button-search']"
         mode="ixsl:onclick ixsl:onkeyup">
