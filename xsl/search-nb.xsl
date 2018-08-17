@@ -26,6 +26,7 @@
             <xsl:map-entry key="'https://www.nb.no/services/search/'" select="'https://www.nb.no/services/search/'"/>
             <xsl:map-entry key="'http://www.nb.no/services/search/'" select="'https://www.nb.no/services/search/'"/>
             <xsl:map-entry key="'https://158.39.77.227/'" select="'https://158.39.77.227/'"/>
+            <xsl:map-entry key="'https://api.nb.no/'" select="'https://oyvindg.no/nb-api/'"/>
         </xsl:map>
     </xsl:variable>
     <!-- https://developer.mozilla.org/en-US/docs/Web/Events -->
@@ -103,9 +104,9 @@
     <xsl:template match="li[starts-with(@id,'sesam_')]" mode="ixsl:onclick">
         <xsl:message select="'result item'"/>
         <xsl:variable name="request"><xsl:text expand-text="1">https://api.nb.no/catalog/v1/iiif/{substring-after(@id,'sesam_')}/manifest</xsl:text></xsl:variable>
-        <ixsl:schedule-action document="{$request}">
+        <ixsl:schedule-action document="{flub:cors-uri($request)}">
             <xsl:call-template name="manifest">
-                <xsl:with-param name="manifest"></xsl:with-param>
+                <xsl:with-param name="manifest" select="flub:cors-uri($request)"/>
             </xsl:call-template>
         </ixsl:schedule-action>      
     </xsl:template>
