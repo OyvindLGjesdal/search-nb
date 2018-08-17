@@ -90,7 +90,7 @@
     </xsl:template>
     <!-- search-->
     <xsl:template match="button[@name='button-search']"
-        mode="ixsl:onclick ixsl:onkeyup">
+        mode="ixsl:onclick">
         <xsl:message select="'event: ',ixsl:get(ixsl:event(),'type')"/>
         <xsl:variable name="main" select="id('main',ixsl:page())"/>
         <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
