@@ -28,10 +28,13 @@
             <xsl:map-entry key="'https://158.39.77.227/'" select="'https://158.39.77.227/'"/>
         </xsl:map>
     </xsl:variable>
- 
+    <!-- https://developer.mozilla.org/en-US/docs/Web/Events -->
+    
     <!-- initial named template-->
     <xsl:template name="initialTemplate">
-    <xsl:message select="'initial template'"/>
+    <xsl:if test="$debug">
+        <xsl:message select="'initial template'"/>
+    </xsl:if>
         <xsl:variable name="main" select="id('main',ixsl:page())"/>
         <xsl:variable name="facets" select="id('facets',ixsl:page())"/>
         <!-- insert default (@todo local_storage?) values for query-->
@@ -43,6 +46,7 @@
         </xsl:template>
     
     <!-- interactive actions-->
+    <!-- previous and next button-->
     <xsl:template mode="ixsl:onclick" match="button[(@name='next-result' or @name='previous-result')
         and not(@disabled)]">
         <xsl:variable name="action" select="xs:anyURI(
@@ -55,14 +59,14 @@
         <xsl:sequence select="flub:async-request($action,'result','basic-result')"/>        
     </xsl:template>
     
+    <!-- click facet-->
     <xsl:template match="a[starts-with(@id,'facet_result_')]" mode="ixsl:onclick">
          <xsl:variable name="query" select="ixsl:get(id('result',ixsl:page()),'query')"/>
         <xsl:variable name="facet-string" select="tokenize(@id,'_')[3]"/>
         <xsl:variable name="facet-uri-component" select="flub:facet-uri-component($facet-string,span[@class='facet-value'])"/>
         <xsl:variable name="new-query">
             <xsl:text>{flub:set-startindex($query,1)}{$facet-uri-component}</xsl:text>
-        </xsl:variable>
-        
+        </xsl:variable>        
         <xsl:choose>
             <xsl:when test="contains($query,$facet-uri-component)">
                 <xsl:variable name="remove-facet-query" select="flub:set-startindex(
@@ -81,7 +85,10 @@
         </xsl:choose>
         </xsl:template>
     
-    <xsl:template match="button[@name='button-search']" mode="ixsl:onclick">
+    <!-- search-->
+    <xsl:template match="button[@name='button-search' and
+        (ixsl:get(ixsl:event(),'type')='click' or ixsl:get(ixsl:event(),'key')='ENTER')]"
+        mode="ixsl:onclick ixsl:onkeyup">
         <xsl:variable name="main" select="id('main',ixsl:page())"/>
         <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
         <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;{flub:get-params()}</xsl:text></xsl:variable>
@@ -97,7 +104,12 @@
         </xsl:if>        
     </xsl:template>
     
+    <!-- click search result item-->
+    <xsl:template match="div[contains(@class,'result-item')]" mode="ixsl:onclick">
+        <xsl:message select="'result item'"/>
+    </xsl:template>
     <!-- adding modes to update on action-->
+    
     <!-- basic search -->
     <xsl:template mode="basic-search" priority="3.0" match="atom:feed" expand-text="1">
         <xsl:param name="query" tunnel="yes"/>
@@ -126,18 +138,22 @@
         <div class="list-group" id="basic-search-result">
             <xsl:apply-templates mode="#current"/>          
         </div>
-        <xsl:message select="'mode facet query:' || $query"/>
+        <xsl:if test="$debug">
+            <xsl:message select="'mode facet query:' || $query"/>
+        </xsl:if>
+        
         <xsl:variable name="result-fragment" select="id('result',ixsl:page())"/>
         <ixsl:set-property name="previous" select="$previous" object="$result-fragment"/>
         <ixsl:set-property name="next" select="$next" object="$result-fragment"/>
         <ixsl:set-property name="query" select="$query" object="$result-fragment" />
     </xsl:template>
-    
+        
     <xsl:template mode="basic-search" match="*" priority="2.0"/>
     
     <xsl:template mode="basic-search" match="atom:entry" priority="3.0" expand-text="1">
         <li class="list-group-item list-group-item-action flex-column align-items-start">
-        <div class="d-flex w-100 justify-content-between">
+        <div class="d-flex w-100 justify-content-between result-item" id="_{nb:sesamid}">
+            
             <h5 class="mb-1">{atom:title}</h5>
             <small>{nb:namecreator} ({(nb:year,'Ikke oppgitt')[1]}) </small>
         </div>
@@ -188,6 +204,7 @@
         </a>
         </xsl:if>
     </xsl:template>    
+    
     
     <!-- match for adding new modes to async doc request-->
     <xsl:template match="*" mode="callback">
