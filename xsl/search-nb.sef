@@ -244,8 +244,8 @@
       </check>
      </treat>
     </param>
-    <resultDoc line="242" global="#&#xA;#Fri Aug 17 21:36:22 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 21:36:22 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
-     <str role="href" val="modal"/>
+    <resultDoc line="242" global="#&#xA;#Fri Aug 17 21:38:18 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 21:38:18 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+     <str role="href" val="#manifest"/>
      <applyT role="content" line="243" mode="Q{}manifest" bSlot="0">
       <fn role="select" line="240" name="json-to-xml">
        <treat as="xs:string" jsTest="return SaxonJS.U.Atomic.string.matches(item);" diag="0|0||fn:json-to-xml">
@@ -510,7 +510,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Fri Aug 17 21:36:22 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 21:36:22 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Fri Aug 17 21:38:18 CEST 2018&#xA;" local="#&#xA;#Fri Aug 17 21:38:18 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1831,4 +1831,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 87ca210c?>
+<?Σ 86926024?>
