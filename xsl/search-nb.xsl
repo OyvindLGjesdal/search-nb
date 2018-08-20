@@ -42,10 +42,10 @@
         <ixsl:set-property name="itemsPerPage" select="$itemsPerPage" object="$main"/>
         <ixsl:set-property name="mediatype" select="$mediatype" object="$main"/>
         <ixsl:set-property name="digital" select="$digitized" object="$main"/>  
-        <ixsl:set-property name="numPerFacet" select="8" object="$facets"/>
-        
+        <ixsl:set-property name="numPerFacet" select="8" object="$facets"/>        
         </xsl:template>
-    
+    <!--https://api.nb.no/catalog/v1/items/51a97ce22ce73c66bfa9d73a16064250/--> <!--agris, nora_dc,marcxchange-->
+    <!--http://oai.bibsys.no/oai/repository?verb=getRecord&metadataPrefix=oai_dc&set=bibsys_autoritetsregister&identifier=oai:bibsys.no:authority:x90114212-->
     <!-- interactive actions-->
     <!-- previous and next button-->
     <xsl:template mode="ixsl:onclick" match="button[(@name='next-result' or @name='previous-result')
