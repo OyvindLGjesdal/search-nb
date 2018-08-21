@@ -86,14 +86,21 @@
         </xsl:choose>
         </xsl:template>
     
-    <xsl:template mode="ixsl:onkeyup" match=".[lower-case(ixsl:get(ixsl:event(),'key'))='enter'
-        and ixsl:get(ixsl:get(ixsl:event(),'target'),'id')='search-field1']">        
+    <!-- fire search on keyup enter search -->
+    <xsl:template mode="ixsl:onkeyup"
+        match="
+            .[lower-case(ixsl:get(ixsl:event(), 'key')) = 'enter'
+            and ixsl:get(ixsl:get(ixsl:event(), 'target'), 'id') = 'search-field1']">
         <xsl:call-template name="basic-search"/>
-        <xsl:variable name="event" select="ixsl:event()"/>
-        
-        <xsl:message select="'event: ',ixsl:get($event,'type'),'key:',ixsl:get($event,'key'),'id ',ixsl:get(ixsl:get($event,'target'),'id')"/>
-        
+
+        <xsl:if test="$debug">
+            <xsl:variable name="event" select="ixsl:event()"/>
+            <xsl:message
+                select="'event: ', ixsl:get($event, 'type'), 'key:', ixsl:get($event, 'key'), 'id ', ixsl:get(ixsl:get($event, 'target'), 'id')"
+            />
+        </xsl:if>
     </xsl:template>
+    
     <!-- search-->
     <xsl:template match="button[@name='button-search']"
         mode="ixsl:onclick">        
@@ -244,6 +251,8 @@
     <xsl:template name="manifest">
         <xsl:for-each select="?body">
             <xsl:message select="."/>
+            <ixsl:set-style name="visibility" select="'hidden'" object="id('search',ixsl:page())"/>
+            <xsl:sequence select="id('search',ixsl:page())"></xsl:sequence>
             <xsl:result-document href="#manifest" method="ixsl:replace-content">
                 <xsl:message select="."/>
             <xsl:apply-templates select="json-to-xml(.)" mode="manifest"/>
