@@ -246,12 +246,12 @@
         </xsl:choose>
     </xsl:template>    
     
-    <xsl:template mode="manifest" match="*">
-        <xsl:message select="name()"/>
-        <xsl:apply-templates mode="manifest"/>
+    <xsl:template mode="openseadragon" match="*">
+        <xsl:message select="name(),@*/(name(),self::node())"/>        
+        <xsl:apply-templates mode="#current"/>
     </xsl:template>
     <!-- map of sequence where paged-->
-    <xsl:template match="fn:map[fn:string[@key='viewingHint']='paged']" mode="manifest">
+    <xsl:template match="fn:map[fn:string[@key='viewingHint']='paged']" mode="openseadragon">
         <xsl:variable name="pages" as="xs:string+">
             <xsl:sequence select="for $x in fn:array[@key='canvases']/fn:map/fn:string[@key='@id'] 
                 return concat('https://www.nb.no/services/image/resolver/'  
@@ -261,11 +261,11 @@
         <xsl:if test="$debug">
             <xsl:message select="$pages[1]"/>
         </xsl:if>
-        <xsl:variable name="seaDragon" select="js:SetSeaDragon($pages)[2=1]"/>
-        <xsl:message select="$seaDragon"/>
+     <xsl:sequence select="js:SetSeaDragon($pages)"/>
+        
     </xsl:template>
     
-    <xsl:template match="text()" mode="manifest"/>
+    <xsl:template match="text()" mode="manifest openseadragon"/>
     
     <xsl:template name="manifest">
         <xsl:for-each select="?body">
@@ -273,8 +273,10 @@
             <xsl:sequence select="id('search',ixsl:page())"/>
             <xsl:result-document href="#manifest" method="ixsl:replace-content">
                 <div id="open-seadragon-viewer" style="width:800px; height:600px;"></div>
-            <xsl:apply-templates select="json-to-xml(.)" mode="manifest"/>
+                <xsl:variable name="manifest-as-xml" select="json-to-xml(.)"/>
+            <xsl:apply-templates select="$manifest-as-xml" mode="openseadragon"/>
             </xsl:result-document>
+            
         </xsl:for-each>
     </xsl:template>
     
