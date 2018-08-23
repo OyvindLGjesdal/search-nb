@@ -13,9 +13,8 @@ function SetSeaDragon(tileList) {
     var viewer =  OpenSeadragon({
         id: "openseadragon-viewer",
         sequenceMode: true,
-        prefixUrl: "https://cdn.jsdelivr.net/npm/openseadragon@2.4/build/openseadragon/images/",
+        showRotationControl: true,
         tileSources: tileList
         
 });
-console.log('SetSeaDragon');
 }
