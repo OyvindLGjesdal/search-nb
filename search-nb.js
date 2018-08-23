@@ -11,7 +11,7 @@ SaxonJS.transform({
  *  immediateRender for mobile? */
 function SetSeaDragon(tileList) {
     var viewer =  OpenSeadragon({
-        id: "open-seadragon-viewer",
+        id: "openseadragon-viewer",
         sequenceMode: true,
         prefixUrl: "https://cdn.jsdelivr.net/npm/openseadragon@2.4/build/openseadragon/images/",
         tileSources: tileList
