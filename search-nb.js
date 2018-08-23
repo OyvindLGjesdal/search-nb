@@ -15,5 +15,7 @@ function SetSeaDragon(tileList) {
         sequenceMode: true,
         prefixUrl: "https://cdn.jsdelivr.net/npm/openseadragon@2.4/build/openseadragon/images/",
         tileSources: tileList
+        
 });
+console.log('SetSeaDragon');
 }
