@@ -261,7 +261,8 @@
         <xsl:if test="$debug">
             <xsl:message select="$pages[1]"/>
         </xsl:if>
-        <xsl:sequence select="js:SetSeaDragon($pages)[2=1]"/>
+        <xsl:variable name="seaDragon" select="js:SetSeaDragon($pages)[2=1]"/>
+        <xsl:message select="$seaDragon"/>
     </xsl:template>
     
     <xsl:template match="text()" mode="manifest"/>
@@ -271,7 +272,7 @@
             <ixsl:set-style name="visibility" select="'hidden'" object="id('search',ixsl:page())"/>
             <xsl:sequence select="id('search',ixsl:page())"/>
             <xsl:result-document href="#manifest" method="ixsl:replace-content">
-                <div id="open-seadragon-viewer"/>
+                <div id="open-seadragon-viewer"></div>
             <xsl:apply-templates select="json-to-xml(.)" mode="manifest"/>
             </xsl:result-document>
         </xsl:for-each>
