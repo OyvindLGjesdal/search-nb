@@ -272,7 +272,7 @@
             <ixsl:set-style name="visibility" select="'hidden'" object="id('search',ixsl:page())"/>
             <xsl:sequence select="id('search',ixsl:page())"/>
             <xsl:result-document href="#manifest" method="ixsl:replace-content">
-                <div id="open-seadragon-viewer"></div>
+                <div id="open-seadragon-viewer" style="widt:800px; height:600px;"></div>
             <xsl:apply-templates select="json-to-xml(.)" mode="manifest"/>
             </xsl:result-document>
         </xsl:for-each>
