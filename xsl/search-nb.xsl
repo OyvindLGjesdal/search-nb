@@ -261,7 +261,7 @@
         <xsl:if test="$debug">
             <xsl:message select="$pages[1]"/>
         </xsl:if>
-        <xsl:sequence select="js:SetSeaDragon($pages)"/>
+        <xsl:sequence select="js:SetSeaDragon($pages)[2=1]"/>
     </xsl:template>
     
     <xsl:template match="text()" mode="manifest"/>
