@@ -247,7 +247,7 @@
     </xsl:template>    
     
     <xsl:template mode="openseadragon" match="*">
-        <xsl:message select="name(),@*/(name(),self::node())"/>        
+        <xsl:message select="name(),@*/name(),@*"/>        
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     <!-- map of sequence where paged-->
