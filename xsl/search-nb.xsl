@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:fn="http://www.w3.org/2005/xpath-functions"
     xmlns:map="http://www.w3.org/2005/xpath-functions/map"
     xmlns:ixsl="http://saxonica.com/ns/interactiveXSLT"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
@@ -10,6 +11,7 @@
     xmlns:atom="http://www.w3.org/2005/Atom"
     xmlns:flub="http://data.ub.uib.no/ns/function-library"
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+    xmlns:js="http://saxonica.com/ns/globalJS"
     exclude-result-prefixes="xs math atom opensearch nb"
     version="3.0" expand-text="1">
     <!-- default values-->
@@ -122,7 +124,7 @@
             </xsl:call-template>
         </ixsl:schedule-action>      
     </xsl:template>
-    <!-- adding modes to update on action-->
+    <!-- adding modes to update on action-->    
     
     <!-- basic search -->
     <xsl:template mode="basic-search" priority="3.0" match="atom:feed" expand-text="1">
@@ -246,7 +248,23 @@
     
     <xsl:template mode="manifest" match="*">
         <xsl:message select="name()"/>
+        <xsl:apply-templates mode="manifest"/>
     </xsl:template>
+    <!-- map of sequence where paged-->
+    <xsl:template match="fn:map[fn:string[@key='viewingHint']='paged']" mode="manifest">
+        <xsl:variable name="pages" as="xs:string+">
+            <xsl:sequence select="for $x in fn:array[@key='canvases']/fn:map/fn:string[@key='id'] 
+                return concat('https://www.nb.no/services/image/resolver/'  
+                ,tokenize($x,'/')[last()]
+                ,'/info.json')"/>
+        </xsl:variable>
+        <xsl:if test="$debug">
+            <xsl:message select="$pages[1]"/>
+        </xsl:if>
+        <xsl:sequence select="js:SetSeaDragon($pages)"/>
+    </xsl:template>
+    
+    <xsl:mode name="manifest" on-no-match="deep-skip"/>
     
     <xsl:template name="manifest">
         <xsl:for-each select="?body">
@@ -258,11 +276,8 @@
             <xsl:apply-templates select="json-to-xml(.)" mode="manifest"/>
             </xsl:result-document>
         </xsl:for-each>
-       
-    
-            
-        
     </xsl:template>
+    
     <!-- named templates used for multiple interactive modes -->    
     <xsl:template name="basic-search">
     <xsl:variable name="main" select="id('main',ixsl:page())"/>
@@ -276,9 +291,9 @@
     <xsl:if test="string($search-string)">
         <!--<xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>-->
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($query)),'result','basic-result')"/>    
-        <xsl:sequence select="flub:async-request(flub:facet-query($query),'facets','facet')"/>
+        <xsl:sequence select="-flub:async-request(flub:facet-query($query),'facets','facet')"/>
         <xsl:sequence select="ixsl:call(self::node(),'blur',[])"/>
-    </xsl:if>   
+    </xsl:if> 
     </xsl:template>
     <!-- functions-->
     <xsl:function name="flub:get-params" as="xs:string?">

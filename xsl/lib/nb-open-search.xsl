@@ -2,6 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:ixsl="http://saxonica.com/ns/interactiveXSLT"
+    xmlns:fn="http://www.w3.org/2005/xpath-functions"
     xmlns:flub="http://data.ub.uib.no/ns/function-library"
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     exclude-result-prefixes="xs math"
