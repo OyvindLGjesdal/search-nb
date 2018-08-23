@@ -14,6 +14,7 @@ function SetSeaDragon(tileList) {
         id: "openseadragon-viewer",
         sequenceMode: true,
         showRotationControl: true,
+        prefixUrl: "images/",
         tileSources: tileList
         
 });
