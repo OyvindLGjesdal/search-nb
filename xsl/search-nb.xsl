@@ -264,15 +264,14 @@
         <xsl:sequence select="js:SetSeaDragon($pages)"/>
     </xsl:template>
     
-    <xsl:mode name="manifest" on-no-match="deep-skip"/>
+    <xsl:template match="text()" mode="manifest"/>
     
     <xsl:template name="manifest">
         <xsl:for-each select="?body">
-            <xsl:message select="."/>
             <ixsl:set-style name="visibility" select="'hidden'" object="id('search',ixsl:page())"/>
-            <xsl:sequence select="id('search',ixsl:page())"></xsl:sequence>
+            <xsl:sequence select="id('search',ixsl:page())"/>
             <xsl:result-document href="#manifest" method="ixsl:replace-content">
-                <xsl:message select="."/>
+                <div id="open-seadragon-viewer"/>
             <xsl:apply-templates select="json-to-xml(.)" mode="manifest"/>
             </xsl:result-document>
         </xsl:for-each>
