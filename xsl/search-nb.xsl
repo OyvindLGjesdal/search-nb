@@ -270,6 +270,7 @@
     <xsl:template name="manifest">
         <xsl:for-each select="?body">
             <ixsl:set-style name="visibility" select="'hidden'" object="id('search',ixsl:page())"/>
+            <ixsl:set-style name="display" select="'none'" object="id('search',ixsl:page())"/>
             <xsl:sequence select="id('search',ixsl:page())"/>
                 <xsl:variable name="manifest-as-xml" select="json-to-xml(.)"/>
             <xsl:apply-templates select="$manifest-as-xml" mode="openseadragon"/>
