@@ -271,10 +271,8 @@
         <xsl:for-each select="?body">
             <ixsl:set-style name="visibility" select="'hidden'" object="id('search',ixsl:page())"/>
             <xsl:sequence select="id('search',ixsl:page())"/>
-            <xsl:result-document href="#openseadragon-viewer" method="ixsl:replace-content">
                 <xsl:variable name="manifest-as-xml" select="json-to-xml(.)"/>
             <xsl:apply-templates select="$manifest-as-xml" mode="openseadragon"/>
-            </xsl:result-document>
             
         </xsl:for-each>
     </xsl:template>
