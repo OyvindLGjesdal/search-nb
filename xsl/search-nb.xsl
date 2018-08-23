@@ -253,7 +253,7 @@
     <!-- map of sequence where paged-->
     <xsl:template match="fn:map[fn:string[@key='viewingHint']='paged']" mode="manifest">
         <xsl:variable name="pages" as="xs:string+">
-            <xsl:sequence select="for $x in fn:array[@key='canvases']/fn:map/fn:string[@key='id'] 
+            <xsl:sequence select="for $x in fn:array[@key='canvases']/fn:map/fn:string[@key='@id'] 
                 return concat('https://www.nb.no/services/image/resolver/'  
                 ,tokenize($x,'/')[last()]
                 ,'/info.json')"/>

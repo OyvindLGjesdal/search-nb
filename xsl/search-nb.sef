@@ -233,17 +233,17 @@
  <co id="9" binds="10">
   <template name="Q{}manifest" flags="os" line="269" module="search-nb.xsl" slots="1">
    <forEach role="body" ns="flub=http://data.ub.uib.no/ns/function-library fn=~ js=~ saxon=~ xhtml=http://www.w3.org/1999/xhtml xsl=~ nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map" line="270">
-    <let var="vv:LHS1924650555" as="function(*)" slot="0" eval="7">
-     <treat as="function(*)" jsTest="return SaxonJS.U.isMap(item) || SaxonJS.U.isArray(item);" diag="3|0||vv:LHS1924650555">
+    <let var="vv:LHS757681107" as="function(*)" slot="0" eval="7">
+     <treat as="function(*)" jsTest="return SaxonJS.U.isMap(item) || SaxonJS.U.isArray(item);" diag="3|0||vv:LHS757681107">
       <dot flags="a"/>
      </treat>
      <choose>
       <instance of="map(*)" jsTest="return SaxonJS.U.isMap(item)">
-       <varRef name="vv:LHS1924650555" slot="0"/>
+       <varRef name="vv:LHS757681107" slot="0"/>
       </instance>
       <ifCall name="Q{http://www.w3.org/2005/xpath-functions/map}get" type="item()*">
        <treat as="map(*)" jsTest="return SaxonJS.U.isMap(item)" diag="0|0||map:get">
-        <varRef name="vv:LHS1924650555" slot="0"/>
+        <varRef name="vv:LHS757681107" slot="0"/>
        </treat>
        <str val="body"/>
       </ifCall>
@@ -270,7 +270,7 @@
        <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}page" type="document-node()?"/>
       </check>
      </fn>
-     <resultDoc line="273" global="#&#xA;#Thu Aug 23 12:39:37 CEST 2018&#xA;" local="#&#xA;#Thu Aug 23 12:39:37 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+     <resultDoc line="273" global="#&#xA;#Thu Aug 23 12:45:42 CEST 2018&#xA;" local="#&#xA;#Thu Aug 23 12:45:42 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
       <str role="href" val="#manifest"/>
       <sequence role="content" line="274">
        <elem name="div" nsuri="" namespaces="fn map ixsl xhtml saxon flub js">
@@ -538,7 +538,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Thu Aug 23 12:39:37 CEST 2018&#xA;" local="#&#xA;#Thu Aug 23 12:39:37 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Thu Aug 23 12:45:42 CEST 2018&#xA;" local="#&#xA;#Thu Aug 23 12:45:42 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1727,7 +1727,7 @@
         </slash>
         <gc op="=" card="1:1" comp="CCC">
          <attVal name="Q{}key" chk="0"/>
-         <str val="id"/>
+         <str val="@id"/>
         </gc>
        </filter>
        <fn role="return" name="concat">
@@ -1967,4 +1967,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 32700b4a?>
+<?Σ ed65f44a?>
