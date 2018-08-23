@@ -291,7 +291,7 @@
     <xsl:if test="string($search-string)">
         <!--<xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>-->
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($query)),'result','basic-result')"/>    
-        <xsl:sequence select="-flub:async-request(flub:facet-query($query),'facets','facet')"/>
+        <xsl:sequence select="flub:async-request(flub:facet-query($query),'facets','facet')"/>
         <xsl:sequence select="ixsl:call(self::node(),'blur',[])"/>
     </xsl:if> 
     </xsl:template>
