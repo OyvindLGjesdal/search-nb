@@ -40,7 +40,7 @@
     </xsl:if>
         <xsl:variable name="main" select="id('main',ixsl:page())"/>
         <xsl:variable name="facets" select="id('facets',ixsl:page())"/>
-        <xsl:variable name="all-items-facet-query"><xsl:text expand-text="1">https://www.nb.no/services/search/v2/search?q='*&amp;itemsPerPage=1&amp;fq=mediatype:"bøker"&amp;fq=digital=True&amp;facet=all</xsl:text></xsl:variable>
+        <xsl:variable name="all-items-facet-query"><xsl:text expand-text="1">https://www.nb.no/services/search/v2/search?q=*&amp;itemsPerPage=1&amp;fq=mediatype:"bøker"&amp;fq=digital=True&amp;facet=all</xsl:text></xsl:variable>
         <!-- insert default (@todo local_storage?) values for query-->
         <ixsl:set-property name="itemsPerPage" select="$itemsPerPage" object="$main"/>
         <ixsl:set-property name="mediatype" select="$mediatype" object="$main"/>
