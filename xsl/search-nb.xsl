@@ -40,11 +40,15 @@
     </xsl:if>
         <xsl:variable name="main" select="id('main',ixsl:page())"/>
         <xsl:variable name="facets" select="id('facets',ixsl:page())"/>
+        <xsl:variable name="all-items-facet-query"><xsl:text expand-text="1">https://www.nb.no/services/search/v2/search?q={encode-for-uri('*&amp;itemsPerPage=1&amp;fq=mediatype:"bøker"&amp;fq=digital=True&amp;facet=all')}</xsl:text></xsl:variable>
         <!-- insert default (@todo local_storage?) values for query-->
         <ixsl:set-property name="itemsPerPage" select="$itemsPerPage" object="$main"/>
         <ixsl:set-property name="mediatype" select="$mediatype" object="$main"/>
         <ixsl:set-property name="digital" select="$digitized" object="$main"/>  
-        <ixsl:set-property name="numPerFacet" select="8" object="$facets"/>        
+        <ixsl:set-property name="numPerFacet" select="8" object="$facets"/>
+        
+        <xsl:sequence select="flub:async-request(xs:anyURI(flub:facet-query($all-items-facet-query)),'facets','facet')        
+            "></xsl:sequence>
         </xsl:template>
     <!--https://api.nb.no/catalog/v1/items/51a97ce22ce73c66bfa9d73a16064250/--> <!--agris, nora_dc,marcxchange-->
     <!--http://oai.bibsys.no/oai/repository?verb=getRecord&metadataPrefix=oai_dc&set=bibsys_autoritetsregister&identifier=oai:bibsys.no:authority:x90114212-->
@@ -63,8 +67,9 @@
     </xsl:template>
     
     <!-- click facet-->
-    <xsl:template match="a[starts-with(@id,'facet_result_')]" mode="ixsl:onclick">
-         <xsl:variable name="query" select="ixsl:get(id('result',ixsl:page()),'query')"/>
+    <xsl:template match="a[starts-with(@id,'facet_result_')]" mode="ixsl:onclick ixsl:ontouchend">
+       
+        <xsl:variable name="query" select="ixsl:get(id('result',ixsl:page()),'query')"/>
         <xsl:variable name="facet-string" select="tokenize(@id,'_')[3]"/>
         <xsl:variable name="facet-uri-component" select="flub:facet-uri-component($facet-string,span[@class='facet-value'])"/>
         <xsl:variable name="new-query">
@@ -253,6 +258,7 @@
     <!-- map of sequence where paged-->
     <xsl:template match="fn:map[fn:string[@key='viewingHint']='paged']" mode="openseadragon">
         <xsl:variable name="pages" as="xs:string+">
+           <!-- shortcut to info.json-->
             <xsl:sequence select="for $x in fn:array[@key='canvases']/fn:map/fn:string[@key='@id'] 
                 return concat('https://www.nb.no/services/image/resolver/'  
                 ,tokenize($x,'/')[last()]
@@ -273,7 +279,23 @@
             <ixsl:set-style name="display" select="'none'" object="id('search',ixsl:page())"/>
             <xsl:sequence select="id('search',ixsl:page())"/>
                 <xsl:variable name="manifest-as-xml" select="json-to-xml(.)"/>
+            <ul class="nav nav-tabs" id="item-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" id="item-tab-metadata" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" id="item-tab-osd" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                </li>
+                <!-- if hasOCR-->
+                <li class="nav-item">
+                    <a class="nav-link" id="item-tab-ocr" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                </li>                
+            </ul>
+            <div class="tab-content" id="item-tab-content">       
+                <div class="tab-pane fade show active" id="item-tab-osd" role="tabpanel" aria-labelledby="item-tab-osd">
             <xsl:apply-templates select="$manifest-as-xml" mode="openseadragon"/>
+                </div>
+            </div>
             
         </xsl:for-each>
     </xsl:template>
