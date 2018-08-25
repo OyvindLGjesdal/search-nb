@@ -233,17 +233,17 @@
  <co id="9" binds="10">
   <template name="Q{}manifest" flags="os" line="276" module="search-nb.xsl" slots="1">
    <forEach role="body" ns="flub=http://data.ub.uib.no/ns/function-library fn=~ js=~ saxon=~ xhtml=http://www.w3.org/1999/xhtml xsl=~ nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map" line="277">
-    <let var="vv:LHS788273853" as="function(*)" slot="0" eval="7">
-     <treat as="function(*)" jsTest="return SaxonJS.U.isMap(item) || SaxonJS.U.isArray(item);" diag="3|0||vv:LHS788273853">
+    <let var="vv:LHS1135044360" as="function(*)" slot="0" eval="7">
+     <treat as="function(*)" jsTest="return SaxonJS.U.isMap(item) || SaxonJS.U.isArray(item);" diag="3|0||vv:LHS1135044360">
       <dot flags="a"/>
      </treat>
      <choose>
       <instance of="map(*)" jsTest="return SaxonJS.U.isMap(item)">
-       <varRef name="vv:LHS788273853" slot="0"/>
+       <varRef name="vv:LHS1135044360" slot="0"/>
       </instance>
       <ifCall name="Q{http://www.w3.org/2005/xpath-functions/map}get" type="item()*">
        <treat as="map(*)" jsTest="return SaxonJS.U.isMap(item)" diag="0|0||map:get">
-        <varRef name="vv:LHS788273853" slot="0"/>
+        <varRef name="vv:LHS1135044360" slot="0"/>
        </treat>
        <str val="body"/>
       </ifCall>
@@ -921,7 +921,7 @@
    </templateRule>
   </mode>
  </co>
- <co id="17" binds="1 18 6 13">
+ <co id="17" binds="1 18 6 13 7 2">
   <template name="Q{}initialTemplate" flags="os" line="37" module="search-nb.xsl" slots="2">
    <sequence role="body" ns="flub=http://data.ub.uib.no/ns/function-library fn=~ js=~ saxon=~ xhtml=http://www.w3.org/1999/xhtml xsl=~ nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map" line="39">
     <message>
@@ -972,8 +972,12 @@
          <varRef name="facets" slot="1"/>
         </check>
        </ifCall>
-       <ufCall line="51" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="3" eval="0 0 0">
-        <atomic val="https://www.nb.no/services/search/v2/search?q=%2A%26itemsPerPage%3D1%26fq%3Dmediatype%3A%22b%C3%B8ker%22%26fq%3Ddigital%3DTrue%26facet%3Dall&amp;facet=all" type="xs:anyURI"/>
+       <ufCall line="51" name="Q{http://data.ub.uib.no/ns/function-library}async-request" tailCall="false" bSlot="3" eval="7 0 0">
+        <ufCall name="Q{http://data.ub.uib.no/ns/function-library}facet-query" tailCall="false" bSlot="4" eval="7">
+         <ufCall name="Q{http://data.ub.uib.no/ns/function-library}cors-uri" tailCall="false" bSlot="5" eval="0">
+          <str val="https://www.nb.no/services/search/v2/search?q='*&amp;itemsPerPage=1&amp;fq=mediatype:&#34;bøker&#34;&amp;fq=digital=True&amp;facet=all"/>
+         </ufCall>
+        </ufCall>
         <str val="facets"/>
         <str val="facet"/>
        </ufCall>
@@ -1042,7 +1046,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Sat Aug 25 12:51:04 CEST 2018&#xA;" local="#&#xA;#Sat Aug 25 12:51:04 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Sat Aug 25 12:59:34 CEST 2018&#xA;" local="#&#xA;#Sat Aug 25 12:59:34 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -2381,4 +2385,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ daeb4a2b?>
+<?Σ 4c969f1?>
