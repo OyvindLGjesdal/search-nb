@@ -40,15 +40,16 @@
     </xsl:if>
         <xsl:variable name="main" select="id('main',ixsl:page())"/>
         <xsl:variable name="facets" select="id('facets',ixsl:page())"/>
-        <xsl:variable name="all-items-facet-query"><xsl:text expand-text="1">https://www.nb.no/services/search/v2/search?q=*&amp;itemsPerPage=1&amp;fq=mediatype:"bøker"&amp;fq=digital=True&amp;facet=all</xsl:text></xsl:variable>
         <!-- insert default (@todo local_storage?) values for query-->
         <ixsl:set-property name="itemsPerPage" select="$itemsPerPage" object="$main"/>
         <ixsl:set-property name="mediatype" select="$mediatype" object="$main"/>
         <ixsl:set-property name="digital" select="$digitized" object="$main"/>  
         <ixsl:set-property name="numPerFacet" select="8" object="$facets"/>
         
-        <xsl:sequence select="flub:async-request(xs:anyURI(flub:facet-query(flub:cors-uri($all-items-facet-query))),'facets','facet')        
-            "></xsl:sequence>
+        <xsl:call-template name="basic-search">
+            <xsl:with-param name="initialMode" select="true()"/>
+        </xsl:call-template>
+        
         </xsl:template>
     <!--https://api.nb.no/catalog/v1/items/51a97ce22ce73c66bfa9d73a16064250/--> <!--agris, nora_dc,marcxchange-->
     <!--http://oai.bibsys.no/oai/repository?verb=getRecord&metadataPrefix=oai_dc&set=bibsys_autoritetsregister&identifier=oai:bibsys.no:authority:x90114212-->
@@ -295,21 +296,20 @@
                 <div class="tab-pane fade show active" id="item-tab-osd" role="tabpanel" aria-labelledby="item-tab-osd">
             <xsl:apply-templates select="$manifest-as-xml" mode="openseadragon"/>
                 </div>
-            </div>
-            
+            </div>            
         </xsl:for-each>
     </xsl:template>
     
     <!-- named templates used for multiple interactive modes -->    
     <xsl:template name="basic-search">
+        <xsl:param name="initialMode" as="xs:boolean" select="false()"/>
     <xsl:variable name="main" select="id('main',ixsl:page())"/>
-    <xsl:variable name="search-string" select="ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
+        
+    <xsl:variable name="search-string" select="if ($initialMode) then '*' else ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
     <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;{flub:get-params()}</xsl:text></xsl:variable>
-    
-    
-    <!--<xsl:variable name="json-manifest" select="flub:proxy-doc-uri('https://api.nb.no/catalog/v1/iiif/d8e554cada9e08d5c9ae369712dfba86/manifest')" />-->
-    <xsl:message select="'button button search click',$search-string"/>
-    
+        <xsl:if test="$debug">
+            <xsl:message select="'button button search click', $search-string"/>
+        </xsl:if>
     <xsl:if test="string($search-string)">
         <!--<xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>-->
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($query)),'result','basic-result')"/>    
