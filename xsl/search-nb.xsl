@@ -315,7 +315,7 @@
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($query)),'result','basic-result')"/>    
         <xsl:sequence select="flub:async-request(flub:facet-query($query),'facets','facet')"/>
         
-        <xsl:if test="not($search-string!='*' and $initial-mode)"><xsl:sequence select="ixsl:call(self::node(),'blur',[])"/></xsl:if>
+        <xsl:if test="$search-string!='*'"><xsl:sequence select="ixsl:call(self::node(),'blur',[])"/></xsl:if>
     </xsl:if> 
     </xsl:template>
     <!-- functions-->
