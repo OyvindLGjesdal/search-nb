@@ -233,17 +233,17 @@
  <co id="9" binds="10">
   <template name="Q{}manifest" flags="os" line="277" module="search-nb.xsl" slots="1">
    <forEach role="body" ns="flub=http://data.ub.uib.no/ns/function-library fn=~ js=~ saxon=~ xhtml=http://www.w3.org/1999/xhtml xsl=~ nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map" line="278">
-    <let var="vv:LHS637651189" as="function(*)" slot="0" eval="7">
-     <treat as="function(*)" jsTest="return SaxonJS.U.isMap(item) || SaxonJS.U.isArray(item);" diag="3|0||vv:LHS637651189">
+    <let var="vv:LHS1862847233" as="function(*)" slot="0" eval="7">
+     <treat as="function(*)" jsTest="return SaxonJS.U.isMap(item) || SaxonJS.U.isArray(item);" diag="3|0||vv:LHS1862847233">
       <dot flags="a"/>
      </treat>
      <choose>
       <instance of="map(*)" jsTest="return SaxonJS.U.isMap(item)">
-       <varRef name="vv:LHS637651189" slot="0"/>
+       <varRef name="vv:LHS1862847233" slot="0"/>
       </instance>
       <ifCall name="Q{http://www.w3.org/2005/xpath-functions/map}get" type="item()*">
        <treat as="map(*)" jsTest="return SaxonJS.U.isMap(item)" diag="0|0||map:get">
-        <varRef name="vv:LHS637651189" slot="0"/>
+        <varRef name="vv:LHS1862847233" slot="0"/>
        </treat>
        <str val="body"/>
       </ifCall>
@@ -1042,7 +1042,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Mon Aug 27 21:53:46 CEST 2018&#xA;" local="#&#xA;#Mon Aug 27 21:53:46 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Mon Aug 27 21:55:42 CEST 2018&#xA;" local="#&#xA;#Mon Aug 27 21:55:42 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -2371,12 +2371,14 @@
            <str val="facet"/>
           </ufCall>
           <choose line="318">
-           <gc op="!=" card="N:1" comp="GAC|http://www.w3.org/2005/xpath-functions/collation/codepoint">
-            <data>
-             <varRef name="search-string" slot="2"/>
-            </data>
-            <str val="*"/>
-           </gc>
+           <fn name="not">
+            <gc op="=" card="N:1" comp="GAC|http://www.w3.org/2005/xpath-functions/collation/codepoint">
+             <data>
+              <varRef name="search-string" slot="2"/>
+             </data>
+             <str val="*"/>
+            </gc>
+           </fn>
            <ifCall name="Q{http://saxonica.com/ns/interactiveXSLT}call" type="item()?">
             <check card="1" diag="0|0||ixsl:call">
              <slash simple="1">
@@ -2408,4 +2410,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ eb73a714?>
+<?Σ 29465220?>
