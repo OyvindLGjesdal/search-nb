@@ -47,7 +47,7 @@
         <ixsl:set-property name="numPerFacet" select="8" object="$facets"/>
         
         <xsl:call-template name="basic-search">
-            <xsl:with-param name="initialMode" select="true()"/>
+            <xsl:with-param name="initial-mode" select="true()"/>
         </xsl:call-template>
         
         </xsl:template>
@@ -302,10 +302,10 @@
     
     <!-- named templates used for multiple interactive modes -->    
     <xsl:template name="basic-search">
-        <xsl:param name="initialMode" as="xs:boolean" select="false()"/>
+        <xsl:param name="initial-mode" as="xs:boolean" select="false()"/>
     <xsl:variable name="main" select="id('main',ixsl:page())"/>
         
-    <xsl:variable name="search-string" select="if ($initialMode) then '*' else ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
+    <xsl:variable name="search-string" select="if ($initial-mode) then '*' else ixsl:get(id('search-field1',ixsl:page()),'value')"/>        
     <xsl:variable name="query" as="xs:string"><xsl:text>https://www.nb.no/services/search/v2/search?q={encode-for-uri(string($search-string))}&amp;{flub:get-params()}</xsl:text></xsl:variable>
         <xsl:if test="$debug">
             <xsl:message select="'button button search click', $search-string"/>
@@ -314,7 +314,8 @@
         <!--<xsl:sequence select="flub:async-request($json-manifest,'result','json-manifest','json-text')"/>-->
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($query)),'result','basic-result')"/>    
         <xsl:sequence select="flub:async-request(flub:facet-query($query),'facets','facet')"/>
-        <xsl:sequence select="ixsl:call(self::node(),'blur',[])"/>
+        
+        <xsl:if test="not($search-string!='*' and $initial-mode)"><xsl:sequence select="ixsl:call(self::node(),'blur',[])"/></xsl:if>
     </xsl:if> 
     </xsl:template>
     <!-- functions-->
