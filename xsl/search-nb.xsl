@@ -18,8 +18,10 @@
     <xsl:param name="itemsPerPage" as="xs:integer" select="20"/>
     <xsl:param name="mediatype" select="'bøker'" as="xs:string"/>
     <xsl:param name="digitized" select="'True'" as="xs:string"/>
+    <xsl:param name="mode" select="'basic-search'" as="xs:string"/>
+    <xsl:param name="facets-query" select="()" as="xs:string?"/>
     <xsl:param name="ignore-facets" select="'ddc1','ddc2', 'ddc3','day','month','dra_base'"/>
-    
+    <xsl:param name="current-page" as="xs:integer?"/>
     <xsl:import href="lib/saxon-js-utils.xsl"/>
     <xsl:include href="lib/nb-open-search.xsl"/>
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
@@ -128,7 +130,7 @@
         <ixsl:schedule-action http-request="$request-map">
             <xsl:call-template name="manifest">
             </xsl:call-template>
-        </ixsl:schedule-action>      
+        </ixsl:schedule-action>
     </xsl:template>
     <!-- adding modes to update on action-->    
     
@@ -169,7 +171,7 @@
         <ixsl:set-property name="next" select="$next" object="$result-fragment"/>
         <ixsl:set-property name="query" select="$query" object="$result-fragment" />
         
-        <xsl:variable name="local-part" select="concat('/search-nb/',tokenize($query,'/')[last()])"/>
+        <xsl:variable name="local-part" select="concat('/search-nb/search-nb.html',tokenize($query,'/')[last()])"/>
         <xsl:sequence select="js:rewriteURI($local-part)"/>
     </xsl:template>
         
