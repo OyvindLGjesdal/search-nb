@@ -170,7 +170,7 @@
         <ixsl:set-property name="query" select="$query" object="$result-fragment" />
         
         <xsl:variable name="local-part" select="concat('/search-nb/',tokenize($query,'/')[last()])"/>
-        <xsl:sequence select="js:rewriteUri($local-part)"/>
+        <xsl:sequence select="js:rewriteURI($local-part)"/>
     </xsl:template>
         
     <xsl:template mode="basic-search" match="*" priority="2.0"/>
