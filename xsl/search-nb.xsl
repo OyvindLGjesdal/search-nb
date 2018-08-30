@@ -168,6 +168,9 @@
         <ixsl:set-property name="previous" select="$previous" object="$result-fragment"/>
         <ixsl:set-property name="next" select="$next" object="$result-fragment"/>
         <ixsl:set-property name="query" select="$query" object="$result-fragment" />
+        
+        <xsl:variable name="local-part" select="concat('/search-nb/',tokenize($query,'/')[last()])"/>
+        <xsl:sequence select="js:rewriteUri($local-part)"/>
     </xsl:template>
         
     <xsl:template mode="basic-search" match="*" priority="2.0"/>
@@ -227,7 +230,6 @@
         </xsl:if>
     </xsl:template>    
     
-    
     <!-- match for adding new modes to async doc request-->
     <xsl:template match="*" mode="callback">
         <xsl:param name="callback-name" as="xs:string"/>
@@ -268,6 +270,7 @@
         <xsl:if test="$debug">
             <xsl:message select="$pages[1]"/>
         </xsl:if>
+        
      <xsl:sequence select="js:SetSeaDragon($pages)"/>
         
     </xsl:template>
@@ -315,7 +318,9 @@
         <xsl:sequence select="flub:async-request(xs:anyURI(flub:cors-uri($query)),'result','basic-result')"/>    
         <xsl:sequence select="flub:async-request(flub:facet-query($query),'facets','facet')"/>
         
-        <xsl:if test="not($search-string='*')"><xsl:sequence select="ixsl:call(self::node(),'blur',[])"/></xsl:if>
+            <xsl:if test="not($search-string = '*')">
+                <xsl:sequence select="ixsl:call(self::node(),'blur',[])"/>
+            </xsl:if>
     </xsl:if> 
     </xsl:template>
     <!-- functions-->

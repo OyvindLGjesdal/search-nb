@@ -19,3 +19,7 @@ function SetSeaDragon(tileList) {
         
 });
 }
+
+function rewriteURI (newURI) {
+    window.history.pushState({}, null, newURI);
+}
