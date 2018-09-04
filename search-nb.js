@@ -25,11 +25,9 @@ function writeParamsToObject() {
                 paramValues = paramValues.get(0);
             }
             SearchNB.globalParams[paramName] = paramValues;
+            
         }
     })
-    if (params.has("itemsPerPage")) {
-        globalParams.itemsPerPage = params.get("itemsPerPage");
-    }
 }
 
 
