@@ -26,6 +26,8 @@ function writeParamsToObject() {
             }
             SearchNB.globalParams[paramName] = paramValues;
             
+            console.log(paramName + paramValues);
+            
         }
     })
 }
