@@ -19,9 +19,12 @@
     <xsl:param name="mediatype" select="'bøker'" as="xs:string"/>
     <xsl:param name="digitized" select="'True'" as="xs:string"/>
     <xsl:param name="mode" select="'basic-search'" as="xs:string"/>
-    <xsl:param name="facets-query" select="()" as="xs:string?"/>
-    <xsl:param name="ignore-facets" select="'ddc1','ddc2', 'ddc3','day','month','dra_base'"/>
-    <xsl:param name="current-page" as="xs:integer?"/>
+    <xsl:param name="item" as="xs:string?"/>
+    <xsl:param name="itemView" as="xs:string?"/>
+    <xsl:param name="facets-query" as="array(xs:string)?"/>
+    <xsl:param name="ignoreFacets" select="'ddc1','ddc2', 'ddc3','day','month','dra_base'"/>
+    <xsl:param name="currentPage" as="xs:integer?"/>
+    
     <xsl:import href="lib/saxon-js-utils.xsl"/>
     <xsl:include href="lib/nb-open-search.xsl"/>
     <xsl:variable name="debug" select="true()" as="xs:boolean"/>
@@ -118,7 +121,7 @@
     </xsl:template>
     
     <!-- click search result item-->
-    <xsl:template match="li[starts-with(@id,'sesam_')]" mode="ixsl:onclick">
+    <xsl:template match="li[starts-with(@id,'sesam_')]" mode="ixsl:onclick ixsl:ontouchend">
         <xsl:message select="'result item'"/>
         <xsl:variable name="request" as="xs:string"><xsl:text expand-text="1">https://api.nb.no/catalog/v1/iiif/{substring-after(@id,'sesam_')}/manifest</xsl:text></xsl:variable>
         <xsl:variable name="request-map" select="
@@ -196,7 +199,7 @@
         <xsl:apply-templates mode="facet"/>   
     </xsl:template>    
     
-    <xsl:template match="nb:facet[nb:name=$ignore-facets] | text()" mode="facet" priority="4.0"/>
+    <xsl:template match="nb:facet[nb:name=$ignoreFacets] | text()" mode="facet" priority="4.0"/>
     
     <xsl:template match="nb:facet[nb:values/nb:value]" mode="facet">
         <div class="ui" id="facet_{nb:name}">
