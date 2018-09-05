@@ -18,7 +18,7 @@ SaxonJS.transform({
 
 function writeParamsToObject() {
     console.log("writeParamsToObject");
-    var params = new URLSearchParams(Window.location.href);
+    var params = new URLSearchParams(window.location.href);
     console.log(params.toString());
     SearchNB.paramNames.forEach(function (paramName) {
         if (params.has(paramName)) {
