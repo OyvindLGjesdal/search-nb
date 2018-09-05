@@ -3,7 +3,7 @@
 var SearchNB = new Object();
 
 SearchNB.globalParams = new Object();
-SearchNB.paramNames =[ "itemsPerPage", "item", "itemView"];
+SearchNB.paramNames = [ "itemsPerPage", "item", "itemView"];
 
 writeParamsToObject();
 
@@ -17,7 +17,8 @@ SaxonJS.transform({
  *  immediateRender for mobile? */
 
 function writeParamsToObject() {
-    var params = new URLSearchParams(window.location);
+    console.log("writeParamsToObject");
+    var params = new URLSearchParams(Window.location);
     SearchNB.paramNames.forEach(function (paramName) {
         if (params.has(paramName)) {
             var paramValues = params.getAll(paramName);
