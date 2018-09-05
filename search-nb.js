@@ -23,7 +23,7 @@ function writeParamsToObject() {
     SearchNB.paramNames.forEach(function (paramName) {
         if (params.has(paramName)) {
             var paramValues = params.getAll(paramName);
-            if (paramValues.length === 1 && !isNAN(parseInt(paramValues[0],10))) {
+            if (paramValues.length === 1 && !isNaN(parseInt(paramValues[0],10))) {
                 paramValues = parseInt(paramValues[0],10);                
             }
             SearchNB.globalParams[paramName] = paramValues;
