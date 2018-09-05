@@ -42,6 +42,7 @@
     <xsl:template name="initialTemplate">
     <xsl:if test="$debug">
         <xsl:message select="'initial template'"/>
+        <xsl:message select="$itemsPerPage"/>
     </xsl:if>
         <xsl:variable name="main" select="id('main',ixsl:page())"/>
         <xsl:variable name="facets" select="id('facets',ixsl:page())"/>
