@@ -243,17 +243,17 @@
  <co id="11" binds="12">
   <template name="Q{}manifest" flags="os" line="286" module="search-nb.xsl" slots="1">
    <forEach role="body" ns="flub=http://data.ub.uib.no/ns/function-library fn=~ js=~ saxon=~ xhtml=http://www.w3.org/1999/xhtml xsl=~ nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map" line="287">
-    <let var="vv:LHS71524392" as="function(*)" slot="0" eval="7">
-     <treat as="function(*)" jsTest="return SaxonJS.U.isMap(item) || SaxonJS.U.isArray(item);" diag="3|0||vv:LHS71524392">
+    <let var="vv:LHS121171076" as="function(*)" slot="0" eval="7">
+     <treat as="function(*)" jsTest="return SaxonJS.U.isMap(item) || SaxonJS.U.isArray(item);" diag="3|0||vv:LHS121171076">
       <dot flags="a"/>
      </treat>
      <choose>
       <instance of="map(*)" jsTest="return SaxonJS.U.isMap(item)">
-       <varRef name="vv:LHS71524392" slot="0"/>
+       <varRef name="vv:LHS121171076" slot="0"/>
       </instance>
       <ifCall name="Q{http://www.w3.org/2005/xpath-functions/map}get" type="item()*">
        <treat as="map(*)" jsTest="return SaxonJS.U.isMap(item)" diag="0|0||map:get">
-        <varRef name="vv:LHS71524392" slot="0"/>
+        <varRef name="vv:LHS121171076" slot="0"/>
        </treat>
        <str val="body"/>
       </ifCall>
@@ -593,7 +593,15 @@
    </templateRule>
   </mode>
  </co>
- <co id="14" binds="11 2 15 2 15 15 2 15">
+ <co id="14" binds="1">
+  <globalVariable name="Q{http://saxon.sf.net/generated-variable}gg1768339186" type="xs:anyAtomicType+" line="45" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.anyAtomicType.cast(val);" jsCardCheck="function c(n) {return n&gt;=1;};">
+   <sequence ns="flub=http://data.ub.uib.no/ns/function-library fn=~ js=~ saxon=~ xhtml=http://www.w3.org/1999/xhtml xsl=~ nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map" line="45">
+    <str val="itemsPerPage"/>
+    <gVarRef name="Q{}itemsPerPage" bSlot="0"/>
+   </sequence>
+  </globalVariable>
+ </co>
+ <co id="15" binds="11 2 16 2 16 16 2 16">
   <mode name="Q{http://saxonica.com/ns/interactiveXSLT}ontouchend" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="1" prio="0.5" seq="1" rank="0" minImp="0" slots="0" flags="s" line="125" module="search-nb.xsl">
     <p.withPredicate role="match">
@@ -901,7 +909,7 @@
    </templateRule>
   </mode>
  </co>
- <co id="16" binds="17 18">
+ <co id="17" binds="18 19">
   <mode name="Q{}callback" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="1" prio="-0.5" seq="1" rank="1" minImp="0" slots="2" flags="s" line="240" module="search-nb.xsl">
     <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
@@ -993,7 +1001,7 @@
    </templateRule>
   </mode>
  </co>
- <co id="19" binds="1 1 20 7 21">
+ <co id="20" binds="14 1 21 7 22">
   <template name="Q{}initialTemplate" flags="os" line="42" module="search-nb.xsl" slots="2">
    <sequence role="body" ns="flub=http://data.ub.uib.no/ns/function-library fn=~ js=~ saxon=~ xhtml=http://www.w3.org/1999/xhtml xsl=~ nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map" line="44">
     <message>
@@ -1002,7 +1010,7 @@
      <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
     </message>
     <message line="45">
-     <gVarRef role="select" name="Q{}itemsPerPage" bSlot="0"/>
+     <gVarRef role="select" name="Q{http://saxon.sf.net/generated-variable}gg1768339186" bSlot="0"/>
      <str role="terminate" val="no"/>
      <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
     </message>
@@ -1060,7 +1068,7 @@
    </sequence>
   </template>
  </co>
- <co id="22" binds="16">
+ <co id="23" binds="17">
   <template name="Q{}async-transform" flags="os" line="76" module="saxon-js-utils.xsl" slots="4">
    <sequence role="body" ns="xsl=~ ixsl=~ flub=http://data.ub.uib.no/ns/function-library xs=~ math=http://www.w3.org/2005/xpath-functions/math map=http://www.w3.org/2005/xpath-functions/map" line="77">
     <param name="Q{}doc-request" slot="0" flags="i" as="xs:anyURI">
@@ -1119,7 +1127,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Wed Sep 05 22:12:48 CEST 2018&#xA;" local="#&#xA;#Wed Sep 05 22:12:48 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Wed Sep 05 22:17:42 CEST 2018&#xA;" local="#&#xA;#Wed Sep 05 22:17:42 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -1180,7 +1188,7 @@
    </sequence>
   </template>
  </co>
- <co id="18" binds="2 2">
+ <co id="19" binds="2 2">
   <mode name="Q{}basic-search" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="1" prio="2.0" seq="1" rank="0" minImp="0" slots="0" flags="s" line="182" module="search-nb.xsl">
     <p.nodeTest role="match" test="element()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1;"/>
@@ -1521,7 +1529,7 @@
    </templateRule>
   </mode>
  </co>
- <co id="23" binds="">
+ <co id="24" binds="">
   <function name="Q{http://data.ub.uib.no/ns/function-library}facet-uri-component" line="56" module="nb-open-search.xsl" eval="9" flags="pU" as="item()*" slots="2">
    <arg name="facet-name" as="xs:string"/>
    <arg name="facet-value" as="xs:string"/>
@@ -1541,7 +1549,7 @@
    </valueOf>
   </function>
  </co>
- <co id="17" binds="24 17 17">
+ <co id="18" binds="25 18 18">
   <mode name="Q{}facet" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="1" prio="0.0" seq="3" rank="0" minImp="0" slots="3" flags="s" line="215" module="search-nb.xsl">
     <p.nodeTest role="match" test="element(Q{http://www.nb.no/xml/search/1.0/}value)" jsTest="var q=SaxonJS.U.nameOfNode(item); return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===1 &amp;&amp; q.uri==='http://www.nb.no/xml/search/1.0/'&amp;&amp;q.local==='value';"/>
@@ -1786,12 +1794,12 @@
    </templateRule>
   </mode>
  </co>
- <co id="20" vis="PUBLIC" binds="">
+ <co id="21" vis="PUBLIC" binds="">
   <globalParam name="Q{}mediatype" type="xs:string" line="19" module="search-nb.xsl" visibility="PUBLIC" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n==1;};">
    <str val="bøker"/>
   </globalParam>
  </co>
- <co id="24" vis="PUBLIC" binds="">
+ <co id="25" vis="PUBLIC" binds="">
   <globalParam name="Q{}ignoreFacets" type="item()*" line="25" module="search-nb.xsl" visibility="PUBLIC" jsAcceptor="return val;" jsCardCheck="function c() {return true;};">
    <literal count="6">
     <str val="ddc1"/>
@@ -1803,7 +1811,7 @@
    </literal>
   </globalParam>
  </co>
- <co id="25" binds="11 2 15 2 15 15 2 15 21 15">
+ <co id="26" binds="11 2 16 2 16 16 2 16 22 16">
   <mode name="Q{http://saxonica.com/ns/interactiveXSLT}onclick" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="1" prio="0.5" seq="3" rank="0" minImp="0" slots="0" flags="s" line="125" module="search-nb.xsl">
     <p.withPredicate role="match">
@@ -2183,12 +2191,12 @@
    </templateRule>
   </mode>
  </co>
- <co id="26" vis="PUBLIC" binds="">
+ <co id="27" vis="PUBLIC" binds="">
   <globalParam name="Q{}facets-query" type="array(xs:string)?" line="24" module="search-nb.xsl" visibility="PUBLIC" jsAcceptor="if (typeof val == 'object') {return val;} else {throw SaxonJS.XError('Cannot convert supplied JS value to a map or array');}" jsCardCheck="function c(n) {return n&lt;=1;};">
    <empty/>
   </globalParam>
  </co>
- <co id="27" binds="21">
+ <co id="28" binds="22">
   <mode name="Q{http://saxonica.com/ns/interactiveXSLT}onkeyup" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="1" prio="1.0" seq="0" rank="0" minImp="0" slots="1" flags="s" line="107" module="search-nb.xsl">
     <p.booleanExp role="match">
@@ -2261,12 +2269,12 @@
    </templateRule>
   </mode>
  </co>
- <co id="28" vis="PUBLIC" binds="">
+ <co id="29" vis="PUBLIC" binds="">
   <globalParam name="Q{}itemView" type="xs:string?" line="23" module="search-nb.xsl" visibility="PUBLIC" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n&lt;=1;};">
    <empty/>
   </globalParam>
  </co>
- <co id="29" binds="">
+ <co id="30" binds="">
   <mode name="Q{}manifest" onNo="TC" flags="W" patternSlots="0">
    <templateRule prec="1" prio="-0.5" seq="0" rank="0" minImp="0" slots="0" flags="s" line="284" module="search-nb.xsl">
     <p.nodeTest role="match" test="text()" jsTest="return SaxonJS.U.isNode(item) &amp;&amp; item.nodeType===3;"/>
@@ -2288,17 +2296,17 @@
    </map>
   </globalVariable>
  </co>
- <co id="30" vis="PUBLIC" binds="">
+ <co id="31" vis="PUBLIC" binds="">
   <globalParam name="Q{}item" type="xs:string?" line="22" module="search-nb.xsl" visibility="PUBLIC" jsAcceptor="return SaxonJS.U.Atomic.string.cast(val);" jsCardCheck="function c(n) {return n&lt;=1;};">
    <empty/>
   </globalParam>
  </co>
- <co id="31" binds="">
+ <co id="32" binds="">
   <globalVariable name="Q{}debug" type="xs:boolean" line="30" module="search-nb.xsl" visibility="PRIVATE" jsAcceptor="return SaxonJS.U.Atomic.boolean.cast(val);" jsCardCheck="function c(n) {return n==1;};">
    <true/>
   </globalVariable>
  </co>
- <co id="32" binds="22">
+ <co id="33" binds="23">
   <function name="Q{http://data.ub.uib.no/ns/function-library}async-request" line="25" module="saxon-js-utils.xsl" eval="8" flags="pU" as="item()*" slots="4">
    <arg name="doc-request" as="xs:anyURI"/>
    <arg name="page-id" as="xs:string"/>
@@ -2338,7 +2346,7 @@
    </sequence>
   </function>
  </co>
- <co id="15" binds="32">
+ <co id="16" binds="33">
   <function name="Q{http://data.ub.uib.no/ns/function-library}async-request" line="44" module="saxon-js-utils.xsl" eval="3" flags="pU" as="item()*" slots="3">
    <arg name="doc-request" as="xs:anyURI"/>
    <arg name="page-id" as="xs:string"/>
@@ -2361,7 +2369,7 @@
    </sequence>
   </function>
  </co>
- <co id="21" binds="13 15 2 15">
+ <co id="22" binds="13 16 2 16">
   <template name="Q{}basic-search" flags="os" line="313" module="search-nb.xsl" slots="4">
    <sequence role="body" ns="flub=http://data.ub.uib.no/ns/function-library fn=~ js=~ saxon=~ xhtml=http://www.w3.org/1999/xhtml xsl=~ nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map" line="314">
     <param name="Q{}initial-mode" slot="0" as="xs:boolean">
@@ -2493,7 +2501,7 @@
    </sequence>
   </template>
  </co>
- <co id="33" binds="">
+ <co id="34" binds="">
   <mode onNo="TC" flags="dWe" patternSlots="0"/>
  </co>
  <overridden/>
@@ -2502,4 +2510,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ b511313f?>
+<?Σ 94bc47a5?>
