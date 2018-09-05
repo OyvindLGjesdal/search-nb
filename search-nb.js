@@ -24,7 +24,7 @@ function writeParamsToObject() {
         if (params.has(paramName)) {
             var paramValues = params.getAll(paramName);
             if (paramValues.length === 1) {
-                paramValues = paramValues.get(0);
+                paramValues = paramValues[0];
             }
             SearchNB.globalParams[paramName] = paramValues;
             
