@@ -243,17 +243,17 @@
  <co id="11" binds="12">
   <template name="Q{}manifest" flags="os" line="285" module="search-nb.xsl" slots="1">
    <forEach role="body" ns="flub=http://data.ub.uib.no/ns/function-library fn=~ js=~ saxon=~ xhtml=http://www.w3.org/1999/xhtml xsl=~ nb=http://www.nb.no/xml/search/1.0/ opensearch=http://a9.com/-/spec/opensearch/1.1/ ixsl=~ xs=~ math=http://www.w3.org/2005/xpath-functions/math atom=http://www.w3.org/2005/Atom map=http://www.w3.org/2005/xpath-functions/map" line="286">
-    <let var="vv:LHS1783993451" as="function(*)" slot="0" eval="7">
-     <treat as="function(*)" jsTest="return SaxonJS.U.isMap(item) || SaxonJS.U.isArray(item);" diag="3|0||vv:LHS1783993451">
+    <let var="vv:LHS1582409148" as="function(*)" slot="0" eval="7">
+     <treat as="function(*)" jsTest="return SaxonJS.U.isMap(item) || SaxonJS.U.isArray(item);" diag="3|0||vv:LHS1582409148">
       <dot flags="a"/>
      </treat>
      <choose>
       <instance of="map(*)" jsTest="return SaxonJS.U.isMap(item)">
-       <varRef name="vv:LHS1783993451" slot="0"/>
+       <varRef name="vv:LHS1582409148" slot="0"/>
       </instance>
       <ifCall name="Q{http://www.w3.org/2005/xpath-functions/map}get" type="item()*">
        <treat as="map(*)" jsTest="return SaxonJS.U.isMap(item)" diag="0|0||map:get">
-        <varRef name="vv:LHS1783993451" slot="0"/>
+        <varRef name="vv:LHS1582409148" slot="0"/>
        </treat>
        <str val="body"/>
       </ifCall>
@@ -1114,7 +1114,7 @@
       <str role="error" val="Q{http://www.w3.org/2005/xqt-errors}XTMM9000"/>
      </message>
     </choose>
-    <resultDoc line="86" global="#&#xA;#Wed Sep 05 21:03:13 CEST 2018&#xA;" local="#&#xA;#Wed Sep 05 21:03:13 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
+    <resultDoc line="86" global="#&#xA;#Wed Sep 05 22:02:05 CEST 2018&#xA;" local="#&#xA;#Wed Sep 05 22:02:05 CEST 2018&#xA;method={http\://saxonica.com/ns/interactiveXSLT}replace-content&#xA;">
      <fn role="href" name="concat">
       <str val="#"/>
       <varRef name="id" slot="1"/>
@@ -2497,4 +2497,4 @@
  </output>
  <decimalFormat/>
 </package>
-<?Σ 99a994fb?>
+<?Σ 99a854fb?>
