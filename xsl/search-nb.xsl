@@ -15,7 +15,7 @@
     exclude-result-prefixes="xs math atom opensearch nb"
     version="3.0" expand-text="1">
     <!-- default values-->
-    <xsl:param name="itemsPerPage" as="xs:integer" select="20"/>
+    <xsl:param name="itemsPerPage" as="xs:double" select="20"/>
     <xsl:param name="mediatype" select="'bøker'" as="xs:string"/>
     <xsl:param name="digitized" select="'True'" as="xs:string"/>
     <xsl:param name="mode" select="'basic-search'" as="xs:string"/>
