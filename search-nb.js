@@ -7,6 +7,8 @@ SearchNB.paramNames = [ "itemsPerPage", "item", "itemView"];
 
 writeParamsToObject();
 
+console.log(SearchNB.globalParams);
+
 SaxonJS.transform({
     stylesheetLocation: "xsl/search-nb.sef",
     initialTemplate: "initialTemplate",
@@ -26,8 +28,7 @@ function writeParamsToObject() {
             if (paramValues.length === 1 && !isNaN(parseInt(paramValues[0],10))) {
                 paramValues = parseInt(paramValues[0],10);                
             }
-            SearchNB.globalParams[paramName] = paramValues;
-            
+            SearchNB.globalParams[paramName] = paramValues;            
             console.log(paramName + paramValues);
             
         }
