@@ -28,7 +28,7 @@ function writeParamsToObject() {
             if (paramValues.length === 1 && !isNaN(parseInt(paramValues[0],10))) {
                 paramValues = parseInt(paramValues[0],10);                
             }
-            paramName = "q{}"+paramName;
+            paramName = "Q{}"+paramName;
             SearchNB.globalParams[paramName] = paramValues;         
             console.log(paramName + paramValues);
             
